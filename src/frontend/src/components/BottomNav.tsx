@@ -1,0 +1,54 @@
+import { motion } from "motion/react";
+import type { Tab } from "../App";
+
+const tabs: { id: Tab; label: string; emoji: string }[] = [
+  { id: "home", label: "Home", emoji: "🏠" },
+  { id: "upload", label: "Upload", emoji: "📤" },
+  { id: "applock", label: "App Lock", emoji: "🔒" },
+  { id: "settings", label: "Settings", emoji: "⚙️" },
+];
+
+interface BottomNavProps {
+  activeTab: Tab;
+  onChange: (tab: Tab) => void;
+}
+
+export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
+  return (
+    <nav
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-card border-t border-border px-3 py-2 z-50"
+      style={{ boxShadow: "0 -4px 20px rgba(47,128,237,0.12)" }}
+    >
+      <div className="flex justify-around items-center">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              type="button"
+              key={tab.id}
+              data-ocid={`nav.${tab.id}.tab`}
+              onClick={() => onChange(tab.id)}
+              className="flex flex-col items-center gap-0.5 relative min-w-[60px] min-h-[48px] justify-center"
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="nav-pill"
+                  className="absolute inset-0 bg-primary/10 rounded-2xl"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className="text-2xl relative z-10">{tab.emoji}</span>
+              <span
+                className={`text-[10px] font-bold relative z-10 ${
+                  isActive ? "text-primary" : "text-muted-foreground"
+                }`}
+              >
+                {tab.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}

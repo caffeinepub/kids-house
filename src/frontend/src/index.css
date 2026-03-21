@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1rem;
+    --background: 0.94 0.04 220;
+    --foreground: 0.22 0.04 254;
+    --card: 1 0 0;
+    --card-foreground: 0.22 0.04 254;
+    --popover: 1 0 0;
+    --popover-foreground: 0.22 0.04 254;
+    --primary: 0.57 0.19 254;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.78 0.19 138;
+    --secondary-foreground: 0.15 0.04 138;
+    --muted: 0.92 0.03 220;
+    --muted-foreground: 0.55 0.07 254;
+    --accent: 0.72 0.19 56;
+    --accent-foreground: 1 0 0;
+    --destructive: 0.62 0.22 24;
+    --destructive-foreground: 1 0 0;
+    --border: 0.88 0.04 220;
+    --input: 0.96 0.02 220;
+    --ring: 0.57 0.19 254;
+    --chart-1: 0.6 0.18 295;
+    --chart-2: 0.62 0.22 24;
+    --chart-3: 0.68 0.18 150;
+    --chart-4: 0.58 0.19 254;
+    --chart-5: 0.76 0.18 78;
+    --sidebar: 1 0 0;
+    --sidebar-foreground: 0.22 0.04 254;
+    --sidebar-primary: 0.57 0.19 254;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.94 0.04 220;
+    --sidebar-accent-foreground: 0.22 0.04 254;
+    --sidebar-border: 0.88 0.04 220;
+    --sidebar-ring: 0.57 0.19 254;
+
+    /* kids-specific */
+    --kids-purple: 0.6 0.18 295;
+    --kids-red: 0.62 0.22 24;
+    --kids-green: 0.68 0.18 150;
+    --kids-blue: 0.58 0.19 254;
+    --kids-amber: 0.76 0.18 78;
+    --kids-pink: 0.65 0.22 340;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-nunito;
+    overscroll-behavior: none;
+  }
+}
