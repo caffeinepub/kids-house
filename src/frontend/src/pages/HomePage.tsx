@@ -5,28 +5,37 @@ import { useState } from "react";
 import type { VideoMeta } from "../backend";
 import { useAllVideos } from "../hooks/useQueries";
 
+const CATEGORIES = [
+  { id: "all", label: "All", hindi: "सभी", emoji: "🌈" },
+  { id: "education", label: "Education", hindi: "शिक्षा", emoji: "📖" },
+  { id: "fun", label: "Fun", hindi: "मज़ा", emoji: "😄" },
+  { id: "coding", label: "Coding", hindi: "कोडिंग", emoji: "💻" },
+  { id: "career", label: "Career", hindi: "करियर", emoji: "🌟" },
+  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
+];
+
 const BORDER_COLORS = [
-  "border-kids-purple",
+  "border-kids-blue",
   "border-kids-red",
   "border-kids-green",
-  "border-kids-blue",
+  "border-kids-purple",
   "border-kids-amber",
 ];
 
-const FOOTER_COLORS = [
-  "bg-kids-purple",
-  "bg-kids-red",
-  "bg-kids-green",
-  "bg-kids-blue",
-  "bg-kids-amber",
+const FOOTER_GRADIENTS = [
+  "from-kids-blue to-blue-600",
+  "from-kids-red to-red-600",
+  "from-kids-green to-green-600",
+  "from-kids-purple to-purple-700",
+  "from-kids-amber to-amber-600",
 ];
 
 const THUMB_GRADIENTS = [
-  "from-purple-300 to-purple-500",
-  "from-red-300 to-red-500",
-  "from-green-300 to-green-500",
-  "from-blue-300 to-blue-500",
-  "from-amber-300 to-amber-500",
+  "from-blue-200 to-blue-400",
+  "from-red-200 to-red-400",
+  "from-green-200 to-green-400",
+  "from-purple-200 to-purple-400",
+  "from-amber-200 to-amber-400",
 ];
 
 const DEMO_VIDEOS = [
@@ -35,30 +44,48 @@ const DEMO_VIDEOS = [
     title: "Counting 1 to 10 with Fruits 🍎",
     uploader: "FunLearn Kids",
     emoji: "🍎",
+    category: "education",
+    likes: 342,
   },
   {
     id: "demo2",
     title: "ABC Song for Children 🎵",
     uploader: "Happy Kids TV",
     emoji: "🎵",
+    category: "education",
+    likes: 521,
   },
   {
     id: "demo3",
     title: "Learn Colors with Balloons 🎈",
     uploader: "Rainbow Kids",
     emoji: "🎈",
+    category: "fun",
+    likes: 289,
   },
   {
     id: "demo4",
-    title: "Animals Sound Song 🦁",
-    uploader: "Animal World",
-    emoji: "🦁",
+    title: "Python for Kids - Episode 1 💻",
+    uploader: "Code Kids",
+    emoji: "💻",
+    category: "coding",
+    likes: 198,
   },
   {
     id: "demo5",
-    title: "Draw a Butterfly Step by Step 🦋",
-    uploader: "Art for Kids",
-    emoji: "🦋",
+    title: "How to be a Doctor 🏥",
+    uploader: "Career Kids",
+    emoji: "🏥",
+    category: "career",
+    likes: 156,
+  },
+  {
+    id: "demo6",
+    title: "Fun Math Tricks 🔢",
+    uploader: "Math Magic",
+    emoji: "🔢",
+    category: "education",
+    likes: 412,
   },
 ];
 
@@ -68,6 +95,8 @@ type DisplayVideo = {
   uploader: string;
   emoji?: string;
   blob?: VideoMeta["blob"];
+  category?: string;
+  likes: number;
 };
 
 function VideoCard({
@@ -76,23 +105,27 @@ function VideoCard({
   isDemo,
 }: { video: DisplayVideo; index: number; isDemo: boolean }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const border = BORDER_COLORS[index % BORDER_COLORS.length];
-  const footer = FOOTER_COLORS[index % FOOTER_COLORS.length];
-  const gradient = THUMB_GRADIENTS[index % THUMB_GRADIENTS.length];
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(video.likes);
 
-  const handlePlay = () => setIsPlaying(true);
+  const handleLike = () => {
+    setLiked((prev) => {
+      setLikeCount((c) => c + (prev ? -1 : 1));
+      return !prev;
+    });
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.08 }}
+      transition={{ delay: index * 0.07 }}
       data-ocid={`videos.item.${index + 1}`}
-      className={`bg-card rounded-3xl overflow-hidden border-4 ${border} shadow-card`}
+      className={`bg-card rounded-3xl overflow-hidden border-4 ${BORDER_COLORS[index % BORDER_COLORS.length]} shadow-card`}
     >
       <div className="relative aspect-video">
         {!isDemo && video.blob ? (
-          // biome-ignore lint/a11y/useMediaCaption: user-uploaded videos may not have captions
+          // biome-ignore lint/a11y/useMediaCaption: user-uploaded content
           <video
             src={video.blob.getDirectURL()}
             className="w-full h-full object-cover"
@@ -101,17 +134,16 @@ function VideoCard({
           />
         ) : (
           <div
-            className={`w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center`}
+            className={`w-full h-full bg-gradient-to-br ${THUMB_GRADIENTS[index % THUMB_GRADIENTS.length]} flex items-center justify-center`}
           >
-            <span className="text-7xl">{isDemo ? video.emoji : "🎬"}</span>
+            <span className="text-7xl">{video.emoji ?? "🎬"}</span>
           </div>
         )}
         {!isPlaying && (
           <button
             type="button"
             data-ocid={`videos.play_button.${index + 1}`}
-            onClick={handlePlay}
-            onKeyDown={(e) => e.key === "Enter" && handlePlay()}
+            onClick={() => setIsPlaying(true)}
             className="absolute inset-0 flex items-center justify-center group"
             aria-label="Play video"
           >
@@ -121,13 +153,26 @@ function VideoCard({
           </button>
         )}
       </div>
-      <div className={`${footer} px-4 py-3`}>
-        <p className="font-black text-white text-sm leading-tight truncate">
-          {video.title}
-        </p>
-        <p className="text-white/80 text-xs font-semibold mt-0.5">
-          {isDemo ? video.uploader : "Uploaded"}
-        </p>
+      <div
+        className={`bg-gradient-to-r ${FOOTER_GRADIENTS[index % FOOTER_GRADIENTS.length]} px-4 py-3 flex items-center justify-between`}
+      >
+        <div className="flex-1 min-w-0">
+          <p className="font-black text-white text-sm leading-tight truncate">
+            {video.title}
+          </p>
+          <p className="text-white/80 text-xs font-semibold mt-0.5">
+            {video.uploader}
+          </p>
+        </div>
+        <button
+          type="button"
+          data-ocid={`videos.like_button.${index + 1}`}
+          onClick={handleLike}
+          className="flex items-center gap-1 bg-white/20 rounded-full px-3 py-1 ml-2 flex-shrink-0"
+        >
+          <span className="text-sm">{liked ? "❤️" : "🤍"}</span>
+          <span className="text-white text-xs font-black">{likeCount}</span>
+        </button>
       </div>
     </motion.div>
   );
@@ -135,51 +180,90 @@ function VideoCard({
 
 export default function HomePage() {
   const { data: videos, isLoading } = useAllVideos();
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [search, setSearch] = useState("");
 
   const hasReal = videos && videos.length > 0;
-  const displayVideos: DisplayVideo[] = hasReal
+  const allVideos: DisplayVideo[] = hasReal
     ? (videos as VideoMeta[]).map((v) => ({
         id: v.id,
         title: v.title,
         blob: v.blob,
         uploader: "Uploaded",
+        likes: 0,
       }))
     : DEMO_VIDEOS;
 
+  const filtered = allVideos.filter((v) => {
+    const matchCat = activeCategory === "all" || v.category === activeCategory;
+    const matchSearch =
+      !search || v.title.toLowerCase().includes(search.toLowerCase());
+    return matchCat && matchSearch;
+  });
+
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 bg-background/90 backdrop-blur-sm z-10 px-4 pt-6 pb-3 border-b border-border">
-        <div className="flex items-center gap-3">
-          <span className="text-3xl">🏠</span>
-          <div>
-            <h1 className="text-2xl font-black leading-tight">
-              <span className="text-kids-blue">Kids </span>
-              <span className="text-kids-red">House</span>
-            </h1>
-            <p className="text-xs text-muted-foreground font-semibold">
-              Fun videos for kids! 🌈
-            </p>
-          </div>
+      {/* Search bar */}
+      <div className="px-4 pt-4 pb-2">
+        <div className="relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-lg">
+            🔍
+          </span>
+          <input
+            data-ocid="home.search_input"
+            placeholder="Search videos... खोजें"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-9 pr-4 py-3 rounded-2xl border-2 border-border bg-card font-semibold text-sm focus:outline-none focus:border-kids-blue"
+          />
         </div>
-      </header>
+      </div>
 
-      <div className="px-4 py-4 space-y-4">
+      {/* Category chips */}
+      <div className="flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar">
+        {CATEGORIES.map((cat) => (
+          <button
+            type="button"
+            key={cat.id}
+            data-ocid={`home.${cat.id}.tab`}
+            onClick={() => setActiveCategory(cat.id)}
+            className={`flex-shrink-0 flex items-center gap-1 px-3 py-2 rounded-full text-xs font-black border-2 transition-all ${
+              activeCategory === cat.id
+                ? "bg-kids-blue text-white border-kids-blue shadow-btn"
+                : "bg-card text-foreground border-border"
+            }`}
+          >
+            <span>{cat.emoji}</span>
+            <span>{cat.hindi}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="px-4 py-3 space-y-4">
         {isLoading ? (
           <div data-ocid="videos.loading_state" className="space-y-4">
-            {([1, 2, 3] as const).map((i) => (
+            {[1, 2, 3].map((i) => (
               <Skeleton key={i} className="w-full aspect-video rounded-3xl" />
             ))}
+          </div>
+        ) : filtered.length === 0 ? (
+          <div data-ocid="videos.empty_state" className="text-center py-16">
+            <div className="text-6xl mb-3">🔍</div>
+            <p className="font-black text-xl text-muted-foreground">
+              कोई वीडियो नहीं मिला
+            </p>
+            <p className="text-sm text-muted-foreground">No videos found</p>
           </div>
         ) : (
           <>
             {!hasReal && (
-              <div className="bg-card rounded-2xl px-4 py-2 border-2 border-kids-amber">
-                <p className="text-xs font-bold text-muted-foreground">
-                  🎬 Demo videos — Upload your own!
+              <div className="bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber">
+                <p className="text-xs font-bold text-kids-amber">
+                  🎬 Demo videos — Upload your own from Profile!
                 </p>
               </div>
             )}
-            {displayVideos.map((v, i) => (
+            {filtered.map((v, i) => (
               <VideoCard key={v.id} video={v} index={i} isDemo={!hasReal} />
             ))}
           </>

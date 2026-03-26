@@ -1,11 +1,12 @@
 import { motion } from "motion/react";
 import type { Tab } from "../App";
 
-const tabs: { id: Tab; label: string; emoji: string }[] = [
-  { id: "home", label: "Home", emoji: "🏠" },
-  { id: "upload", label: "Upload", emoji: "📤" },
-  { id: "applock", label: "App Lock", emoji: "🔒" },
-  { id: "settings", label: "Settings", emoji: "⚙️" },
+const tabs: { id: Tab; label: string; hindi: string; emoji: string }[] = [
+  { id: "home", label: "Home", hindi: "घर", emoji: "🏠" },
+  { id: "shorts", label: "Shorts", hindi: "शॉर्ट्स", emoji: "▶️" },
+  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
+  { id: "courses", label: "Courses", hindi: "कोर्स", emoji: "📚" },
+  { id: "chat", label: "Chat", hindi: "चैट", emoji: "💬" },
 ];
 
 interface BottomNavProps {
@@ -16,8 +17,8 @@ interface BottomNavProps {
 export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
   return (
     <nav
-      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-card border-t border-border px-3 py-2 z-50"
-      style={{ boxShadow: "0 -4px 20px rgba(47,128,237,0.12)" }}
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-white border-t-2 border-border px-2 py-2 z-50"
+      style={{ boxShadow: "0 -4px 20px rgba(59,130,246,0.15)" }}
     >
       <div className="flex justify-around items-center">
         {tabs.map((tab) => {
@@ -28,22 +29,22 @@ export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
               key={tab.id}
               data-ocid={`nav.${tab.id}.tab`}
               onClick={() => onChange(tab.id)}
-              className="flex flex-col items-center gap-0.5 relative min-w-[60px] min-h-[48px] justify-center"
+              className="flex flex-col items-center gap-0 relative min-w-[56px] min-h-[52px] justify-center px-1"
             >
               {isActive && (
                 <motion.div
                   layoutId="nav-pill"
-                  className="absolute inset-0 bg-primary/10 rounded-2xl"
+                  className="absolute inset-0 bg-kids-blue/10 rounded-2xl"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-              <span className="text-2xl relative z-10">{tab.emoji}</span>
+              <span className="text-xl relative z-10">{tab.emoji}</span>
               <span
-                className={`text-[10px] font-bold relative z-10 ${
-                  isActive ? "text-primary" : "text-muted-foreground"
+                className={`text-[9px] font-black relative z-10 leading-tight ${
+                  isActive ? "text-kids-blue" : "text-muted-foreground"
                 }`}
               >
-                {tab.label}
+                {tab.hindi}
               </span>
             </button>
           );
