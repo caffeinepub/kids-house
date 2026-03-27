@@ -1,31 +1,39 @@
-# Kids House — Hindi/English Language Toggle
+# Kids House
 
 ## Current State
-The app is a full-featured kids app with 5 tabs: Home, Shorts, Games, Courses, Chat. It has partial Hindi labels in the sidebar but no real language switching system. No localStorage language persistence exists.
+- Videos tab (`activeTab === "videos"`) renders `ShortsPage` which shows emoji-based short video cards with swipe navigation
+- `HomePage` shows a video feed with categories, search, and VideoCard components (play button, like button)
+- No Video ID display on any video cards
+- No dedicated Videos page separate from Shorts
 
 ## Requested Changes (Diff)
 
 ### Add
-- `LanguageContext` (React context + hook) that holds `lang: 'en' | 'hi'` and a `toggleLang()` function, persisted to `localStorage` under key `kids-lang`
-- A language toggle button in the top header (shows "हिंदी" when English is active, shows "English" when Hindi is active) — colorful pill button
-- Full translations object covering all UI text for both `en` and `hi` for: navigation labels, page headings, buttons, section titles, placeholder text across all pages and components
-- `AboutPage` — simple page with app description, team, mission in both languages
-- `ContactPage` — simple contact form (name, email, message) with labels in both languages, plus social/contact info
-- Navigation tabs updated to: Home, Videos (currently Shorts), Games, About, Contact
+- New `VideosPage.tsx` replacing the current Videos tab content
+- Video ID display on each video card (e.g., "Video ID: 001", "Video ID: 002")
+- Like ❤️ count and view 👁️ count on each video card
+- "Short Videos" section within VideosPage:
+  - Vertical (reels style) full-screen-height cards
+  - Scroll or swipe to go to next short video
+  - Auto-play next short video when current ends (simulated with timer since demo)
+  - Each short shows title, video ID, like count, view count
 
 ### Modify
-- `App.tsx`: wrap in `LanguageProvider`, add language toggle button to header, update tab list to include About and Contact, replace Shorts with Videos label
-- All page components (`HomePage`, `ShortsPage`/`VideosPage`, `GamesPage`, `CoursesPage` or replaced): consume `useLanguage()` and render translated strings
-- `BottomNav.tsx` and sidebar tabs: use translated labels from context
-- `LoginPage.tsx`: apply translations
+- `App.tsx`: change `activeTab === "videos"` to render `VideosPage` instead of `ShortsPage`
+- Video cards: add `Video ID: XXX` badge (zero-padded 3 digits)
+- Video cards: add view count display alongside like count
 
 ### Remove
-- Hard-coded Hindi strings scattered in components (replace with translation lookup)
+- Nothing removed; ShortsPage can remain but is no longer the videos tab target
 
 ## Implementation Plan
-1. Create `src/frontend/src/contexts/LanguageContext.tsx` with context, provider, hook, and full `translations` object (en + hi) covering all UI text
-2. Wrap `App` in `<LanguageProvider>`; add language toggle button in header
-3. Update tab list in App.tsx: Home, Videos, Games, About, Contact (5 tabs)
-4. Create `AboutPage.tsx` and `ContactPage.tsx` with translated content
-5. Update all existing pages and components to use `useLanguage()` translations
-6. Update `BottomNav.tsx` to use translated labels
+1. Create `src/frontend/src/pages/VideosPage.tsx`:
+   - Top section: "Videos" heading with grid of video cards (1 col mobile, 2 col desktop)
+   - Each VideoCard shows: video thumbnail/player, title, Video ID badge (e.g. "Video ID: 001"), ❤️ like count, 👁️ view count
+   - Below: "Short Videos" section with vertical scroll snap container
+   - Each short video item takes full viewport height, auto-advances to next after ~8s timer
+   - Swipe (touch) or scroll to navigate between shorts
+   - Short cards show: emoji/gradient background, title, Video ID, like & view counts
+2. Update `App.tsx` to import and render `VideosPage` for the videos tab
+3. Keep UI colorful, kid-friendly, large text, bright colors
+4. Fully responsive (mobile-first, desktop adjustments)

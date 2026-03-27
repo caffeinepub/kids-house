@@ -12,7 +12,7 @@ import ContactPage from "./pages/ContactPage";
 import GamesPage from "./pages/GamesPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import ShortsPage from "./pages/ShortsPage";
+import VideosPage from "./pages/VideosPage";
 
 export type Tab = "home" | "videos" | "games" | "about" | "contact";
 
@@ -157,7 +157,7 @@ function AppContent() {
         <main className="flex-1 min-w-0 pb-24 md:pb-8 overflow-y-auto">
           <div className="w-full max-w-3xl mx-auto">
             {activeTab === "home" && <HomePage />}
-            {activeTab === "videos" && <ShortsPage />}
+            {activeTab === "videos" && <VideosPage />}
             {activeTab === "games" && <GamesPage />}
             {activeTab === "about" && <AboutPage />}
             {activeTab === "contact" && <ContactPage />}
