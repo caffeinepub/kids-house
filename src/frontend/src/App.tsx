@@ -3,18 +3,17 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import BottomNav from "./components/BottomNav";
 import NotificationsPanel from "./components/NotificationsPanel";
-import ProfileModal from "./components/ProfileModal";
 import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
 import { useInternetIdentity } from "./hooks/useInternetIdentity";
 import { useCallerProfile } from "./hooks/useQueries";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
 import GamesPage from "./pages/GamesPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
+import UploadPage from "./pages/UploadPage";
 import VideosPage from "./pages/VideosPage";
 
-export type Tab = "home" | "videos" | "games" | "about" | "contact";
+export type Tab = "home" | "videos" | "addvideo" | "games" | "profile";
 
 const LOADING_DOTS = ["purple", "red", "green", "blue", "amber"] as const;
 
@@ -22,7 +21,6 @@ function AppContent() {
   const { identity, isInitializing } = useInternetIdentity();
   const isAuthenticated = !!identity;
   const [activeTab, setActiveTab] = useState<Tab>("home");
-  const [showProfile, setShowProfile] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifCount, setNotifCount] = useState(3);
   const { data: profile, isLoading: profileLoading } = useCallerProfile();
@@ -31,9 +29,9 @@ function AppContent() {
   const SIDEBAR_TABS: { id: Tab; label: string; emoji: string }[] = [
     { id: "home", label: t.nav.home, emoji: "🏠" },
     { id: "videos", label: t.nav.videos, emoji: "▶️" },
+    { id: "addvideo", label: t.nav.addvideo, emoji: "➕" },
     { id: "games", label: t.nav.games, emoji: "🎮" },
-    { id: "about", label: t.nav.about, emoji: "ℹ️" },
-    { id: "contact", label: t.nav.contact, emoji: "📞" },
+    { id: "profile", label: t.nav.profile, emoji: "👤" },
   ];
 
   if (isInitializing || (isAuthenticated && profileLoading)) {
@@ -113,7 +111,7 @@ function AppContent() {
           <button
             type="button"
             data-ocid="header.profile.button"
-            onClick={() => setShowProfile(true)}
+            onClick={() => setActiveTab("profile")}
             className="w-10 h-10 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shadow-btn"
           >
             {profile?.username?.[0]?.toUpperCase() ?? "👤"}
@@ -158,22 +156,15 @@ function AppContent() {
           <div className="w-full max-w-3xl mx-auto">
             {activeTab === "home" && <HomePage />}
             {activeTab === "videos" && <VideosPage />}
+            {activeTab === "addvideo" && <UploadPage />}
             {activeTab === "games" && <GamesPage />}
-            {activeTab === "about" && <AboutPage />}
-            {activeTab === "contact" && <ContactPage />}
+            {activeTab === "profile" && <ProfilePage />}
           </div>
         </main>
       </div>
 
       {/* Mobile Bottom Nav */}
       <BottomNav activeTab={activeTab} onChange={setActiveTab} />
-
-      {showProfile && (
-        <ProfileModal
-          profile={profile ?? null}
-          onClose={() => setShowProfile(false)}
-        />
-      )}
 
       {showNotifications && (
         <NotificationsPanel onClose={() => setShowNotifications(false)} />

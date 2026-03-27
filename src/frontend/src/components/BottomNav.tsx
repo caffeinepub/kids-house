@@ -13,9 +13,9 @@ export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
   const tabs: { id: Tab; label: string; emoji: string }[] = [
     { id: "home", label: t.nav.home, emoji: "🏠" },
     { id: "videos", label: t.nav.videos, emoji: "▶️" },
+    { id: "addvideo", label: t.nav.addvideo, emoji: "➕" },
     { id: "games", label: t.nav.games, emoji: "🎮" },
-    { id: "about", label: t.nav.about, emoji: "ℹ️" },
-    { id: "contact", label: t.nav.contact, emoji: "📞" },
+    { id: "profile", label: t.nav.profile, emoji: "👤" },
   ];
 
   return (

@@ -1,5 +1,8 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { VideoMeta } from "../backend";
+import { useAllVideos } from "../hooks/useQueries";
 
 const BORDER_COLORS = [
   "border-kids-blue",
@@ -126,7 +129,7 @@ function formatCount(n: number) {
   return String(n);
 }
 
-function VideoCard({
+function DemoVideoCard({
   video,
   index,
 }: {
@@ -145,7 +148,6 @@ function VideoCard({
       data-ocid={`videos.item.${index + 1}`}
       className={`rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card`}
     >
-      {/* Thumbnail */}
       <button
         type="button"
         data-ocid={`videos.play_button.${index + 1}`}
@@ -169,13 +171,11 @@ function VideoCard({
         )}
       </button>
 
-      {/* Footer */}
       <div className="px-4 py-3">
         <p className="font-black text-base md:text-lg text-foreground leading-tight mb-2">
           {video.title}
         </p>
         <div className="flex items-center justify-between">
-          {/* Video ID badge */}
           <span className="inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30">
             🎬 Video ID: {formatId(video.id)}
           </span>
@@ -204,6 +204,52 @@ function VideoCard({
   );
 }
 
+function RealVideoCard({ video, index }: { video: VideoMeta; index: number }) {
+  const [liked, setLiked] = useState(false);
+  const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
+  const uploaderShort = `${video.uploader.toString().slice(0, 10)}...`;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.08 }}
+      data-ocid={`videos.item.${index + 1}`}
+      className={`rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card`}
+    >
+      {/* biome-ignore lint/a11y/useMediaCaption: kids video captions not available */}
+      <video
+        src={video.blob.getDirectURL()}
+        controls
+        className="w-full aspect-video bg-black"
+        preload="metadata"
+      />
+
+      <div className="px-4 py-3">
+        <p className="font-black text-base md:text-lg text-foreground leading-tight mb-2 truncate">
+          {video.title}
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30">
+            🎬 Video ID: {formatId(index + 1)}
+          </span>
+          <span className="inline-flex items-center gap-1 bg-kids-amber/10 text-kids-amber text-xs font-black px-2.5 py-1 rounded-full border border-kids-amber/30">
+            👤 By: {uploaderShort}
+          </span>
+          <button
+            type="button"
+            data-ocid={`videos.like_button.${index + 1}`}
+            onClick={() => setLiked((v) => !v)}
+            className="ml-auto flex items-center gap-1 transition-transform active:scale-125"
+          >
+            <span className="text-lg">{liked ? "❤️" : "🤍"}</span>
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function ShortVideosSection() {
   const [current, setCurrent] = useState(0);
   const [liked, setLiked] = useState<Set<number>>(new Set());
@@ -222,7 +268,6 @@ function ShortVideosSection() {
     }
   }, []);
 
-  // Auto-advance every 7 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       goTo(currentRef.current + 1);
@@ -230,7 +275,6 @@ function ShortVideosSection() {
     return () => clearInterval(timer);
   }, [goTo]);
 
-  // Sync current from scroll
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -242,7 +286,6 @@ function ShortVideosSection() {
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Touch swipe
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -280,7 +323,6 @@ function ShortVideosSection() {
       </h2>
 
       <div className="relative">
-        {/* Snap scroll container */}
         <div
           ref={containerRef}
           data-ocid="shorts.panel"
@@ -301,7 +343,6 @@ function ShortVideosSection() {
               }}
               className={`relative bg-gradient-to-b ${short.gradient} flex flex-col`}
             >
-              {/* Content */}
               <div className="flex-1 flex flex-col items-center justify-center gap-4 p-6">
                 <motion.div
                   animate={
@@ -325,7 +366,6 @@ function ShortVideosSection() {
                 )}
               </div>
 
-              {/* Footer bar */}
               <div className="flex items-center justify-between px-6 py-4 bg-black/25 backdrop-blur-sm">
                 <button
                   type="button"
@@ -348,7 +388,6 @@ function ShortVideosSection() {
                   </span>
                 </div>
 
-                {/* Dot indicators */}
                 <div className="flex gap-1.5 items-center">
                   {SHORT_VIDEOS.map((s, idx) => (
                     <button
@@ -369,7 +408,6 @@ function ShortVideosSection() {
           ))}
         </div>
 
-        {/* Side nav arrows for desktop */}
         <div className="hidden md:flex flex-col gap-2 absolute right-3 top-1/2 -translate-y-1/2 z-10">
           <button
             type="button"
@@ -394,6 +432,9 @@ function ShortVideosSection() {
 }
 
 export default function VideosPage() {
+  const { data: realVideos, isLoading } = useAllVideos();
+  const hasRealVideos = realVideos && realVideos.length > 0;
+
   return (
     <div className="min-h-screen bg-background pb-8">
       <section className="px-4 pt-6">
@@ -402,11 +443,35 @@ export default function VideosPage() {
           <span className="text-kids-red">Videos</span>
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {DEMO_VIDEOS.map((video, i) => (
-            <VideoCard key={video.id} video={video} index={i} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                data-ocid="videos.loading_state"
+                className="rounded-3xl overflow-hidden border-4 border-border animate-pulse"
+              >
+                <Skeleton className="w-full aspect-video" />
+                <div className="p-4 space-y-2">
+                  <Skeleton className="h-5 w-3/4" />
+                  <Skeleton className="h-4 w-1/2" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : hasRealVideos ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {realVideos.map((video, i) => (
+              <RealVideoCard key={video.id} video={video} index={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {DEMO_VIDEOS.map((video, i) => (
+              <DemoVideoCard key={video.id} video={video} index={i} />
+            ))}
+          </div>
+        )}
       </section>
 
       <ShortVideosSection />

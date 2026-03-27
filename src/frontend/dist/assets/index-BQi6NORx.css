@@ -564,21 +564,6 @@ body{
     overscroll-behavior: none;
 }
 
-.container{
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 2rem;
-  padding-left: 2rem;
-}
-
-@media (min-width: 1400px){
-
-  .container{
-    max-width: 1400px;
-  }
-}
-
 .sr-only{
   position: absolute;
   width: 1px;
@@ -904,6 +889,10 @@ body{
   margin-top: 1.5rem;
 }
 
+.mt-8{
+  margin-top: 2rem;
+}
+
 .mt-auto{
   margin-top: auto;
 }
@@ -1157,6 +1146,10 @@ body{
   width: 0.375rem;
 }
 
+.w-1\/2{
+  width: 50%;
+}
+
 .w-1\/3{
   width: 33.333333%;
 }
@@ -1185,6 +1178,10 @@ body{
   width: 0.625rem;
 }
 
+.w-20{
+  width: 5rem;
+}
+
 .w-3{
   width: 0.75rem;
 }
@@ -1193,8 +1190,16 @@ body{
   width: 75%;
 }
 
+.w-32{
+  width: 8rem;
+}
+
 .w-4{
   width: 1rem;
+}
+
+.w-44{
+  width: 11rem;
 }
 
 .w-5{
@@ -1685,6 +1690,10 @@ body{
   overflow-wrap: break-word;
 }
 
+.break-all{
+  word-break: break-all;
+}
+
 .rounded-2xl{
   border-radius: 1rem;
 }
@@ -1886,6 +1895,10 @@ body{
   border-color: rgb(255 255 255 / 0.3);
 }
 
+.border-white\/50{
+  border-color: rgb(255 255 255 / 0.5);
+}
+
 .border-l-transparent{
   border-left-color: transparent;
 }
@@ -1906,6 +1919,11 @@ body{
 
 .bg-background{
   background-color: oklch(var(--background));
+}
+
+.bg-black{
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
 .bg-black\/20{
@@ -2293,6 +2311,11 @@ body{
   --tw-gradient-stops: var(--tw-gradient-from), #6366f1 var(--tw-gradient-via-position), var(--tw-gradient-to);
 }
 
+.via-kids-purple{
+  --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), oklch(var(--kids-purple)) var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
 .via-orange-500{
   --tw-gradient-to: rgb(249 115 22 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), #f97316 var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -2376,6 +2399,10 @@ body{
 
 .to-kids-purple{
   --tw-gradient-to: oklch(var(--kids-purple)) var(--tw-gradient-to-position);
+}
+
+.to-kids-red{
+  --tw-gradient-to: oklch(var(--kids-red)) var(--tw-gradient-to-position);
 }
 
 .to-orange-600{
@@ -2584,6 +2611,10 @@ body{
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.pb-10{
+  padding-bottom: 2.5rem;
 }
 
 .pb-2{
@@ -2913,6 +2944,10 @@ body{
 
 .text-white\/80{
   color: rgb(255 255 255 / 0.8);
+}
+
+.underline{
+  text-decoration-line: underline;
 }
 
 .line-through{

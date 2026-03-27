@@ -7,9 +7,9 @@ const translations = {
     nav: {
       home: "Home",
       videos: "Videos",
+      addvideo: "Add Video",
       games: "Games",
-      about: "About",
-      contact: "Contact",
+      profile: "Profile",
     },
     home: {
       search: "Search videos...",
@@ -70,9 +70,9 @@ const translations = {
     nav: {
       home: "घर",
       videos: "वीडियो",
+      addvideo: "अपलोड",
       games: "गेम्स",
-      about: "हमारे बारे में",
-      contact: "संपर्क",
+      profile: "प्रोफाइल",
     },
     home: {
       search: "वीडियो खोजें...",
