@@ -136,7 +136,7 @@ function VideoCard({
           <div
             className={`w-full h-full bg-gradient-to-br ${THUMB_GRADIENTS[index % THUMB_GRADIENTS.length]} flex items-center justify-center`}
           >
-            <span className="text-7xl">{video.emoji ?? "🎬"}</span>
+            <span className="text-7xl">{video.emoji ?? "🎦"}</span>
           </div>
         )}
         {!isPlaying && (
@@ -204,14 +204,14 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Search bar */}
-      <div className="px-4 pt-4 pb-2">
+      <div className="px-4 md:px-8 pt-4 pb-2">
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-lg">
             🔍
           </span>
           <input
             data-ocid="home.search_input"
-            placeholder="Search videos... खोजें"
+            placeholder="Search videos... خोजें"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-3 rounded-2xl border-2 border-border bg-card font-semibold text-sm focus:outline-none focus:border-kids-blue"
@@ -220,7 +220,7 @@ export default function HomePage() {
       </div>
 
       {/* Category chips */}
-      <div className="flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div className="flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar">
         {CATEGORIES.map((cat) => (
           <button
             type="button"
@@ -239,10 +239,13 @@ export default function HomePage() {
         ))}
       </div>
 
-      <div className="px-4 py-3 space-y-4">
+      <div className="px-4 md:px-8 py-3">
         {isLoading ? (
-          <div data-ocid="videos.loading_state" className="space-y-4">
-            {[1, 2, 3].map((i) => (
+          <div
+            data-ocid="videos.loading_state"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
+            {[1, 2, 3, 4].map((i) => (
               <Skeleton key={i} className="w-full aspect-video rounded-3xl" />
             ))}
           </div>
@@ -257,15 +260,17 @@ export default function HomePage() {
         ) : (
           <>
             {!hasReal && (
-              <div className="bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber">
+              <div className="bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber mb-4">
                 <p className="text-xs font-bold text-kids-amber">
-                  🎬 Demo videos — Upload your own from Profile!
+                  🎦 Demo videos — Upload your own from Profile!
                 </p>
               </div>
             )}
-            {filtered.map((v, i) => (
-              <VideoCard key={v.id} video={v} index={i} isDemo={!hasReal} />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {filtered.map((v, i) => (
+                <VideoCard key={v.id} video={v} index={i} isDemo={!hasReal} />
+              ))}
+            </div>
           </>
         )}
       </div>

@@ -29,12 +29,10 @@ function MemoryMatch({ onClose }: { onClose: () => void }) {
     if (selected.length === 2) return;
     const card = cards.find((c) => c.id === id);
     if (!card || card.flipped || card.matched) return;
-
     const newSelected = [...selected, id];
     setCards((prev) =>
       prev.map((c) => (c.id === id ? { ...c, flipped: true } : c)),
     );
-
     if (newSelected.length === 2) {
       setMoves((m) => m + 1);
       const [a, b] = newSelected.map((sid) => cards.find((c) => c.id === sid)!);
@@ -100,7 +98,7 @@ function MemoryMatch({ onClose }: { onClose: () => void }) {
         </div>
       ) : (
         <div className="flex-1 p-4 bg-kids-purple/5">
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-2 max-w-sm mx-auto">
             {cards.map((card) => (
               <button
                 type="button"
@@ -184,12 +182,12 @@ function MathQuiz({ onClose }: { onClose: () => void }) {
             {feedback === "correct" ? "✅" : "❌"}
           </motion.div>
         )}
-        <div className="bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-green">
+        <div className="bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-green w-full max-w-sm">
           <p className="text-5xl font-black text-foreground">
             {q.a} {q.op} {q.b} = ?
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-3 w-full">
+        <div className="grid grid-cols-2 gap-3 w-full max-w-sm">
           {q.opts.map((opt) => (
             <button
               type="button"
@@ -220,7 +218,6 @@ function WordPuzzle({ onClose }: { onClose: () => void }) {
   const [input, setInput] = useState("");
   const [result, setResult] = useState<"correct" | "wrong" | null>(null);
   const [score, setScore] = useState(0);
-
   const w = WORDS[idx % WORDS.length];
   const scrambled = w.word
     .split("")
@@ -253,7 +250,7 @@ function WordPuzzle({ onClose }: { onClose: () => void }) {
         </button>
       </div>
       <div className="flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-amber-50">
-        <div className="bg-white rounded-3xl shadow-card p-6 w-full text-center border-4 border-kids-amber">
+        <div className="bg-white rounded-3xl shadow-card p-6 w-full max-w-sm text-center border-4 border-kids-amber">
           <p className="text-sm font-bold text-muted-foreground mb-1">
             Scrambled Word:
           </p>
@@ -279,13 +276,13 @@ function WordPuzzle({ onClose }: { onClose: () => void }) {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && check()}
           placeholder="Type the word..."
-          className="w-full text-center text-xl font-black uppercase rounded-2xl border-4 border-kids-amber p-4 focus:outline-none"
+          className="w-full max-w-sm text-center text-xl font-black uppercase rounded-2xl border-4 border-kids-amber p-4 focus:outline-none"
           maxLength={6}
         />
         <button
           type="button"
           onClick={check}
-          className="w-full py-4 bg-kids-amber text-white rounded-full font-black text-lg"
+          className="w-full max-w-sm py-4 bg-kids-amber text-white rounded-full font-black text-lg"
         >
           Check ✓
         </button>
@@ -344,7 +341,7 @@ function ColorMatch({ onClose }: { onClose: () => void }) {
         <p className="font-black text-xl text-foreground">
           इस रंग को ढूंढो: Find this color!
         </p>
-        <div className="bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full">
+        <div className="bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full max-w-sm">
           <p className="text-4xl font-black text-foreground">
             {round.target.hindi}
           </p>
@@ -361,7 +358,7 @@ function ColorMatch({ onClose }: { onClose: () => void }) {
             {feedback === "correct" ? "✅" : "❌"}
           </motion.p>
         )}
-        <div className="grid grid-cols-2 gap-3 w-full">
+        <div className="grid grid-cols-2 gap-3 w-full max-w-sm">
           {round.options.map((opt) => (
             <button
               type="button"
@@ -431,7 +428,7 @@ export default function GamesPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="px-4 pt-4 pb-2">
+      <div className="px-4 md:px-8 pt-4 pb-2">
         <h1 className="text-2xl font-black">
           <span className="text-kids-green">गेम्स </span>
           <span className="text-kids-blue">Games</span> 🎮
@@ -441,7 +438,7 @@ export default function GamesPage() {
         </p>
       </div>
 
-      <div className="flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar">
+      <div className="flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar">
         {GAME_CATS.map((cat) => (
           <button
             type="button"
@@ -459,7 +456,7 @@ export default function GamesPage() {
         ))}
       </div>
 
-      <div className="px-4 py-3 grid grid-cols-2 gap-3">
+      <div className="px-4 md:px-8 py-3 grid grid-cols-2 md:grid-cols-4 gap-3">
         {filtered.map((game, i) => (
           <motion.div
             key={game.id}
@@ -492,20 +489,22 @@ export default function GamesPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             data-ocid="games.modal"
-            className="fixed inset-0 z-50 bg-background flex flex-col max-w-[420px] mx-auto"
+            className="fixed inset-0 z-50 bg-background flex flex-col md:items-center md:justify-center"
           >
-            {activeGame === "memory" && (
-              <MemoryMatch onClose={() => setActiveGame(null)} />
-            )}
-            {activeGame === "math" && (
-              <MathQuiz onClose={() => setActiveGame(null)} />
-            )}
-            {activeGame === "word" && (
-              <WordPuzzle onClose={() => setActiveGame(null)} />
-            )}
-            {activeGame === "color" && (
-              <ColorMatch onClose={() => setActiveGame(null)} />
-            )}
+            <div className="w-full h-full md:max-w-lg md:h-auto md:max-h-[90vh] md:rounded-3xl md:overflow-hidden md:shadow-2xl flex flex-col">
+              {activeGame === "memory" && (
+                <MemoryMatch onClose={() => setActiveGame(null)} />
+              )}
+              {activeGame === "math" && (
+                <MathQuiz onClose={() => setActiveGame(null)} />
+              )}
+              {activeGame === "word" && (
+                <WordPuzzle onClose={() => setActiveGame(null)} />
+              )}
+              {activeGame === "color" && (
+                <ColorMatch onClose={() => setActiveGame(null)} />
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

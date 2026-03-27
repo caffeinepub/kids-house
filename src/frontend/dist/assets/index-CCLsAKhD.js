@@ -22966,9 +22966,9 @@ function BottomNav({ activeTab, onChange }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "nav",
     {
-      className: "fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-white border-t-2 border-border px-2 py-2 z-50",
+      className: "md:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-border px-2 py-2 z-50",
       style: { boxShadow: "0 -4px 20px rgba(59,130,246,0.15)" },
-      children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-around items-center", children: tabs.map((tab) => {
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-around items-center max-w-lg mx-auto", children: tabs.map((tab) => {
         const isActive = activeTab === tab.id;
         return /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "button",
@@ -45030,7 +45030,7 @@ const ROOMS = [
   {
     id: "study",
     name: "Study Group",
-    hindi: "पढ़ाई ग्रुप",
+    hindi: "पड़ाई ग्रुप",
     emoji: "📚",
     unread: 0
   },
@@ -45078,7 +45078,7 @@ const SEED_MSGS = {
     {
       id: 2,
       name: "Rohan",
-      avatar: "🧮",
+      avatar: "🧠",
       text: "Sure! What problem?",
       time: "09:31"
     }
@@ -45173,7 +45173,7 @@ function ChatPage() {
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: room.name })
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-blue-50/30", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 overflow-y-auto px-4 md:px-8 py-3 space-y-3 bg-blue-50/30", children: [
         currentMsgs.map((msg) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
           motion.div,
           {
@@ -45205,7 +45205,7 @@ function ChatPage() {
         )),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: messagesEndRef })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 px-4 py-3 bg-white border-t-2 border-border", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 px-4 md:px-8 py-3 bg-white border-t-2 border-border", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "input",
           {
@@ -45231,7 +45231,7 @@ function ChatPage() {
     ] });
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 pt-4 pb-2", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 md:px-8 pt-4 pb-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-purple", children: "चैट " }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Chat" }),
@@ -45239,7 +45239,7 @@ function ChatPage() {
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: "Safe group chats for kids!" })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 py-3 space-y-3", children: ROOMS.map((room, i) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 md:px-8 py-3 grid grid-cols-1 md:grid-cols-2 gap-3", children: ROOMS.map((room, i) => {
       var _a3;
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
         motion.button,
@@ -45263,7 +45263,7 @@ function ChatPage() {
         room.id
       );
     }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-4 mt-4 bg-kids-green/10 border-2 border-kids-green rounded-2xl p-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-4 md:mx-8 mt-4 bg-kids-green/10 border-2 border-kids-green rounded-2xl p-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-kids-green", children: "🛡️ Safe Chat Environment" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold mt-1", children: "All messages are moderated for child safety. माता-पिता द्वारा निगरानी।" })
     ] })
@@ -45693,7 +45693,7 @@ function MemoryMatch({ onClose }) {
           children: "Play Again"
         }
       )
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 p-4 bg-kids-purple/5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-4 gap-2", children: cards.map((card) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 p-4 bg-kids-purple/5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-4 gap-2 max-w-sm mx-auto", children: cards.map((card) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         type: "button",
@@ -45761,7 +45761,7 @@ function MathQuiz({ onClose }) {
           children: feedback === "correct" ? "✅" : "❌"
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-green", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-5xl font-black text-foreground", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-green w-full max-w-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-5xl font-black text-foreground", children: [
         q2.a,
         " ",
         q2.op,
@@ -45769,7 +45769,7 @@ function MathQuiz({ onClose }) {
         q2.b,
         " = ?"
       ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full", children: q2.opts.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full max-w-sm", children: q2.opts.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
           type: "button",
@@ -45821,7 +45821,7 @@ function WordPuzzle({ onClose }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-amber-50", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card p-6 w-full text-center border-4 border-kids-amber", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card p-6 w-full max-w-sm text-center border-4 border-kids-amber", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-bold text-muted-foreground mb-1", children: "Scrambled Word:" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-5xl font-black text-kids-amber tracking-widest", children: scrambled }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-muted-foreground font-semibold mt-3", children: [
@@ -45846,7 +45846,7 @@ function WordPuzzle({ onClose }) {
           onChange: (e) => setInput(e.target.value),
           onKeyDown: (e) => e.key === "Enter" && check(),
           placeholder: "Type the word...",
-          className: "w-full text-center text-xl font-black uppercase rounded-2xl border-4 border-kids-amber p-4 focus:outline-none",
+          className: "w-full max-w-sm text-center text-xl font-black uppercase rounded-2xl border-4 border-kids-amber p-4 focus:outline-none",
           maxLength: 6
         }
       ),
@@ -45855,7 +45855,7 @@ function WordPuzzle({ onClose }) {
         {
           type: "button",
           onClick: check,
-          className: "w-full py-4 bg-kids-amber text-white rounded-full font-black text-lg",
+          className: "w-full max-w-sm py-4 bg-kids-amber text-white rounded-full font-black text-lg",
           children: "Check ✓"
         }
       )
@@ -45905,7 +45905,7 @@ function ColorMatch({ onClose }) {
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-red-50", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-foreground", children: "इस रंग को ढूंढो: Find this color!" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full max-w-sm", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-4xl font-black text-foreground", children: round2.target.hindi }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-lg text-muted-foreground font-semibold", children: [
           "(",
@@ -45922,7 +45922,7 @@ function ColorMatch({ onClose }) {
           children: feedback === "correct" ? "✅" : "❌"
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full", children: round2.options.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full max-w-sm", children: round2.options.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
           type: "button",
@@ -45982,7 +45982,7 @@ function GamesPage() {
     (g2) => activeCat === "all" || g2.cat === activeCat
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 pt-4 pb-2", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 md:px-8 pt-4 pb-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-green", children: "गेम्स " }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Games" }),
@@ -45990,7 +45990,7 @@ function GamesPage() {
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: "Fun educational mini-games!" })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar", children: GAME_CATS.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar", children: GAME_CATS.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         type: "button",
@@ -46001,7 +46001,7 @@ function GamesPage() {
       },
       cat.id
     )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 py-3 grid grid-cols-2 gap-3", children: filtered.map((game, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 md:px-8 py-3 grid grid-cols-2 md:grid-cols-4 gap-3", children: filtered.map((game, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       motion.div,
       {
         initial: { opacity: 0, scale: 0.9 },
@@ -46026,20 +46026,20 @@ function GamesPage() {
       },
       game.id
     )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeGame && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeGame && /* @__PURE__ */ jsxRuntimeExports.jsx(
       motion.div,
       {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },
         "data-ocid": "games.modal",
-        className: "fixed inset-0 z-50 bg-background flex flex-col max-w-[420px] mx-auto",
-        children: [
+        className: "fixed inset-0 z-50 bg-background flex flex-col md:items-center md:justify-center",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full h-full md:max-w-lg md:h-auto md:max-h-[90vh] md:rounded-3xl md:overflow-hidden md:shadow-2xl flex flex-col", children: [
           activeGame === "memory" && /* @__PURE__ */ jsxRuntimeExports.jsx(MemoryMatch, { onClose: () => setActiveGame(null) }),
           activeGame === "math" && /* @__PURE__ */ jsxRuntimeExports.jsx(MathQuiz, { onClose: () => setActiveGame(null) }),
           activeGame === "word" && /* @__PURE__ */ jsxRuntimeExports.jsx(WordPuzzle, { onClose: () => setActiveGame(null) }),
           activeGame === "color" && /* @__PURE__ */ jsxRuntimeExports.jsx(ColorMatch, { onClose: () => setActiveGame(null) })
-        ]
+        ] })
       }
     ) })
   ] });
@@ -46172,7 +46172,7 @@ function VideoCard({
             "div",
             {
               className: `w-full h-full bg-gradient-to-br ${THUMB_GRADIENTS[index2 % THUMB_GRADIENTS.length]} flex items-center justify-center`,
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-7xl", children: video.emoji ?? "🎬" })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-7xl", children: video.emoji ?? "🎦" })
             }
           ),
           !isPlaying && /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -46234,20 +46234,20 @@ function HomePage() {
     return matchCat && matchSearch;
   });
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 pt-4 pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 md:px-8 pt-4 pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "absolute left-3 top-1/2 -translate-y-1/2 text-lg", children: "🔍" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "input",
         {
           "data-ocid": "home.search_input",
-          placeholder: "Search videos... खोजें",
+          placeholder: "Search videos... خोजें",
           value: search,
           onChange: (e) => setSearch(e.target.value),
           className: "w-full pl-9 pr-4 py-3 rounded-2xl border-2 border-border bg-card font-semibold text-sm focus:outline-none focus:border-kids-blue"
         }
       )
     ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar", children: CATEGORIES.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar", children: CATEGORIES.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "button",
       {
         type: "button",
@@ -46261,13 +46261,20 @@ function HomePage() {
       },
       cat.id
     )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 py-3 space-y-4", children: isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { "data-ocid": "videos.loading_state", className: "space-y-4", children: [1, 2, 3].map((i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "w-full aspect-video rounded-3xl" }, i)) }) : filtered.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-ocid": "videos.empty_state", className: "text-center py-16", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 md:px-8 py-3", children: isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        "data-ocid": "videos.loading_state",
+        className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+        children: [1, 2, 3, 4].map((i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "w-full aspect-video rounded-3xl" }, i))
+      }
+    ) : filtered.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-ocid": "videos.empty_state", className: "text-center py-16", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl mb-3", children: "🔍" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-muted-foreground", children: "कोई वीडियो नहीं मिला" }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "No videos found" })
     ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      !hasReal && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-bold text-kids-amber", children: "🎬 Demo videos — Upload your own from Profile!" }) }),
-      filtered.map((v2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(VideoCard, { video: v2, index: i, isDemo: !hasReal }, v2.id))
+      !hasReal && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-bold text-kids-amber", children: "🎦 Demo videos — Upload your own from Profile!" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: filtered.map((v2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(VideoCard, { video: v2, index: i, isDemo: !hasReal }, v2.id)) })
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("footer", { className: "text-center py-6 text-xs text-muted-foreground font-semibold px-4", children: [
       "© ",
@@ -46672,126 +46679,157 @@ function ShortsPage() {
     };
   }, []);
   const short = SHORTS[current];
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    "div",
-    {
-      ref: containerRef,
-      className: "relative bg-black overflow-hidden",
-      style: { height: "calc(100vh - 130px)" },
-      "data-ocid": "shorts.canvas_target",
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.div,
-          {
-            initial: { opacity: 0, y: 60 },
-            animate: { opacity: 1, y: 0 },
-            exit: { opacity: 0, y: -60 },
-            transition: { duration: 0.3, ease: "easeOut" },
-            className: `absolute inset-0 bg-gradient-to-b ${short.gradient} flex items-center justify-center`,
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[120px] opacity-80", children: short.emoji })
-          },
-          short.id
-        ) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute right-4 bottom-32 flex flex-col gap-5 items-center z-20", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              "data-ocid": "shorts.like_button",
-              onClick: () => toggleLike(short.id),
-              className: "flex flex-col items-center gap-1",
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "div",
-                  {
-                    className: `w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-lg transition-transform active:scale-90 ${liked.has(short.id) ? "bg-kids-red" : "bg-white/20 backdrop-blur-sm"}`,
-                    children: liked.has(short.id) ? "❤️" : "🤍"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs font-black", children: short.likes + (liked.has(short.id) ? 1 : 0) })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              "data-ocid": "shorts.comment_button",
-              className: "flex flex-col items-center gap-1",
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg", children: "💬" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs font-black", children: short.comments })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              "data-ocid": "shorts.share_button",
-              className: "flex flex-col items-center gap-1",
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg", children: "📤" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs font-black", children: "शेयर" })
-              ]
-            }
-          )
+  return (
+    // Mobile: full screen. Desktop: centered card layout
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: containerRef, className: "bg-background min-h-screen md:py-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden md:flex flex-col items-center gap-4 px-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black self-start", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "शॉर्ट्स " }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "Shorts" }),
+          " ▶️"
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-1.5 z-20", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3 w-full max-w-2xl justify-center flex-wrap", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "button",
           {
             type: "button",
             onClick: () => setCurrent(i),
-            className: `w-1.5 rounded-full transition-all ${i === current ? "h-6 bg-white" : "h-1.5 bg-white/40"}`
+            className: `px-4 py-2 rounded-full text-sm font-black border-2 transition-all ${current === i ? "bg-kids-blue text-white border-kids-blue" : "bg-card border-border text-foreground"}`,
+            children: [
+              s2.emoji,
+              " ",
+              s2.title.split(" ")[0]
+            ]
           },
           s2.id
         )) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent z-20", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-2", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-lg", children: "👤" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white font-black text-sm", children: short.creator }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/60 text-xs", children: "Follow करें" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "button",
-              {
-                type: "button",
-                className: "ml-auto bg-kids-blue text-white text-xs font-black px-3 py-1.5 rounded-full",
-                children: "+ Follow"
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white font-black text-base", children: short.title }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/60 text-xs font-semibold mt-0.5", children: "Educational & Fun Content 🌟" })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "button",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.div,
           {
-            type: "button",
-            "data-ocid": "shorts.pagination_prev",
-            onClick: () => setCurrent((c2) => Math.max(c2 - 1, 0)),
-            disabled: current === 0,
-            className: "absolute top-4 left-1/2 -translate-x-1/2 z-20 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white disabled:opacity-30",
-            children: "▲"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "button",
-          {
-            type: "button",
-            "data-ocid": "shorts.pagination_next",
-            onClick: () => setCurrent((c2) => Math.min(c2 + 1, SHORTS.length - 1)),
-            disabled: current === SHORTS.length - 1,
-            className: "absolute bottom-[7.5rem] left-4 z-20 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white disabled:opacity-30",
-            children: "▼"
-          }
-        )
-      ]
-    }
+            initial: { opacity: 0, y: 20 },
+            animate: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -20 },
+            className: `w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 bg-gradient-to-b ${short.gradient}`,
+            style: { minHeight: 480 },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", style: { minHeight: 480 }, children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 p-8", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-9xl", children: short.emoji }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-3xl text-white text-center drop-shadow-lg", children: short.title }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/80 font-semibold text-lg", children: [
+                  "by ",
+                  short.creator
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-4 bg-black/20", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "button",
+                  {
+                    type: "button",
+                    onClick: () => toggleLike(short.id),
+                    className: "flex items-center gap-2 bg-white/20 rounded-full px-4 py-2",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked.has(short.id) ? "❤️" : "🤍" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-black", children: short.likes + (liked.has(short.id) ? 1 : 0) })
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-white/70 font-semibold text-sm", children: [
+                  "💬 ",
+                  short.comments
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => setCurrent((c2) => Math.max(c2 - 1, 0)),
+                      disabled: current === 0,
+                      className: "bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-40",
+                      children: "↑"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => setCurrent((c2) => Math.min(c2 + 1, SHORTS.length - 1)),
+                      disabled: current === SHORTS.length - 1,
+                      className: "bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-40",
+                      children: "↓"
+                    }
+                  )
+                ] })
+              ] })
+            ] })
+          },
+          short.id
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          className: "md:hidden relative",
+          style: { height: "calc(100dvh - 130px)" },
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 60 },
+              animate: { opacity: 1, y: 0 },
+              exit: { opacity: 0, y: -60 },
+              transition: { type: "spring", damping: 25, stiffness: 300 },
+              className: `absolute inset-0 bg-gradient-to-b ${short.gradient} flex flex-col`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 p-6", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-9xl", children: short.emoji }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-3xl text-white text-center drop-shadow-lg", children: short.title }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/80 font-semibold text-lg", children: [
+                    "by ",
+                    short.creator
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/60 text-sm font-semibold mt-2", children: "↕ Swipe up/down" })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-4 bg-black/20", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "button",
+                    {
+                      type: "button",
+                      "data-ocid": `shorts.like_button.${short.id}`,
+                      onClick: () => toggleLike(short.id),
+                      className: "flex items-center gap-2 bg-white/20 rounded-full px-4 py-2",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked.has(short.id) ? "❤️" : "🤍" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-black", children: short.likes + (liked.has(short.id) ? 1 : 0) })
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-white/70 font-semibold text-sm", children: [
+                    "💬 ",
+                    short.comments
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
+                    {
+                      className: `w-1.5 h-1.5 rounded-full transition-all ${i === current ? "bg-white w-4" : "bg-white/40"}`
+                    },
+                    s2.id
+                  )) })
+                ] })
+              ]
+            },
+            short.id
+          ) })
+        }
+      )
+    ] })
   );
 }
 const LOADING_DOTS = ["purple", "red", "green", "blue", "amber"];
+const SIDEBAR_TABS = [
+  { id: "home", label: "Home", hindi: "घर", emoji: "🏠" },
+  { id: "shorts", label: "Shorts", hindi: "शॉर्ट्स", emoji: "▶️" },
+  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
+  { id: "courses", label: "Courses", hindi: "कोर्स", emoji: "📚" },
+  { id: "chat", label: "Chat", hindi: "चैट", emoji: "💬" }
+];
 function App() {
   var _a3, _b3;
   const { identity, isInitializing } = useInternetIdentity();
@@ -46824,71 +46862,95 @@ function App() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(LoginPage, {})
     ] });
   }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background flex items-start justify-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-[420px] min-h-screen relative flex flex-col", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between", children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          "data-ocid": "header.home.link",
+          onClick: () => setActiveTab("home"),
+          className: "flex items-center gap-2",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: "🏠" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xl font-black", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Kids " }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "House" })
+            ] })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "button",
           {
             type: "button",
-            "data-ocid": "header.home.link",
-            onClick: () => setActiveTab("home"),
-            className: "flex items-center gap-2",
+            "data-ocid": "header.notifications.button",
+            onClick: () => {
+              setShowNotifications(true);
+              setNotifCount(0);
+            },
+            className: "relative w-10 h-10 rounded-full bg-kids-amber/10 flex items-center justify-center hover:bg-kids-amber/20 transition-colors",
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: "🏠" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xl font-black", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Kids " }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "House" })
-              ] })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: "🔔" }),
+              notifCount > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "absolute -top-0.5 -right-0.5 w-5 h-5 bg-kids-red rounded-full text-white text-[10px] font-black flex items-center justify-center", children: notifCount })
             ]
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              "data-ocid": "header.notifications.button",
-              onClick: () => {
-                setShowNotifications(true);
-                setNotifCount(0);
-              },
-              className: "relative w-10 h-10 rounded-full bg-kids-amber/10 flex items-center justify-center hover:bg-kids-amber/20 transition-colors",
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: "🔔" }),
-                notifCount > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "absolute -top-0.5 -right-0.5 w-5 h-5 bg-kids-red rounded-full text-white text-[10px] font-black flex items-center justify-center", children: notifCount })
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              type: "button",
-              "data-ocid": "header.profile.button",
-              onClick: () => setShowProfile(true),
-              className: "w-10 h-10 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shadow-btn",
-              children: ((_b3 = (_a3 = profile == null ? void 0 : profile.username) == null ? void 0 : _a3[0]) == null ? void 0 : _b3.toUpperCase()) ?? "👤"
-            }
-          )
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "flex-1 pb-24 overflow-y-auto", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            type: "button",
+            "data-ocid": "header.profile.button",
+            onClick: () => setShowProfile(true),
+            className: "w-10 h-10 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shadow-btn",
+            children: ((_b3 = (_a3 = profile == null ? void 0 : profile.username) == null ? void 0 : _a3[0]) == null ? void 0 : _b3.toUpperCase()) ?? "👤"
+          }
+        )
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("aside", { className: "hidden md:flex flex-col w-56 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] border-r border-border bg-white/80 backdrop-blur-sm pt-4 pb-6 px-3", children: SIDEBAR_TABS.map((tab) => {
+        const isActive = activeTab === tab.id;
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            type: "button",
+            onClick: () => setActiveTab(tab.id),
+            className: `flex items-center gap-3 px-4 py-3 rounded-2xl mb-1 font-black text-sm transition-all ${isActive ? "bg-kids-blue/10 text-kids-blue" : "text-muted-foreground hover:bg-muted"}`,
+            children: [
+              isActive && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                motion.div,
+                {
+                  layoutId: "sidebar-pill",
+                  className: "absolute inset-0 bg-kids-blue/10 rounded-2xl",
+                  transition: { type: "spring", stiffness: 400, damping: 30 }
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: tab.emoji }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: tab.hindi })
+            ]
+          },
+          tab.id
+        );
+      }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1 min-w-0 pb-24 md:pb-8 overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-3xl mx-auto", children: [
         activeTab === "home" && /* @__PURE__ */ jsxRuntimeExports.jsx(HomePage, {}),
         activeTab === "shorts" && /* @__PURE__ */ jsxRuntimeExports.jsx(ShortsPage, {}),
         activeTab === "games" && /* @__PURE__ */ jsxRuntimeExports.jsx(GamesPage, {}),
         activeTab === "courses" && /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesPage, {}),
         activeTab === "chat" && /* @__PURE__ */ jsxRuntimeExports.jsx(ChatPage, {})
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(BottomNav, { activeTab, onChange: setActiveTab }),
-      showProfile && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        ProfileModal,
-        {
-          profile: profile ?? null,
-          onClose: () => setShowProfile(false)
-        }
-      ),
-      showNotifications && /* @__PURE__ */ jsxRuntimeExports.jsx(NotificationsPanel, { onClose: () => setShowNotifications(false) })
+      ] }) })
     ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BottomNav, { activeTab, onChange: setActiveTab }),
+    showProfile && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      ProfileModal,
+      {
+        profile: profile ?? null,
+        onClose: () => setShowProfile(false)
+      }
+    ),
+    showNotifications && /* @__PURE__ */ jsxRuntimeExports.jsx(NotificationsPanel, { onClose: () => setShowNotifications(false) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Toaster, { position: "top-center" })
   ] });
 }

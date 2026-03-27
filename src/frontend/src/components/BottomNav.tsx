@@ -17,10 +17,10 @@ interface BottomNavProps {
 export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
   return (
     <nav
-      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-white border-t-2 border-border px-2 py-2 z-50"
+      className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-border px-2 py-2 z-50"
       style={{ boxShadow: "0 -4px 20px rgba(59,130,246,0.15)" }}
     >
-      <div className="flex justify-around items-center">
+      <div className="flex justify-around items-center max-w-lg mx-auto">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (

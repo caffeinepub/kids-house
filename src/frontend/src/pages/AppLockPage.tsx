@@ -64,13 +64,10 @@ export default function AppLockPage({ profile }: Props) {
     snapchat: false,
     whatsapp: false,
   });
-
   const saveAppLock = useSaveAppLock();
 
   useEffect(() => {
-    if (profile?.settings?.appLocks) {
-      setLocks(profile.settings.appLocks);
-    }
+    if (profile?.settings?.appLocks) setLocks(profile.settings.appLocks);
   }, [profile]);
 
   const toggleLock = async (key: keyof AppLocks) => {
@@ -89,7 +86,7 @@ export default function AppLockPage({ profile }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="px-4 pt-6 pb-3 border-b border-border">
+      <header className="px-4 md:px-8 pt-6 pb-3 border-b border-border">
         <h1 className="text-2xl font-black">
           <span className="text-kids-red">App</span>{" "}
           <span className="text-kids-blue">Lock</span> 🔒
@@ -99,23 +96,65 @@ export default function AppLockPage({ profile }: Props) {
         </p>
       </header>
 
-      <div className="px-4 py-4 space-y-3">
+      <div className="px-4 md:px-8 py-4 space-y-3">
         <div className="bg-card rounded-2xl px-4 py-2 border-2 border-kids-amber">
           <p className="text-xs font-bold text-muted-foreground">
             🔒 Toggle to lock/unlock apps for kids
           </p>
         </div>
 
-        {APP_LIST.map((app, i) => {
-          const isLocked = locks[app.key]?.isLocked ?? false;
-          return (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {APP_LIST.map((app, i) => {
+            const isLocked = locks[app.key]?.isLocked ?? false;
+            return (
+              <motion.div
+                key={app.key}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06 }}
+                data-ocid={`applock.item.${i + 1}`}
+                className="bg-card rounded-2xl shadow-card p-4 flex items-center gap-4"
+              >
+                <div
+                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center text-2xl flex-shrink-0`}
+                >
+                  {app.emoji}
+                </div>
+                <div className="flex-1">
+                  <p className="font-black text-foreground">{app.name}</p>
+                  <p
+                    className={`text-xs font-semibold ${isLocked ? "text-kids-red" : "text-secondary"}`}
+                  >
+                    {isLocked ? "🔒 Locked" : "🔓 Unlocked"}
+                  </p>
+                </div>
+                {saveAppLock.isPending ? (
+                  <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+                ) : (
+                  <Switch
+                    data-ocid={`applock.toggle.${i + 1}`}
+                    checked={isLocked}
+                    onCheckedChange={() => toggleLock(app.key)}
+                    className="data-[state=checked]:bg-kids-red"
+                  />
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <p className="text-xs font-black text-muted-foreground px-1 pt-2">
+          Demo Only (not saved to backend)
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {DEMO_APPS.map((app, i) => (
             <motion.div
               key={app.key}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.06 }}
-              data-ocid={`applock.item.${i + 1}`}
-              className="bg-card rounded-2xl shadow-card p-4 flex items-center gap-4"
+              transition={{ delay: (APP_LIST.length + i) * 0.06 }}
+              data-ocid={`applock.demo.item.${i + 1}`}
+              className="bg-card rounded-2xl shadow-card p-4 flex items-center gap-4 opacity-80"
             >
               <div
                 className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center text-2xl flex-shrink-0`}
@@ -125,61 +164,22 @@ export default function AppLockPage({ profile }: Props) {
               <div className="flex-1">
                 <p className="font-black text-foreground">{app.name}</p>
                 <p
-                  className={`text-xs font-semibold ${isLocked ? "text-kids-red" : "text-secondary"}`}
+                  className={`text-xs font-semibold ${demoLocks[app.key] ? "text-kids-red" : "text-secondary"}`}
                 >
-                  {isLocked ? "🔒 Locked" : "🔓 Unlocked"}
+                  {demoLocks[app.key] ? "🔒 Locked" : "🔓 Unlocked"}
                 </p>
               </div>
-              {saveAppLock.isPending ? (
-                <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
-              ) : (
-                <Switch
-                  data-ocid={`applock.toggle.${i + 1}`}
-                  checked={isLocked}
-                  onCheckedChange={() => toggleLock(app.key)}
-                  className="data-[state=checked]:bg-kids-red"
-                />
-              )}
+              <Switch
+                checked={demoLocks[app.key] ?? false}
+                onCheckedChange={(v) =>
+                  setDemoLocks((prev) => ({ ...prev, [app.key]: v }))
+                }
+                className="data-[state=checked]:bg-kids-red"
+              />
             </motion.div>
-          );
-        })}
+          ))}
+        </div>
 
-        <p className="text-xs font-black text-muted-foreground px-1 pt-2">
-          Demo Only (not saved to backend)
-        </p>
-        {DEMO_APPS.map((app, i) => (
-          <motion.div
-            key={app.key}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: (APP_LIST.length + i) * 0.06 }}
-            data-ocid={`applock.demo.item.${i + 1}`}
-            className="bg-card rounded-2xl shadow-card p-4 flex items-center gap-4 opacity-80"
-          >
-            <div
-              className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center text-2xl flex-shrink-0`}
-            >
-              {app.emoji}
-            </div>
-            <div className="flex-1">
-              <p className="font-black text-foreground">{app.name}</p>
-              <p
-                className={`text-xs font-semibold ${demoLocks[app.key] ? "text-kids-red" : "text-secondary"}`}
-              >
-                {demoLocks[app.key] ? "🔒 Locked" : "🔓 Unlocked"}
-              </p>
-            </div>
-            <Switch
-              checked={demoLocks[app.key] ?? false}
-              onCheckedChange={(v) =>
-                setDemoLocks((prev) => ({ ...prev, [app.key]: v }))
-              }
-              className="data-[state=checked]:bg-kids-red"
-            />
-          </motion.div>
-        ))}
-
-        {/* Locked app demo */}
         {Object.entries(locks).some(([, v]) => v.isLocked) && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

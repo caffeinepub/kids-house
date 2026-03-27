@@ -75,11 +75,9 @@ export default function ShortsPage() {
     });
   };
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: stable ref-based handlers
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-
     const onTouchStart = (e: TouchEvent) => {
       touchStartY.current = e.touches[0].clientY;
     };
@@ -88,7 +86,6 @@ export default function ShortsPage() {
       if (delta > 60) setCurrent((c) => Math.min(c + 1, SHORTS.length - 1));
       else if (delta < -60) setCurrent((c) => Math.max(c - 1, 0));
     };
-
     el.addEventListener("touchstart", onTouchStart, { passive: true });
     el.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
@@ -100,128 +97,147 @@ export default function ShortsPage() {
   const short = SHORTS[current];
 
   return (
-    <div
-      ref={containerRef}
-      className="relative bg-black overflow-hidden"
-      style={{ height: "calc(100vh - 130px)" }}
-      data-ocid="shorts.canvas_target"
-    >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={short.id}
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -60 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`absolute inset-0 bg-gradient-to-b ${short.gradient} flex items-center justify-center`}
-        >
-          <span className="text-[120px] opacity-80">{short.emoji}</span>
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Right side buttons */}
-      <div className="absolute right-4 bottom-32 flex flex-col gap-5 items-center z-20">
-        <button
-          type="button"
-          data-ocid="shorts.like_button"
-          onClick={() => toggleLike(short.id)}
-          className="flex flex-col items-center gap-1"
-        >
-          <div
-            className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-lg transition-transform active:scale-90 ${
-              liked.has(short.id)
-                ? "bg-kids-red"
-                : "bg-white/20 backdrop-blur-sm"
-            }`}
-          >
-            {liked.has(short.id) ? "❤️" : "🤍"}
-          </div>
-          <span className="text-white text-xs font-black">
-            {short.likes + (liked.has(short.id) ? 1 : 0)}
-          </span>
-        </button>
-
-        <button
-          type="button"
-          data-ocid="shorts.comment_button"
-          className="flex flex-col items-center gap-1"
-        >
-          <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg">
-            💬
-          </div>
-          <span className="text-white text-xs font-black">
-            {short.comments}
-          </span>
-        </button>
-
-        <button
-          type="button"
-          data-ocid="shorts.share_button"
-          className="flex flex-col items-center gap-1"
-        >
-          <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-2xl shadow-lg">
-            📤
-          </div>
-          <span className="text-white text-xs font-black">शेयर</span>
-        </button>
-      </div>
-
-      {/* Progress dots */}
-      <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-1.5 z-20">
-        {SHORTS.map((s, i) => (
-          <button
-            type="button"
-            key={s.id}
-            onClick={() => setCurrent(i)}
-            className={`w-1.5 rounded-full transition-all ${
-              i === current ? "h-6 bg-white" : "h-1.5 bg-white/40"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* Bottom info */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent z-20">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center text-lg">
-            👤
-          </div>
-          <div>
-            <p className="text-white font-black text-sm">{short.creator}</p>
-            <p className="text-white/60 text-xs">Follow करें</p>
-          </div>
-          <button
-            type="button"
-            className="ml-auto bg-kids-blue text-white text-xs font-black px-3 py-1.5 rounded-full"
-          >
-            + Follow
-          </button>
+    // Mobile: full screen. Desktop: centered card layout
+    <div ref={containerRef} className="bg-background min-h-screen md:py-8">
+      {/* Desktop: navigation + centered card */}
+      <div className="hidden md:flex flex-col items-center gap-4 px-8">
+        <h1 className="text-2xl font-black self-start">
+          <span className="text-kids-blue">शॉर्ट्स </span>
+          <span className="text-kids-red">Shorts</span> ▶️
+        </h1>
+        <div className="flex gap-3 w-full max-w-2xl justify-center flex-wrap">
+          {SHORTS.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setCurrent(i)}
+              className={`px-4 py-2 rounded-full text-sm font-black border-2 transition-all ${
+                current === i
+                  ? "bg-kids-blue text-white border-kids-blue"
+                  : "bg-card border-border text-foreground"
+              }`}
+            >
+              {s.emoji} {s.title.split(" ")[0]}
+            </button>
+          ))}
         </div>
-        <p className="text-white font-black text-base">{short.title}</p>
-        <p className="text-white/60 text-xs font-semibold mt-0.5">
-          Educational & Fun Content 🌟
-        </p>
+        {/* Desktop card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={short.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className={`w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 bg-gradient-to-b ${short.gradient}`}
+            style={{ minHeight: 480 }}
+          >
+            <div className="flex flex-col h-full" style={{ minHeight: 480 }}>
+              <div className="flex-1 flex flex-col items-center justify-center gap-4 p-8">
+                <div className="text-9xl">{short.emoji}</div>
+                <p className="font-black text-3xl text-white text-center drop-shadow-lg">
+                  {short.title}
+                </p>
+                <p className="text-white/80 font-semibold text-lg">
+                  by {short.creator}
+                </p>
+              </div>
+              <div className="flex items-center justify-between px-6 py-4 bg-black/20">
+                <button
+                  type="button"
+                  onClick={() => toggleLike(short.id)}
+                  className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2"
+                >
+                  <span className="text-xl">
+                    {liked.has(short.id) ? "❤️" : "🤍"}
+                  </span>
+                  <span className="text-white font-black">
+                    {short.likes + (liked.has(short.id) ? 1 : 0)}
+                  </span>
+                </button>
+                <span className="text-white/70 font-semibold text-sm">
+                  💬 {short.comments}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setCurrent((c) => Math.max(c - 1, 0))}
+                    disabled={current === 0}
+                    className="bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-40"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setCurrent((c) => Math.min(c + 1, SHORTS.length - 1))
+                    }
+                    disabled={current === SHORTS.length - 1}
+                    className="bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-40"
+                  >
+                    ↓
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* Nav arrows */}
-      <button
-        type="button"
-        data-ocid="shorts.pagination_prev"
-        onClick={() => setCurrent((c) => Math.max(c - 1, 0))}
-        disabled={current === 0}
-        className="absolute top-4 left-1/2 -translate-x-1/2 z-20 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white disabled:opacity-30"
+      {/* Mobile: full screen swipe */}
+      <div
+        className="md:hidden relative"
+        style={{ height: "calc(100dvh - 130px)" }}
       >
-        ▲
-      </button>
-      <button
-        type="button"
-        data-ocid="shorts.pagination_next"
-        onClick={() => setCurrent((c) => Math.min(c + 1, SHORTS.length - 1))}
-        disabled={current === SHORTS.length - 1}
-        className="absolute bottom-[7.5rem] left-4 z-20 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white disabled:opacity-30"
-      >
-        ▼
-      </button>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={short.id}
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -60 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className={`absolute inset-0 bg-gradient-to-b ${short.gradient} flex flex-col`}
+          >
+            <div className="flex-1 flex flex-col items-center justify-center gap-4 p-6">
+              <div className="text-9xl">{short.emoji}</div>
+              <p className="font-black text-3xl text-white text-center drop-shadow-lg">
+                {short.title}
+              </p>
+              <p className="text-white/80 font-semibold text-lg">
+                by {short.creator}
+              </p>
+              <p className="text-white/60 text-sm font-semibold mt-2">
+                ↕ Swipe up/down
+              </p>
+            </div>
+            <div className="flex items-center justify-between px-6 py-4 bg-black/20">
+              <button
+                type="button"
+                data-ocid={`shorts.like_button.${short.id}`}
+                onClick={() => toggleLike(short.id)}
+                className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2"
+              >
+                <span className="text-xl">
+                  {liked.has(short.id) ? "❤️" : "🤍"}
+                </span>
+                <span className="text-white font-black">
+                  {short.likes + (liked.has(short.id) ? 1 : 0)}
+                </span>
+              </button>
+              <span className="text-white/70 font-semibold text-sm">
+                💬 {short.comments}
+              </span>
+              <div className="flex gap-1">
+                {SHORTS.map((s, i) => (
+                  <div
+                    key={s.id}
+                    className={`w-1.5 h-1.5 rounded-full transition-all ${i === current ? "bg-white w-4" : "bg-white/40"}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

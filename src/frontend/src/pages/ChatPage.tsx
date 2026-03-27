@@ -6,7 +6,7 @@ const ROOMS = [
   {
     id: "study",
     name: "Study Group",
-    hindi: "पढ़ाई ग्रुप",
+    hindi: "पड़ाई ग्रुप",
     emoji: "📚",
     unread: 0,
   },
@@ -64,7 +64,7 @@ const SEED_MSGS: Record<string, Message[]> = {
     {
       id: 2,
       name: "Rohan",
-      avatar: "🧮",
+      avatar: "🧠",
       text: "Sure! What problem?",
       time: "09:31",
     },
@@ -166,8 +166,7 @@ export default function ChatPage() {
             </p>
           </div>
         </div>
-
-        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-blue-50/30">
+        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-3 space-y-3 bg-blue-50/30">
           {currentMsgs.map((msg) => (
             <motion.div
               key={msg.id}
@@ -187,11 +186,7 @@ export default function ChatPage() {
                   </span>
                 )}
                 <div
-                  className={`px-3 py-2 rounded-2xl text-sm font-semibold ${
-                    msg.self
-                      ? "bg-kids-blue text-white rounded-tr-sm"
-                      : "bg-white border border-border rounded-tl-sm"
-                  }`}
+                  className={`px-3 py-2 rounded-2xl text-sm font-semibold ${msg.self ? "bg-kids-blue text-white rounded-tr-sm" : "bg-white border border-border rounded-tl-sm"}`}
                 >
                   {msg.text}
                 </div>
@@ -203,8 +198,7 @@ export default function ChatPage() {
           ))}
           <div ref={messagesEndRef} />
         </div>
-
-        <div className="flex gap-2 px-4 py-3 bg-white border-t-2 border-border">
+        <div className="flex gap-2 px-4 md:px-8 py-3 bg-white border-t-2 border-border">
           <input
             data-ocid="chat.input"
             value={input}
@@ -228,7 +222,7 @@ export default function ChatPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="px-4 pt-4 pb-2">
+      <div className="px-4 md:px-8 pt-4 pb-2">
         <h1 className="text-2xl font-black">
           <span className="text-kids-purple">चैट </span>
           <span className="text-kids-blue">Chat</span> 💬
@@ -237,8 +231,7 @@ export default function ChatPage() {
           Safe group chats for kids!
         </p>
       </div>
-
-      <div className="px-4 py-3 space-y-3">
+      <div className="px-4 md:px-8 py-3 grid grid-cols-1 md:grid-cols-2 gap-3">
         {ROOMS.map((room, i) => (
           <motion.button
             type="button"
@@ -268,8 +261,7 @@ export default function ChatPage() {
           </motion.button>
         ))}
       </div>
-
-      <div className="mx-4 mt-4 bg-kids-green/10 border-2 border-kids-green rounded-2xl p-4">
+      <div className="mx-4 md:mx-8 mt-4 bg-kids-green/10 border-2 border-kids-green rounded-2xl p-4">
         <p className="font-black text-sm text-kids-green">
           🛡️ Safe Chat Environment
         </p>
