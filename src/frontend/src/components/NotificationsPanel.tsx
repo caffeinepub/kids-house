@@ -1,18 +1,12 @@
 import { X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useInternetIdentity } from "../hooks/useInternetIdentity";
+import { useAllVideos, useMySubscriptions } from "../hooks/useQueries";
 
-const INITIAL_NOTIFS = [
+const STATIC_NOTIFS = [
   {
     id: 1,
-    emoji: "🎬",
-    title: "New video uploaded!",
-    body: "Fun Math Tricks is now live 🔢",
-    time: "2m ago",
-    read: false,
-  },
-  {
-    id: 2,
     emoji: "🔴",
     title: "Live session starting!",
     body: "ABC Song Live — join now! 🎵",
@@ -20,7 +14,7 @@ const INITIAL_NOTIFS = [
     read: false,
   },
   {
-    id: 3,
+    id: 2,
     emoji: "❤️",
     title: "Someone liked your video",
     body: "Your video got 10 new likes! 🎉",
@@ -28,7 +22,7 @@ const INITIAL_NOTIFS = [
     read: false,
   },
   {
-    id: 4,
+    id: 3,
     emoji: "📚",
     title: "New course available",
     body: "Business for Kids course added! 💼",
@@ -36,7 +30,7 @@ const INITIAL_NOTIFS = [
     read: true,
   },
   {
-    id: 5,
+    id: 4,
     emoji: "🎮",
     title: "New game unlocked!",
     body: "Color Match game is ready to play 🎨",
@@ -45,18 +39,68 @@ const INITIAL_NOTIFS = [
   },
 ];
 
-type Notif = (typeof INITIAL_NOTIFS)[0];
+type Notif = {
+  id: number;
+  emoji: string;
+  title: string;
+  body: string;
+  time: string;
+  read: boolean;
+};
 
 interface Props {
   onClose: () => void;
 }
 
 export default function NotificationsPanel({ onClose }: Props) {
-  const [notifs, setNotifs] = useState<Notif[]>(INITIAL_NOTIFS);
+  const { identity } = useInternetIdentity();
+  const userId = identity?.getPrincipal().toString() ?? "";
+
+  const { data: allVideos } = useAllVideos();
+  const { data: subscriptions } = useMySubscriptions();
+
+  // Compute new-video notifications from subscribed creators
+  const subscriptionNotifs = useMemo<Notif[]>(() => {
+    if (!allVideos || !subscriptions || subscriptions.length === 0) return [];
+    const lastVisitKey = `lastVisit_${userId}`;
+    const lastVisitRaw = localStorage.getItem(lastVisitKey);
+    const lastVisit = lastVisitRaw ? Number(lastVisitRaw) : 0;
+    const subSet = new Set(subscriptions.map((p) => p.toString()));
+
+    return allVideos
+      .filter((v) => {
+        const ts = Number(v.timestamp) / 1_000_000; // nanoseconds → ms
+        return subSet.has(v.uploader.toString()) && ts > lastVisit;
+      })
+      .map((v, i) => ({
+        id: 10000 + i,
+        emoji: "🆕",
+        title: "New video from a creator you follow!",
+        body: `${v.uploader.toString().slice(0, 10)}... uploaded: ${v.title}`,
+        time: "recently",
+        read: false,
+      }));
+  }, [allVideos, subscriptions, userId]);
+
+  const [notifs, setNotifs] = useState<Notif[]>([]);
+
+  // Merge static + subscription notifs once on mount / when deps change
+  useEffect(() => {
+    setNotifs([...subscriptionNotifs, ...STATIC_NOTIFS]);
+  }, [subscriptionNotifs]);
 
   const markAllRead = () =>
     setNotifs((prev) => prev.map((n) => ({ ...n, read: true })));
-  const clear = () => setNotifs([]);
+
+  const clearAll = () => setNotifs([]);
+
+  const handleClose = () => {
+    // Record last visit time so future opens don't re-show the same videos
+    if (userId) {
+      localStorage.setItem(`lastVisit_${userId}`, String(Date.now()));
+    }
+    onClose();
+  };
 
   return (
     <motion.div
@@ -65,7 +109,7 @@ export default function NotificationsPanel({ onClose }: Props) {
       exit={{ opacity: 0 }}
       data-ocid="notifications.panel"
       className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-16"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
+      onClick={(e) => e.target === e.currentTarget && handleClose()}
     >
       <motion.div
         initial={{ y: -30, opacity: 0 }}
@@ -82,7 +126,7 @@ export default function NotificationsPanel({ onClose }: Props) {
           <button
             type="button"
             data-ocid="notifications.close_button"
-            onClick={onClose}
+            onClick={handleClose}
             className="w-9 h-9 rounded-full bg-muted flex items-center justify-center"
           >
             <X className="w-5 h-5" />
@@ -92,7 +136,7 @@ export default function NotificationsPanel({ onClose }: Props) {
         <div className="flex gap-2 px-5 py-3 border-b border-border">
           <button
             type="button"
-            data-ocid="notifications.mark_read_button"
+            data-ocid="notifications.toggle"
             onClick={markAllRead}
             className="text-xs font-black text-kids-blue hover:underline"
           >
@@ -101,8 +145,8 @@ export default function NotificationsPanel({ onClose }: Props) {
           <span className="text-muted-foreground">·</span>
           <button
             type="button"
-            data-ocid="notifications.clear_button"
-            onClick={clear}
+            data-ocid="notifications.delete_button"
+            onClick={clearAll}
             className="text-xs font-black text-kids-red hover:underline"
           >
             🗑 Clear all

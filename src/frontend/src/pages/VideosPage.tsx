@@ -2,7 +2,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { VideoMeta } from "../backend";
-import { useAllVideos } from "../hooks/useQueries";
+import { useInternetIdentity } from "../hooks/useInternetIdentity";
+import {
+  useAllVideos,
+  useIsSubscribed,
+  useSubscribeMutation,
+  useSubscriberCount,
+  useUnsubscribeMutation,
+} from "../hooks/useQueries";
 
 const BORDER_COLORS = [
   "border-kids-blue",
@@ -204,6 +211,56 @@ function DemoVideoCard({
   );
 }
 
+function SubscribeButton({ video }: { video: VideoMeta }) {
+  const { identity } = useInternetIdentity();
+  const myPrincipal = identity?.getPrincipal().toString();
+  const isOwnVideo = myPrincipal === video.uploader.toString();
+
+  const { data: subscribed, isLoading: subLoading } = useIsSubscribed(
+    isOwnVideo ? null : video.uploader,
+  );
+  const { data: count } = useSubscriberCount(video.uploader);
+  const subscribeMutation = useSubscribeMutation();
+  const unsubscribeMutation = useUnsubscribeMutation();
+
+  if (isOwnVideo) return null;
+  if (!identity) return null;
+
+  const isPending =
+    subscribeMutation.isPending || unsubscribeMutation.isPending;
+
+  const handleClick = () => {
+    if (subscribed) {
+      unsubscribeMutation.mutate(video.uploader);
+    } else {
+      subscribeMutation.mutate(video.uploader);
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-1.5">
+      {count !== undefined && count > 0n && (
+        <span className="text-[10px] font-black text-muted-foreground">
+          {count.toString()} sub{count === 1n ? "" : "s"}
+        </span>
+      )}
+      <button
+        type="button"
+        data-ocid="videos.toggle"
+        disabled={isPending || subLoading}
+        onClick={handleClick}
+        className={`inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full transition-all active:scale-95 disabled:opacity-60 ${
+          subscribed
+            ? "bg-teal-100 text-teal-700 border border-teal-300"
+            : "bg-kids-amber text-white border border-kids-amber/80 shadow-sm"
+        }`}
+      >
+        {subscribed ? "✅ Subscribed" : "🔔 Subscribe"}
+      </button>
+    </div>
+  );
+}
+
 function RealVideoCard({ video, index }: { video: VideoMeta; index: number }) {
   const [liked, setLiked] = useState(false);
   const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
@@ -236,6 +293,7 @@ function RealVideoCard({ video, index }: { video: VideoMeta; index: number }) {
           <span className="inline-flex items-center gap-1 bg-kids-amber/10 text-kids-amber text-xs font-black px-2.5 py-1 rounded-full border border-kids-amber/30">
             👤 By: {uploaderShort}
           </span>
+          <SubscribeButton video={video} />
           <button
             type="button"
             data-ocid={`videos.like_button.${index + 1}`}

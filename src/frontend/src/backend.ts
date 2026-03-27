@@ -166,11 +166,16 @@ export interface backendInterface {
     getAllVideos(): Promise<Array<VideoMeta>>;
     getCallerProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getMySubscriptions(): Promise<Array<Principal>>;
+    getSubscriberCount(creator: Principal): Promise<bigint>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
+    isSubscribed(creator: Principal): Promise<boolean>;
     isUserExists(user: Principal): Promise<boolean>;
     saveAppLock(user: Principal, settings: AppLocks): Promise<void>;
     saveBasicSettings(user: Principal, settings: UserSettings): Promise<void>;
+    subscribe(creator: Principal): Promise<void>;
+    unsubscribe(creator: Principal): Promise<void>;
 }
 import type { AppLocks as _AppLocks, CreateVideoMetaInput as _CreateVideoMetaInput, ExternalBlob as _ExternalBlob, PinSettings as _PinSettings, ProfileView as _ProfileView, UserProfile as _UserProfile, UserRole as _UserRole, UserSettings as _UserSettings, VideoMeta as _VideoMeta, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
@@ -371,6 +376,34 @@ export class Backend implements backendInterface {
             return from_candid_UserRole_n15(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getMySubscriptions(): Promise<Array<Principal>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getMySubscriptions();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getMySubscriptions();
+            return result;
+        }
+    }
+    async getSubscriberCount(arg0: Principal): Promise<bigint> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getSubscriberCount(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getSubscriberCount(arg0);
+            return result;
+        }
+    }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
@@ -396,6 +429,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.isCallerAdmin();
+            return result;
+        }
+    }
+    async isSubscribed(arg0: Principal): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.isSubscribed(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.isSubscribed(arg0);
             return result;
         }
     }
@@ -438,6 +485,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.saveBasicSettings(arg0, to_candid_UserSettings_n27(this._uploadFile, this._downloadFile, arg1));
+            return result;
+        }
+    }
+    async subscribe(arg0: Principal): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.subscribe(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.subscribe(arg0);
+            return result;
+        }
+    }
+    async unsubscribe(arg0: Principal): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.unsubscribe(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.unsubscribe(arg0);
             return result;
         }
     }

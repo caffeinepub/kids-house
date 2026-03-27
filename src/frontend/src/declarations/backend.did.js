@@ -105,15 +105,20 @@ export const idlService = IDL.Service({
   'getAllVideos' : IDL.Func([], [IDL.Vec(VideoMeta)], ['query']),
   'getCallerProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getMySubscriptions' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
+  'getSubscriberCount' : IDL.Func([IDL.Principal], [IDL.Nat], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'isSubscribed' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
   'isUserExists' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
   'saveAppLock' : IDL.Func([IDL.Principal, AppLocks], [], []),
   'saveBasicSettings' : IDL.Func([IDL.Principal, UserSettings], [], []),
+  'subscribe' : IDL.Func([IDL.Principal], [], []),
+  'unsubscribe' : IDL.Func([IDL.Principal], [], []),
 });
 
 export const idlInitArgs = [];
@@ -216,15 +221,20 @@ export const idlFactory = ({ IDL }) => {
     'getAllVideos' : IDL.Func([], [IDL.Vec(VideoMeta)], ['query']),
     'getCallerProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getMySubscriptions' : IDL.Func([], [IDL.Vec(IDL.Principal)], ['query']),
+    'getSubscriberCount' : IDL.Func([IDL.Principal], [IDL.Nat], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'isSubscribed' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
     'isUserExists' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
     'saveAppLock' : IDL.Func([IDL.Principal, AppLocks], [], []),
     'saveBasicSettings' : IDL.Func([IDL.Principal, UserSettings], [], []),
+    'subscribe' : IDL.Func([IDL.Principal], [], []),
+    'unsubscribe' : IDL.Func([IDL.Principal], [], []),
   });
 };
 

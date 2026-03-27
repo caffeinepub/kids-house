@@ -23317,156 +23317,6 @@ const __iconNode = [
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
 ];
 const X$1 = createLucideIcon("x", __iconNode);
-const INITIAL_NOTIFS = [
-  {
-    id: 1,
-    emoji: "🎬",
-    title: "New video uploaded!",
-    body: "Fun Math Tricks is now live 🔢",
-    time: "2m ago",
-    read: false
-  },
-  {
-    id: 2,
-    emoji: "🔴",
-    title: "Live session starting!",
-    body: "ABC Song Live — join now! 🎵",
-    time: "15m ago",
-    read: false
-  },
-  {
-    id: 3,
-    emoji: "❤️",
-    title: "Someone liked your video",
-    body: "Your video got 10 new likes! 🎉",
-    time: "1h ago",
-    read: false
-  },
-  {
-    id: 4,
-    emoji: "📚",
-    title: "New course available",
-    body: "Business for Kids course added! 💼",
-    time: "3h ago",
-    read: true
-  },
-  {
-    id: 5,
-    emoji: "🎮",
-    title: "New game unlocked!",
-    body: "Color Match game is ready to play 🎨",
-    time: "1d ago",
-    read: true
-  }
-];
-function NotificationsPanel({ onClose }) {
-  const [notifs, setNotifs] = reactExports.useState(INITIAL_NOTIFS);
-  const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })));
-  const clear = () => setNotifs([]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    motion.div,
-    {
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-      exit: { opacity: 0 },
-      "data-ocid": "notifications.panel",
-      className: "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-16",
-      onClick: (e) => e.target === e.currentTarget && onClose(),
-      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        motion.div,
-        {
-          initial: { y: -30, opacity: 0 },
-          animate: { y: 0, opacity: 1 },
-          exit: { y: -30, opacity: 0 },
-          transition: { type: "spring", stiffness: 350, damping: 30 },
-          className: "w-full max-w-[420px] bg-background rounded-3xl overflow-hidden shadow-card mx-4",
-          style: { maxHeight: "75vh" },
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-5 py-4 border-b border-border", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "font-black text-lg", children: [
-                "🔔 ",
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "सूचनाएं" }),
-                " Notifications"
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  type: "button",
-                  "data-ocid": "notifications.close_button",
-                  onClick: onClose,
-                  className: "w-9 h-9 rounded-full bg-muted flex items-center justify-center",
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-5 h-5" })
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 px-5 py-3 border-b border-border", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  type: "button",
-                  "data-ocid": "notifications.mark_read_button",
-                  onClick: markAllRead,
-                  className: "text-xs font-black text-kids-blue hover:underline",
-                  children: "✓ Mark all read"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-muted-foreground", children: "·" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  type: "button",
-                  "data-ocid": "notifications.clear_button",
-                  onClick: clear,
-                  className: "text-xs font-black text-kids-red hover:underline",
-                  children: "🗑 Clear all"
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "div",
-              {
-                className: "overflow-y-auto",
-                style: { maxHeight: "calc(75vh - 110px)" },
-                children: notifs.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                  "div",
-                  {
-                    "data-ocid": "notifications.empty_state",
-                    className: "text-center py-12",
-                    children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-5xl mb-2", children: "🔕" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-muted-foreground", children: "कोई सूचना नहीं" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "No notifications" })
-                    ]
-                  }
-                ) : /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: notifs.map((n, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                  motion.div,
-                  {
-                    initial: { opacity: 0, x: -10 },
-                    animate: { opacity: 1, x: 0 },
-                    exit: { opacity: 0, x: 10 },
-                    transition: { delay: i * 0.04 },
-                    "data-ocid": `notifications.item.${i + 1}`,
-                    className: `flex gap-3 px-5 py-4 border-b border-border last:border-0 ${n.read ? "opacity-60" : "bg-kids-blue/3"}`,
-                    children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-10 h-10 rounded-full bg-kids-blue/10 flex items-center justify-center text-xl flex-shrink-0", children: n.emoji }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-foreground", children: n.title }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold truncate", children: n.body }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[10px] text-muted-foreground mt-0.5", children: n.time })
-                      ] }),
-                      !n.read && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2.5 h-2.5 rounded-full bg-kids-red mt-1 flex-shrink-0" })
-                    ]
-                  },
-                  n.id
-                )) })
-              }
-            )
-          ]
-        }
-      )
-    }
-  );
-}
 var ReplicaRejectCode;
 (function(ReplicaRejectCode2) {
   ReplicaRejectCode2[ReplicaRejectCode2["SysFatal"] = 1] = "SysFatal";
@@ -35487,15 +35337,20 @@ Service({
   "getAllVideos": Func([], [Vec(VideoMeta)], ["query"]),
   "getCallerProfile": Func([], [Opt(UserProfile)], ["query"]),
   "getCallerUserRole": Func([], [UserRole], ["query"]),
+  "getMySubscriptions": Func([], [Vec(Principal2)], ["query"]),
+  "getSubscriberCount": Func([Principal2], [Nat], ["query"]),
   "getUserProfile": Func(
     [Principal2],
     [Opt(UserProfile)],
     ["query"]
   ),
   "isCallerAdmin": Func([], [Bool], ["query"]),
+  "isSubscribed": Func([Principal2], [Bool], ["query"]),
   "isUserExists": Func([Principal2], [Bool], ["query"]),
   "saveAppLock": Func([Principal2, AppLocks], [], []),
-  "saveBasicSettings": Func([Principal2, UserSettings], [], [])
+  "saveBasicSettings": Func([Principal2, UserSettings], [], []),
+  "subscribe": Func([Principal2], [], []),
+  "unsubscribe": Func([Principal2], [], [])
 });
 const idlFactory = ({ IDL: IDL2 }) => {
   const _CaffeineStorageCreateCertificateResult2 = IDL2.Record({
@@ -35594,15 +35449,20 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "getAllVideos": IDL2.Func([], [IDL2.Vec(VideoMeta2)], ["query"]),
     "getCallerProfile": IDL2.Func([], [IDL2.Opt(UserProfile2)], ["query"]),
     "getCallerUserRole": IDL2.Func([], [UserRole2], ["query"]),
+    "getMySubscriptions": IDL2.Func([], [IDL2.Vec(IDL2.Principal)], ["query"]),
+    "getSubscriberCount": IDL2.Func([IDL2.Principal], [IDL2.Nat], ["query"]),
     "getUserProfile": IDL2.Func(
       [IDL2.Principal],
       [IDL2.Opt(UserProfile2)],
       ["query"]
     ),
     "isCallerAdmin": IDL2.Func([], [IDL2.Bool], ["query"]),
+    "isSubscribed": IDL2.Func([IDL2.Principal], [IDL2.Bool], ["query"]),
     "isUserExists": IDL2.Func([IDL2.Principal], [IDL2.Bool], ["query"]),
     "saveAppLock": IDL2.Func([IDL2.Principal, AppLocks2], [], []),
-    "saveBasicSettings": IDL2.Func([IDL2.Principal, UserSettings2], [], [])
+    "saveBasicSettings": IDL2.Func([IDL2.Principal, UserSettings2], [], []),
+    "subscribe": IDL2.Func([IDL2.Principal], [], []),
+    "unsubscribe": IDL2.Func([IDL2.Principal], [], [])
   });
 };
 function candid_some(value) {
@@ -35857,6 +35717,34 @@ class Backend {
       return from_candid_UserRole_n15(this._uploadFile, this._downloadFile, result);
     }
   }
+  async getMySubscriptions() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getMySubscriptions();
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getMySubscriptions();
+      return result;
+    }
+  }
+  async getSubscriberCount(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getSubscriberCount(arg0);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getSubscriberCount(arg0);
+      return result;
+    }
+  }
   async getUserProfile(arg0) {
     if (this.processError) {
       try {
@@ -35882,6 +35770,20 @@ class Backend {
       }
     } else {
       const result = await this.actor.isCallerAdmin();
+      return result;
+    }
+  }
+  async isSubscribed(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.isSubscribed(arg0);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.isSubscribed(arg0);
       return result;
     }
   }
@@ -35924,6 +35826,34 @@ class Backend {
       }
     } else {
       const result = await this.actor.saveBasicSettings(arg0, to_candid_UserSettings_n27(this._uploadFile, this._downloadFile, arg1));
+      return result;
+    }
+  }
+  async subscribe(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.subscribe(arg0);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.subscribe(arg0);
+      return result;
+    }
+  }
+  async unsubscribe(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.unsubscribe(arg0);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.unsubscribe(arg0);
       return result;
     }
   }
@@ -36920,6 +36850,272 @@ function useCreateVideoMeta() {
       queryClient2.invalidateQueries({ queryKey: ["allVideos"] });
     }
   });
+}
+function useMySubscriptions() {
+  const { actor, isFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery({
+    queryKey: ["mySubscriptions", identity == null ? void 0 : identity.getPrincipal().toString()],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getMySubscriptions();
+    },
+    enabled: !!actor && !isFetching && !!identity
+  });
+}
+function useIsSubscribed(creator) {
+  const { actor, isFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery({
+    queryKey: [
+      "isSubscribed",
+      creator == null ? void 0 : creator.toString(),
+      identity == null ? void 0 : identity.getPrincipal().toString()
+    ],
+    queryFn: async () => {
+      if (!actor || !creator) return false;
+      return actor.isSubscribed(creator);
+    },
+    enabled: !!actor && !isFetching && !!creator && !!identity
+  });
+}
+function useSubscriberCount(creator) {
+  const { actor, isFetching } = useActor();
+  return useQuery({
+    queryKey: ["subscriberCount", creator == null ? void 0 : creator.toString()],
+    queryFn: async () => {
+      if (!actor || !creator) return 0n;
+      return actor.getSubscriberCount(creator);
+    },
+    enabled: !!actor && !isFetching && !!creator
+  });
+}
+function useSubscribeMutation() {
+  const { actor } = useActor();
+  const { identity } = useInternetIdentity();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (creator) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.subscribe(creator);
+    },
+    onSuccess: (_data, creator) => {
+      queryClient2.invalidateQueries({ queryKey: ["mySubscriptions"] });
+      queryClient2.invalidateQueries({
+        queryKey: ["isSubscribed", creator.toString()]
+      });
+      queryClient2.invalidateQueries({
+        queryKey: ["subscriberCount", creator.toString()]
+      });
+      queryClient2.invalidateQueries({
+        queryKey: [
+          "isSubscribed",
+          creator.toString(),
+          identity == null ? void 0 : identity.getPrincipal().toString()
+        ]
+      });
+    }
+  });
+}
+function useUnsubscribeMutation() {
+  const { actor } = useActor();
+  const { identity } = useInternetIdentity();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (creator) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.unsubscribe(creator);
+    },
+    onSuccess: (_data, creator) => {
+      queryClient2.invalidateQueries({ queryKey: ["mySubscriptions"] });
+      queryClient2.invalidateQueries({
+        queryKey: ["isSubscribed", creator.toString()]
+      });
+      queryClient2.invalidateQueries({
+        queryKey: ["subscriberCount", creator.toString()]
+      });
+      queryClient2.invalidateQueries({
+        queryKey: [
+          "isSubscribed",
+          creator.toString(),
+          identity == null ? void 0 : identity.getPrincipal().toString()
+        ]
+      });
+    }
+  });
+}
+const STATIC_NOTIFS = [
+  {
+    id: 1,
+    emoji: "🔴",
+    title: "Live session starting!",
+    body: "ABC Song Live — join now! 🎵",
+    time: "15m ago",
+    read: false
+  },
+  {
+    id: 2,
+    emoji: "❤️",
+    title: "Someone liked your video",
+    body: "Your video got 10 new likes! 🎉",
+    time: "1h ago",
+    read: false
+  },
+  {
+    id: 3,
+    emoji: "📚",
+    title: "New course available",
+    body: "Business for Kids course added! 💼",
+    time: "3h ago",
+    read: true
+  },
+  {
+    id: 4,
+    emoji: "🎮",
+    title: "New game unlocked!",
+    body: "Color Match game is ready to play 🎨",
+    time: "1d ago",
+    read: true
+  }
+];
+function NotificationsPanel({ onClose }) {
+  const { identity } = useInternetIdentity();
+  const userId = (identity == null ? void 0 : identity.getPrincipal().toString()) ?? "";
+  const { data: allVideos } = useAllVideos();
+  const { data: subscriptions } = useMySubscriptions();
+  const subscriptionNotifs = reactExports.useMemo(() => {
+    if (!allVideos || !subscriptions || subscriptions.length === 0) return [];
+    const lastVisitKey = `lastVisit_${userId}`;
+    const lastVisitRaw = localStorage.getItem(lastVisitKey);
+    const lastVisit = lastVisitRaw ? Number(lastVisitRaw) : 0;
+    const subSet = new Set(subscriptions.map((p2) => p2.toString()));
+    return allVideos.filter((v2) => {
+      const ts = Number(v2.timestamp) / 1e6;
+      return subSet.has(v2.uploader.toString()) && ts > lastVisit;
+    }).map((v2, i) => ({
+      id: 1e4 + i,
+      emoji: "🆕",
+      title: "New video from a creator you follow!",
+      body: `${v2.uploader.toString().slice(0, 10)}... uploaded: ${v2.title}`,
+      time: "recently",
+      read: false
+    }));
+  }, [allVideos, subscriptions, userId]);
+  const [notifs, setNotifs] = reactExports.useState([]);
+  reactExports.useEffect(() => {
+    setNotifs([...subscriptionNotifs, ...STATIC_NOTIFS]);
+  }, [subscriptionNotifs]);
+  const markAllRead = () => setNotifs((prev) => prev.map((n) => ({ ...n, read: true })));
+  const clearAll = () => setNotifs([]);
+  const handleClose = () => {
+    if (userId) {
+      localStorage.setItem(`lastVisit_${userId}`, String(Date.now()));
+    }
+    onClose();
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    motion.div,
+    {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      "data-ocid": "notifications.panel",
+      className: "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-16",
+      onClick: (e) => e.target === e.currentTarget && handleClose(),
+      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { y: -30, opacity: 0 },
+          animate: { y: 0, opacity: 1 },
+          exit: { y: -30, opacity: 0 },
+          transition: { type: "spring", stiffness: 350, damping: 30 },
+          className: "w-full max-w-[420px] bg-background rounded-3xl overflow-hidden shadow-card mx-4",
+          style: { maxHeight: "75vh" },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-5 py-4 border-b border-border", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "font-black text-lg", children: [
+                "🔔 ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "सूचनाएं" }),
+                " Notifications"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "notifications.close_button",
+                  onClick: handleClose,
+                  className: "w-9 h-9 rounded-full bg-muted flex items-center justify-center",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-5 h-5" })
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 px-5 py-3 border-b border-border", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "notifications.toggle",
+                  onClick: markAllRead,
+                  className: "text-xs font-black text-kids-blue hover:underline",
+                  children: "✓ Mark all read"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-muted-foreground", children: "·" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "notifications.delete_button",
+                  onClick: clearAll,
+                  className: "text-xs font-black text-kids-red hover:underline",
+                  children: "🗑 Clear all"
+                }
+              )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: "overflow-y-auto",
+                style: { maxHeight: "calc(75vh - 110px)" },
+                children: notifs.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "div",
+                  {
+                    "data-ocid": "notifications.empty_state",
+                    className: "text-center py-12",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-5xl mb-2", children: "🔕" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-muted-foreground", children: "कोई सूचना नहीं" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "No notifications" })
+                    ]
+                  }
+                ) : /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: notifs.map((n, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  motion.div,
+                  {
+                    initial: { opacity: 0, x: -10 },
+                    animate: { opacity: 1, x: 0 },
+                    exit: { opacity: 0, x: 10 },
+                    transition: { delay: i * 0.04 },
+                    "data-ocid": `notifications.item.${i + 1}`,
+                    className: `flex gap-3 px-5 py-4 border-b border-border last:border-0 ${n.read ? "opacity-60" : "bg-kids-blue/3"}`,
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-10 h-10 rounded-full bg-kids-blue/10 flex items-center justify-center text-xl flex-shrink-0", children: n.emoji }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-foreground", children: n.title }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold truncate", children: n.body }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[10px] text-muted-foreground mt-0.5", children: n.time })
+                      ] }),
+                      !n.read && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2.5 h-2.5 rounded-full bg-kids-red mt-1 flex-shrink-0" })
+                    ]
+                  },
+                  n.id
+                )) })
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
 }
 const CARD_EMOJIS = ["🐶", "🐱", "🐸", "🦊", "🐻", "🐯", "🦁", "🐮"];
 function MemoryMatch({ onClose }) {
@@ -40677,11 +40873,65 @@ const BORDER_COLORS$1 = [
 function formatId$1(n) {
   return String(n).padStart(3, "0");
 }
+function SubscribedChannelCard({
+  creator,
+  videoCount,
+  index: index2
+}) {
+  var _a3;
+  const { data: subCount } = useSubscriberCount(creator);
+  const unsubscribeMutation = useUnsubscribeMutation();
+  const borderColor = BORDER_COLORS$1[index2 % BORDER_COLORS$1.length];
+  const shortId = `${creator.toString().slice(0, 10)}...`;
+  const avatarLetter = ((_a3 = creator.toString()[0]) == null ? void 0 : _a3.toUpperCase()) ?? "?";
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    motion.div,
+    {
+      initial: { opacity: 0, y: 12 },
+      animate: { opacity: 1, y: 0 },
+      transition: { delay: index2 * 0.06 },
+      "data-ocid": `subscriptions.item.${index2 + 1}`,
+      className: `rounded-2xl border-4 ${borderColor} bg-card px-4 py-3 flex items-center gap-3 shadow-sm`,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-11 h-11 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shrink-0", children: avatarLetter }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-foreground truncate", children: shortId }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mt-0.5", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-muted-foreground font-semibold", children: [
+              "🎬 ",
+              videoCount,
+              " video",
+              videoCount !== 1 ? "s" : ""
+            ] }),
+            subCount !== void 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-muted-foreground font-semibold", children: [
+              "· 👥 ",
+              subCount.toString(),
+              " sub",
+              subCount === 1n ? "" : "s"
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            type: "button",
+            "data-ocid": `subscriptions.delete_button.${index2 + 1}`,
+            disabled: unsubscribeMutation.isPending,
+            onClick: () => unsubscribeMutation.mutate(creator),
+            className: "shrink-0 text-xs font-black px-3 py-1.5 rounded-full border-2 border-kids-red text-kids-red hover:bg-kids-red hover:text-white transition-all active:scale-95 disabled:opacity-50",
+            children: "Unsubscribe"
+          }
+        )
+      ]
+    }
+  );
+}
 function ProfilePage() {
   var _a3;
   const { identity, clear } = useInternetIdentity();
   const { data: profile, isLoading: profileLoading } = useCallerProfile();
   const { data: allVideos, isLoading: videosLoading } = useAllVideos();
+  const { data: subscriptions, isLoading: subsLoading } = useMySubscriptions();
   const queryClient2 = useQueryClient();
   const principal = (identity == null ? void 0 : identity.getPrincipal().toString()) ?? "";
   const shortPrincipal = principal ? `${principal.slice(0, 16)}...` : "";
@@ -40773,6 +41023,39 @@ function ProfilePage() {
             ]
           },
           video.id
+        );
+      }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 mt-10", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-xl font-black mb-4", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-amber", children: "🔔 Subscribed " }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Channels" })
+      ] }),
+      subsLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: [1, 2].map((i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-16 rounded-2xl" }, i)) }) : !subscriptions || subscriptions.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, scale: 0.9 },
+          animate: { opacity: 1, scale: 1 },
+          "data-ocid": "subscriptions.empty_state",
+          className: "rounded-3xl border-4 border-dashed border-kids-amber/30 bg-kids-amber/5 flex flex-col items-center justify-center py-12 gap-3",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-5xl", children: "🔕" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-base text-kids-amber", children: "No subscriptions yet!" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground font-semibold text-center px-6", children: "Hit 🔔 Subscribe on a video to follow creators." })
+          ]
+        }
+      ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: subscriptions.map((creator, i) => {
+        const videoCount = (allVideos ?? []).filter(
+          (v2) => v2.uploader.toString() === creator.toString()
+        ).length;
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          SubscribedChannelCard,
+          {
+            creator,
+            videoCount,
+            index: i
+          },
+          creator.toString()
         );
       }) })
     ] }),
@@ -41330,6 +41613,45 @@ function DemoVideoCard({
     }
   );
 }
+function SubscribeButton({ video }) {
+  const { identity } = useInternetIdentity();
+  const myPrincipal = identity == null ? void 0 : identity.getPrincipal().toString();
+  const isOwnVideo = myPrincipal === video.uploader.toString();
+  const { data: subscribed, isLoading: subLoading } = useIsSubscribed(
+    isOwnVideo ? null : video.uploader
+  );
+  const { data: count } = useSubscriberCount(video.uploader);
+  const subscribeMutation = useSubscribeMutation();
+  const unsubscribeMutation = useUnsubscribeMutation();
+  if (isOwnVideo) return null;
+  if (!identity) return null;
+  const isPending = subscribeMutation.isPending || unsubscribeMutation.isPending;
+  const handleClick = () => {
+    if (subscribed) {
+      unsubscribeMutation.mutate(video.uploader);
+    } else {
+      subscribeMutation.mutate(video.uploader);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5", children: [
+    count !== void 0 && count > 0n && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-[10px] font-black text-muted-foreground", children: [
+      count.toString(),
+      " sub",
+      count === 1n ? "" : "s"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "button",
+      {
+        type: "button",
+        "data-ocid": "videos.toggle",
+        disabled: isPending || subLoading,
+        onClick: handleClick,
+        className: `inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full transition-all active:scale-95 disabled:opacity-60 ${subscribed ? "bg-teal-100 text-teal-700 border border-teal-300" : "bg-kids-amber text-white border border-kids-amber/80 shadow-sm"}`,
+        children: subscribed ? "✅ Subscribed" : "🔔 Subscribe"
+      }
+    )
+  ] });
+}
 function RealVideoCard({ video, index: index2 }) {
   const [liked, setLiked] = reactExports.useState(false);
   const borderColor = BORDER_COLORS[index2 % BORDER_COLORS.length];
@@ -41363,6 +41685,7 @@ function RealVideoCard({ video, index: index2 }) {
               "👤 By: ",
               uploaderShort
             ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(SubscribeButton, { video }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               "button",
               {

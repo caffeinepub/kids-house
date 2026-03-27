@@ -90,11 +90,16 @@ export interface _SERVICE {
   'getAllVideos' : ActorMethod<[], Array<VideoMeta>>,
   'getCallerProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getMySubscriptions' : ActorMethod<[], Array<Principal>>,
+  'getSubscriberCount' : ActorMethod<[Principal], bigint>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
+  'isSubscribed' : ActorMethod<[Principal], boolean>,
   'isUserExists' : ActorMethod<[Principal], boolean>,
   'saveAppLock' : ActorMethod<[Principal, AppLocks], undefined>,
   'saveBasicSettings' : ActorMethod<[Principal, UserSettings], undefined>,
+  'subscribe' : ActorMethod<[Principal], undefined>,
+  'unsubscribe' : ActorMethod<[Principal], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

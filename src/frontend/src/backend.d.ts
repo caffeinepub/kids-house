@@ -73,9 +73,14 @@ export interface backendInterface {
     getAllVideos(): Promise<Array<VideoMeta>>;
     getCallerProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getMySubscriptions(): Promise<Array<Principal>>;
+    getSubscriberCount(creator: Principal): Promise<bigint>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
+    isSubscribed(creator: Principal): Promise<boolean>;
     isUserExists(user: Principal): Promise<boolean>;
     saveAppLock(user: Principal, settings: AppLocks): Promise<void>;
     saveBasicSettings(user: Principal, settings: UserSettings): Promise<void>;
+    subscribe(creator: Principal): Promise<void>;
+    unsubscribe(creator: Principal): Promise<void>;
 }

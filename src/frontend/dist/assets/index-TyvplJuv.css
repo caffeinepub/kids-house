@@ -1158,6 +1158,10 @@ body{
   width: 2.5rem;
 }
 
+.w-11{
+  width: 2.75rem;
+}
+
 .w-12{
   width: 3rem;
 }
@@ -1887,6 +1891,11 @@ body{
   border-color: oklch(var(--sidebar-border));
 }
 
+.border-teal-300{
+  --tw-border-opacity: 1;
+  border-color: rgb(94 234 212 / var(--tw-border-opacity, 1));
+}
+
 .border-transparent{
   border-color: transparent;
 }
@@ -2073,6 +2082,11 @@ body{
 
 .bg-sidebar-border{
   background-color: oklch(var(--sidebar-border));
+}
+
+.bg-teal-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(204 251 241 / var(--tw-bg-opacity, 1));
 }
 
 .bg-transparent{
@@ -2929,6 +2943,11 @@ body{
   color: oklch(var(--sidebar-foreground));
 }
 
+.text-teal-700{
+  --tw-text-opacity: 1;
+  color: rgb(15 118 110 / var(--tw-text-opacity, 1));
+}
+
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -3412,6 +3431,10 @@ body{
   background-color: oklch(var(--destructive) / 0.9);
 }
 
+.hover\:bg-kids-red:hover{
+  background-color: oklch(var(--kids-red));
+}
+
 .hover\:bg-muted:hover{
   --tw-bg-opacity: 1;
   background-color: oklch(var(--muted) / var(--tw-bg-opacity, 1));
@@ -3453,6 +3476,11 @@ body{
 
 .hover\:text-sidebar-accent-foreground:hover{
   color: oklch(var(--sidebar-accent-foreground));
+}
+
+.hover\:text-white:hover{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover{
@@ -3637,6 +3665,10 @@ body{
 
 .disabled\:opacity-50:disabled{
   opacity: 0.5;
+}
+
+.disabled\:opacity-60:disabled{
+  opacity: 0.6;
 }
 
 .group\/menu-item:focus-within .group-focus-within\/menu-item\:opacity-100{

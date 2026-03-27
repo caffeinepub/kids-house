@@ -1,16 +1,18 @@
 import Text "mo:core/Text";
+import Map "mo:core/Map";
 import Time "mo:core/Time";
+import Array "mo:core/Array";
+import Principal "mo:core/Principal";
 import Iter "mo:core/Iter";
 import Order "mo:core/Order";
-import Array "mo:core/Array";
-import Map "mo:core/Map";
-import Principal "mo:core/Principal";
+import Migration "migration";
 import Runtime "mo:core/Runtime";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
+(with migration = Migration.run)
 actor {
   // Mixins
   include MixinStorage();
@@ -86,6 +88,7 @@ actor {
   // Stores
   let userStore = Map.empty<Principal, UserProfile>();
   let videoStore = Map.empty<Text, VideoMeta>();
+  let subscriptionsStore = Map.empty<Principal, [Principal]>();
 
   public query ({ caller }) func isUserExists(user : Principal) : async Bool {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
@@ -218,6 +221,93 @@ actor {
         videoStore.remove(id);
         true;
       };
+    };
+  };
+
+  public shared ({ caller }) func subscribe(creator : Principal) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can subscribe");
+    };
+
+    if (caller == creator) {
+      Runtime.trap("Cannot subscribe to yourself");
+    };
+
+    // Ensure creator exists in userStore.
+    if (not userStore.containsKey(creator)) {
+      Runtime.trap("Creator does not exist");
+    };
+
+    let currentSubscriptions = switch (subscriptionsStore.get(caller)) {
+      case (?subscriptions) { subscriptions };
+      case (null) { [] };
+    };
+
+    if (currentSubscriptions.find(func(sub) { sub == creator }) != null) {
+      Runtime.trap("Already subscribed");
+    };
+
+    let newSubscriptions = currentSubscriptions.concat([creator]);
+    subscriptionsStore.add(caller, newSubscriptions);
+  };
+
+  public shared ({ caller }) func unsubscribe(creator : Principal) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can unsubscribe");
+    };
+
+    let currentSubscriptions = switch (subscriptionsStore.get(caller)) {
+      case (?subscriptions) { subscriptions };
+      case (null) { [] };
+    };
+
+    let filteredSubscriptions = currentSubscriptions.filter(
+      func(sub) { sub != creator }
+    );
+
+    subscriptionsStore.add(caller, filteredSubscriptions);
+  };
+
+  public query ({ caller }) func getMySubscriptions() : async [Principal] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can get subscriptions");
+    };
+    switch (subscriptionsStore.get(caller)) {
+      case (?subscriptions) { subscriptions };
+      case (null) { [] };
+    };
+  };
+
+  public query ({ caller }) func getSubscriberCount(creator : Principal) : async Nat {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can get subscriber count");
+    };
+
+    if (not userStore.containsKey(creator)) {
+      Runtime.trap("Creator does not exist");
+    };
+
+    let allSubscriptions = subscriptionsStore.values().toArray();
+
+    var count = 0;
+    for (subs in allSubscriptions.values()) {
+      for (sub in subs.values()) {
+        if (sub == creator) {
+          count += 1;
+        };
+      };
+    };
+    count;
+  };
+
+  public query ({ caller }) func isSubscribed(creator : Principal) : async Bool {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can check subscriptions");
+    };
+
+    switch (subscriptionsStore.get(caller)) {
+      case (?subscriptions) { subscriptions.find(func(sub) { sub == creator }) != null };
+      case (null) { false };
     };
   };
 };

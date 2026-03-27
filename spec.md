@@ -1,36 +1,32 @@
 # Kids House
 
 ## Current State
-- Tabs: Home, Videos, Games, About, Contact
-- Tab type: home|videos|games|about|contact
-- VideosPage shows hardcoded DEMO_VIDEOS, no real data or uploader info
-- UploadPage exists but not in navigation
-- Profile is a modal from header button, not a page tab
-- useAllVideos() returns VideoMeta[] with uploader (Principal), title, id
-- useCallerProfile() returns UserProfile with username, email
-- identity.getPrincipal().toString() is user ID
+App has user profiles, video upload/viewing, games, and navigation (Home, Videos, Add Video, Games, Profile). Backend stores users and videos. No subscription/follow system exists.
 
 ## Requested Changes (Diff)
 
 ### Add
-- ProfilePage.tsx: full page with avatar (initial letter), username, user ID, My Videos section (filtered by principal). Logout button.
-- AddVideo tab routing to existing UploadPage.tsx
-- Navigation: Home, Videos, Add Video, Games, Profile
+- `subscribe(creator: Principal)` backend function — logged-in user subscribes to a creator
+- `unsubscribe(creator: Principal)` backend function
+- `getMySubscriptions()` — returns list of principals the caller follows
+- `getSubscriberCount(creator: Principal)` — returns how many subscribers a creator has
+- `getCreatorInfo(creator: Principal)` — returns username + subscriber count for a creator
+- Subscribe button on each video card (showing uploader's subscriber count)
+- Subscribe button on Profile page hero card (when viewing)
+- "Subscribed Channels" section on Profile page listing all channels the user subscribes to
+- Notification badge/alert when a newly uploaded video is from a subscribed creator (frontend localStorage-based: store last-seen timestamp per creator, detect new videos on load)
 
 ### Modify
-- Tab type: home|videos|addvideo|games|profile
-- App.tsx: new tabs, route addvideo to UploadPage, profile to ProfilePage, update sidebar
-- BottomNav: 5 tabs with new layout
-- VideosPage: use useAllVideos() real data, show uploader ID (first 10 chars + ...) per card. Keep Short Videos section.
-- LanguageContext: add addvideo/profile nav keys
+- Profile page: add "Subscribed Channels" tab/section below "My Videos"
+- Videos page: add Subscribe button per video card next to uploader info
+- NotificationsPanel: show alerts for new videos from subscribed creators
 
 ### Remove
-- About and Contact from navigation tabs (pages stay)
+- Nothing removed
 
 ## Implementation Plan
-1. Update Tab type in App.tsx
-2. Create ProfilePage.tsx
-3. Update VideosPage.tsx with real data
-4. Update App.tsx routes and sidebar
-5. Update BottomNav.tsx
-6. Update LanguageContext.tsx
+1. Add subscription store and methods to main.mo (subscribe, unsubscribe, getMySubscriptions, getSubscriberCount)
+2. Regenerate backend bindings
+3. Add SubscribedChannels section to ProfilePage showing each subscribed creator's username + video count
+4. Add Subscribe/Unsubscribe button to RealVideoCard in VideosPage
+5. Wire notification logic: on app load, compare video timestamps to last-visit, flag videos from subscribed creators as new

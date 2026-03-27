@@ -1,9 +1,16 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import type { Principal } from "@icp-sdk/core/principal";
 import { useQueryClient } from "@tanstack/react-query";
 import { LogOut, Video } from "lucide-react";
 import { motion } from "motion/react";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
-import { useAllVideos, useCallerProfile } from "../hooks/useQueries";
+import {
+  useAllVideos,
+  useCallerProfile,
+  useMySubscriptions,
+  useSubscriberCount,
+  useUnsubscribeMutation,
+} from "../hooks/useQueries";
 
 const BORDER_COLORS = [
   "border-kids-blue",
@@ -17,10 +24,63 @@ function formatId(n: number) {
   return String(n).padStart(3, "0");
 }
 
+function SubscribedChannelCard({
+  creator,
+  videoCount,
+  index,
+}: {
+  creator: Principal;
+  videoCount: number;
+  index: number;
+}) {
+  const { data: subCount } = useSubscriberCount(creator);
+  const unsubscribeMutation = useUnsubscribeMutation();
+  const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
+  const shortId = `${creator.toString().slice(0, 10)}...`;
+  const avatarLetter = creator.toString()[0]?.toUpperCase() ?? "?";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.06 }}
+      data-ocid={`subscriptions.item.${index + 1}`}
+      className={`rounded-2xl border-4 ${borderColor} bg-card px-4 py-3 flex items-center gap-3 shadow-sm`}
+    >
+      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shrink-0">
+        {avatarLetter}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="font-black text-sm text-foreground truncate">{shortId}</p>
+        <div className="flex items-center gap-2 mt-0.5">
+          <span className="text-xs text-muted-foreground font-semibold">
+            🎬 {videoCount} video{videoCount !== 1 ? "s" : ""}
+          </span>
+          {subCount !== undefined && (
+            <span className="text-xs text-muted-foreground font-semibold">
+              · 👥 {subCount.toString()} sub{subCount === 1n ? "" : "s"}
+            </span>
+          )}
+        </div>
+      </div>
+      <button
+        type="button"
+        data-ocid={`subscriptions.delete_button.${index + 1}`}
+        disabled={unsubscribeMutation.isPending}
+        onClick={() => unsubscribeMutation.mutate(creator)}
+        className="shrink-0 text-xs font-black px-3 py-1.5 rounded-full border-2 border-kids-red text-kids-red hover:bg-kids-red hover:text-white transition-all active:scale-95 disabled:opacity-50"
+      >
+        Unsubscribe
+      </button>
+    </motion.div>
+  );
+}
+
 export default function ProfilePage() {
   const { identity, clear } = useInternetIdentity();
   const { data: profile, isLoading: profileLoading } = useCallerProfile();
   const { data: allVideos, isLoading: videosLoading } = useAllVideos();
+  const { data: subscriptions, isLoading: subsLoading } = useMySubscriptions();
   const queryClient = useQueryClient();
 
   const principal = identity?.getPrincipal().toString() ?? "";
@@ -118,7 +178,6 @@ export default function ProfilePage() {
                   data-ocid={`profile.item.${i + 1}`}
                   className={`rounded-3xl border-4 ${borderColor} bg-card overflow-hidden shadow-md`}
                 >
-                  {/* Video player */}
                   {/* biome-ignore lint/a11y/useMediaCaption: kids video captions not available */}
                   <video
                     src={video.blob.getDirectURL()}
@@ -135,6 +194,53 @@ export default function ProfilePage() {
                     </span>
                   </div>
                 </motion.div>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      {/* Subscribed Channels */}
+      <section className="px-4 mt-10">
+        <h2 className="text-xl font-black mb-4">
+          <span className="text-kids-amber">🔔 Subscribed </span>
+          <span className="text-kids-blue">Channels</span>
+        </h2>
+
+        {subsLoading ? (
+          <div className="space-y-3">
+            {[1, 2].map((i) => (
+              <Skeleton key={i} className="h-16 rounded-2xl" />
+            ))}
+          </div>
+        ) : !subscriptions || subscriptions.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            data-ocid="subscriptions.empty_state"
+            className="rounded-3xl border-4 border-dashed border-kids-amber/30 bg-kids-amber/5 flex flex-col items-center justify-center py-12 gap-3"
+          >
+            <div className="text-5xl">🔕</div>
+            <p className="font-black text-base text-kids-amber">
+              No subscriptions yet!
+            </p>
+            <p className="text-sm text-muted-foreground font-semibold text-center px-6">
+              Hit 🔔 Subscribe on a video to follow creators.
+            </p>
+          </motion.div>
+        ) : (
+          <div className="space-y-3">
+            {subscriptions.map((creator, i) => {
+              const videoCount = (allVideos ?? []).filter(
+                (v) => v.uploader.toString() === creator.toString(),
+              ).length;
+              return (
+                <SubscribedChannelCard
+                  key={creator.toString()}
+                  creator={creator}
+                  videoCount={videoCount}
+                  index={i}
+                />
               );
             })}
           </div>

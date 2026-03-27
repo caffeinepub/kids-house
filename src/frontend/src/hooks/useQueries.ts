@@ -1,3 +1,4 @@
+import type { Principal } from "@icp-sdk/core/principal";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type {
   AppLocks,
@@ -97,6 +98,107 @@ export function useSaveBasicSettings() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["callerProfile"] });
+    },
+  });
+}
+
+// ── Subscription hooks ──────────────────────────────────────────────────────
+
+export function useMySubscriptions() {
+  const { actor, isFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery<Principal[]>({
+    queryKey: ["mySubscriptions", identity?.getPrincipal().toString()],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getMySubscriptions();
+    },
+    enabled: !!actor && !isFetching && !!identity,
+  });
+}
+
+export function useIsSubscribed(creator: Principal | null) {
+  const { actor, isFetching } = useActor();
+  const { identity } = useInternetIdentity();
+  return useQuery<boolean>({
+    queryKey: [
+      "isSubscribed",
+      creator?.toString(),
+      identity?.getPrincipal().toString(),
+    ],
+    queryFn: async () => {
+      if (!actor || !creator) return false;
+      return actor.isSubscribed(creator);
+    },
+    enabled: !!actor && !isFetching && !!creator && !!identity,
+  });
+}
+
+export function useSubscriberCount(creator: Principal | null) {
+  const { actor, isFetching } = useActor();
+  return useQuery<bigint>({
+    queryKey: ["subscriberCount", creator?.toString()],
+    queryFn: async () => {
+      if (!actor || !creator) return 0n;
+      return actor.getSubscriberCount(creator);
+    },
+    enabled: !!actor && !isFetching && !!creator,
+  });
+}
+
+export function useSubscribeMutation() {
+  const { actor } = useActor();
+  const { identity } = useInternetIdentity();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (creator: Principal) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.subscribe(creator);
+    },
+    onSuccess: (_data, creator) => {
+      queryClient.invalidateQueries({ queryKey: ["mySubscriptions"] });
+      queryClient.invalidateQueries({
+        queryKey: ["isSubscribed", creator.toString()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["subscriberCount", creator.toString()],
+      });
+      // Also invalidate with user context
+      queryClient.invalidateQueries({
+        queryKey: [
+          "isSubscribed",
+          creator.toString(),
+          identity?.getPrincipal().toString(),
+        ],
+      });
+    },
+  });
+}
+
+export function useUnsubscribeMutation() {
+  const { actor } = useActor();
+  const { identity } = useInternetIdentity();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (creator: Principal) => {
+      if (!actor) throw new Error("Actor not available");
+      return actor.unsubscribe(creator);
+    },
+    onSuccess: (_data, creator) => {
+      queryClient.invalidateQueries({ queryKey: ["mySubscriptions"] });
+      queryClient.invalidateQueries({
+        queryKey: ["isSubscribed", creator.toString()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["subscriberCount", creator.toString()],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [
+          "isSubscribed",
+          creator.toString(),
+          identity?.getPrincipal().toString(),
+        ],
+      });
     },
   });
 }
