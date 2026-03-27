@@ -1244,8 +1244,8 @@ body{
   min-width: 12rem;
 }
 
-.min-w-\[56px\]{
-  min-width: 56px;
+.min-w-\[52px\]{
+  min-width: 52px;
 }
 
 .min-w-\[8rem\]{
@@ -1266,6 +1266,10 @@ body{
 
 .max-w-\[420px\]{
   max-width: 420px;
+}
+
+.max-w-\[48px\]{
+  max-width: 48px;
 }
 
 .max-w-\[70\%\]{
@@ -1430,6 +1434,10 @@ body{
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+}
+
+.resize-none{
+  resize: none;
 }
 
 .resize{
@@ -3286,6 +3294,10 @@ body{
   opacity: 1;
 }
 
+.hover\:opacity-90:hover{
+  opacity: 0.9;
+}
+
 .hover\:shadow-\[0_0_0_1px_hsl\(var\(--sidebar-accent\)\)\]:hover{
   --tw-shadow: 0 0 0 1px hsl(var(--sidebar-accent));
   --tw-shadow-colored: 0 0 0 1px var(--tw-shadow-color);
@@ -4508,6 +4520,10 @@ body{
 
   .sm\:max-w-sm{
     max-width: 24rem;
+  }
+
+  .sm\:grid-cols-2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sm\:flex-row{

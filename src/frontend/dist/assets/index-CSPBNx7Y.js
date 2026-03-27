@@ -22955,14 +22955,168 @@ const featureBundle = {
   ...layout
 };
 const motion = /* @__PURE__ */ createMotionProxy(featureBundle, createDomVisualElement);
-const tabs = [
-  { id: "home", label: "Home", hindi: "घर", emoji: "🏠" },
-  { id: "shorts", label: "Shorts", hindi: "शॉर्ट्स", emoji: "▶️" },
-  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
-  { id: "courses", label: "Courses", hindi: "कोर्स", emoji: "📚" },
-  { id: "chat", label: "Chat", hindi: "चैट", emoji: "💬" }
-];
+const translations = {
+  en: {
+    nav: {
+      home: "Home",
+      videos: "Videos",
+      games: "Games",
+      about: "About",
+      contact: "Contact"
+    },
+    home: {
+      search: "Search videos...",
+      noVideos: "No videos found",
+      demoNote: "Demo videos — Upload your own from Profile!",
+      categories: {
+        all: "All",
+        education: "Education",
+        fun: "Fun",
+        coding: "Coding",
+        career: "Career",
+        games: "Games"
+      }
+    },
+    games: {
+      title: "Games",
+      subtitle: "Fun educational mini-games!",
+      cats: { all: "All", brain: "Brain", fun: "Fun", learning: "Learning" },
+      play: "Play",
+      memoryTitle: "Memory Match",
+      mathTitle: "Math Quiz",
+      wordTitle: "Word Puzzle",
+      colorTitle: "Color Match",
+      restart: "Restart",
+      wellDone: "Well Done!",
+      playAgain: "Play Again",
+      findColor: "Find this color!"
+    },
+    about: {
+      title: "About Kids House",
+      desc: "Kids House is a fun, safe, and colorful learning platform for children aged 5–11. Watch videos, play games, and explore courses!",
+      mission: "Our Mission",
+      missionText: "To make learning fun and accessible for every child.",
+      features: "Features",
+      feature1: "🎥 Educational Videos",
+      feature2: "🎮 Fun Games",
+      feature3: "📚 Career Courses",
+      feature4: "🔒 Safe Environment"
+    },
+    contact: {
+      title: "Contact Us",
+      name: "Your Name",
+      email: "Your Email",
+      message: "Your Message",
+      send: "Send Message",
+      sent: "Message sent! 🎉",
+      info: "Get in touch",
+      address: "Kids House, India 🇮🇳"
+    },
+    login: {
+      title: "Kids House",
+      subtitle: "Login to start learning!",
+      loginBtn: "Login with Internet Identity"
+    },
+    header: { appName: "Kids House" }
+  },
+  hi: {
+    nav: {
+      home: "घर",
+      videos: "वीडियो",
+      games: "गेम्स",
+      about: "हमारे बारे में",
+      contact: "संपर्क"
+    },
+    home: {
+      search: "वीडियो खोजें...",
+      noVideos: "कोई वीडियो नहीं मिला",
+      demoNote: "डेमो वीडियो — प्रोफाइल से अपना अपलोड करें!",
+      categories: {
+        all: "सभी",
+        education: "शिक्षा",
+        fun: "मज़ा",
+        coding: "कोडिंग",
+        career: "करियर",
+        games: "गेम्स"
+      }
+    },
+    games: {
+      title: "गेम्स",
+      subtitle: "मज़ेदार शैक्षिक मिनी-गेम्स!",
+      cats: { all: "सभी", brain: "दिमाग", fun: "मज़ा", learning: "सीखें" },
+      play: "खेलें",
+      memoryTitle: "याददाश्त",
+      mathTitle: "गणित",
+      wordTitle: "शब्द पहेली",
+      colorTitle: "रंग मिलाओ",
+      restart: "दोबारा",
+      wellDone: "शाबाश!",
+      playAgain: "फिर खेलें",
+      findColor: "इस रंग को ढूंढो!"
+    },
+    about: {
+      title: "किड्स हाउस के बारे में",
+      desc: "किड्स हाउस 5-11 साल के बच्चों के लिए एक मज़ेदार, सुरक्षित और रंगीन सीखने का मंच है। वीडियो देखें, गेम्स खेलें और कोर्स एक्सप्लोर करें!",
+      mission: "हमारा मिशन",
+      missionText: "हर बच्चे के लिए सीखना मज़ेदार और सुलभ बनाना।",
+      features: "विशेषताएं",
+      feature1: "🎥 शैक्षिक वीडियो",
+      feature2: "🎮 मज़ेदार गेम्स",
+      feature3: "📚 करियर कोर्स",
+      feature4: "🔒 सुरक्षित माहौल"
+    },
+    contact: {
+      title: "हमसे संपर्क करें",
+      name: "आपका नाम",
+      email: "आपका ईमेल",
+      message: "आपका संदेश",
+      send: "संदेश भेजें",
+      sent: "संदेश भेज दिया! 🎉",
+      info: "संपर्क करें",
+      address: "किड्स हाउस, भारत 🇮🇳"
+    },
+    login: {
+      title: "किड्स हाउस",
+      subtitle: "सीखना शुरू करने के लिए लॉगिन करें!",
+      loginBtn: "इंटरनेट आइडेंटिटी से लॉगिन करें"
+    },
+    header: { appName: "किड्स हाउस" }
+  }
+};
+const LanguageContext = reactExports.createContext(null);
+function LanguageProvider({ children }) {
+  const [lang, setLang] = reactExports.useState(
+    () => localStorage.getItem("kids-lang") ?? "en"
+  );
+  const toggleLang = () => {
+    setLang((prev) => {
+      const next = prev === "en" ? "hi" : "en";
+      localStorage.setItem("kids-lang", next);
+      return next;
+    });
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    LanguageContext.Provider,
+    {
+      value: { lang, toggleLang, t: translations[lang] },
+      children
+    }
+  );
+}
+function useLanguage() {
+  const ctx = reactExports.useContext(LanguageContext);
+  if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
+  return ctx;
+}
 function BottomNav({ activeTab, onChange }) {
+  const { t } = useLanguage();
+  const tabs = [
+    { id: "home", label: t.nav.home, emoji: "🏠" },
+    { id: "videos", label: t.nav.videos, emoji: "▶️" },
+    { id: "games", label: t.nav.games, emoji: "🎮" },
+    { id: "about", label: t.nav.about, emoji: "ℹ️" },
+    { id: "contact", label: t.nav.contact, emoji: "📞" }
+  ];
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "nav",
     {
@@ -22976,7 +23130,7 @@ function BottomNav({ activeTab, onChange }) {
             type: "button",
             "data-ocid": `nav.${tab.id}.tab`,
             onClick: () => onChange(tab.id),
-            className: "flex flex-col items-center gap-0 relative min-w-[56px] min-h-[52px] justify-center px-1",
+            className: "flex flex-col items-center gap-0 relative min-w-[52px] min-h-[52px] justify-center px-1",
             children: [
               isActive && /* @__PURE__ */ jsxRuntimeExports.jsx(
                 motion.div,
@@ -22990,8 +23144,8 @@ function BottomNav({ activeTab, onChange }) {
               /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "span",
                 {
-                  className: `text-[9px] font-black relative z-10 leading-tight ${isActive ? "text-kids-blue" : "text-muted-foreground"}`,
-                  children: tab.hindi
+                  className: `text-[9px] font-black relative z-10 leading-tight truncate max-w-[48px] text-center ${isActive ? "text-kids-blue" : "text-muted-foreground"}`,
+                  children: tab.label
                 }
               )
             ]
@@ -44750,7 +44904,7 @@ const APP_LIST = [
   { key: "tiktok", name: "TikTok", emoji: "🎵" },
   { key: "facebook", name: "Facebook", emoji: "👥" }
 ];
-const CATEGORIES$1 = ["Education", "Fun", "Coding", "Career", "Games"];
+const CATEGORIES = ["Education", "Fun", "Coding", "Career", "Games"];
 function ProfileModal({ profile, onClose }) {
   var _a3, _b3, _c2, _d2;
   const { clear, identity } = useInternetIdentity();
@@ -44899,7 +45053,7 @@ function ProfileModal({ profile, onClose }) {
                       children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Category" })
                     }
                   ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: CATEGORIES$1.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: c2, children: c2 }, c2)) })
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: CATEGORIES.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: c2, children: c2 }, c2)) })
                 ] }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "input",
@@ -45025,585 +45179,271 @@ function ProfileModal({ profile, onClose }) {
     }
   );
 }
-const ROOMS = [
-  { id: "general", name: "General", hindi: "सामान्य", emoji: "🌟", unread: 2 },
-  {
-    id: "study",
-    name: "Study Group",
-    hindi: "पड़ाई ग्रुप",
-    emoji: "📚",
-    unread: 0
-  },
-  { id: "gamers", name: "Gamers", hindi: "गेमर्स", emoji: "🎮", unread: 5 },
-  {
-    id: "creative",
-    name: "Creative Kids",
-    hindi: "क्रिएटिव",
-    emoji: "🎨",
-    unread: 1
-  }
-];
-const SEED_MSGS = {
-  general: [
+function AboutPage() {
+  const { t } = useLanguage();
+  const features = [
+    { text: t.about.feature1, bg: "from-kids-blue to-blue-600" },
+    { text: t.about.feature2, bg: "from-kids-green to-green-600" },
+    { text: t.about.feature3, bg: "from-kids-amber to-amber-600" },
+    { text: t.about.feature4, bg: "from-kids-purple to-purple-700" }
+  ];
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
     {
-      id: 1,
-      name: "Rahul",
-      avatar: "😊",
-      text: "नमस्ते दोस्तों! Hello everyone!",
-      time: "10:00"
-    },
-    {
-      id: 2,
-      name: "Priya",
-      avatar: "🌸",
-      text: "Hello Rahul! How are you?",
-      time: "10:01"
-    },
-    {
-      id: 3,
-      name: "Aryan",
-      avatar: "🚀",
-      text: "I just finished the Coding course 🎉",
-      time: "10:05"
-    }
-  ],
-  study: [
-    {
-      id: 1,
-      name: "Neha",
-      avatar: "📖",
-      text: "Can someone help with Math?",
-      time: "09:30"
-    },
-    {
-      id: 2,
-      name: "Rohan",
-      avatar: "🧠",
-      text: "Sure! What problem?",
-      time: "09:31"
-    }
-  ],
-  gamers: [
-    {
-      id: 1,
-      name: "Dev",
-      avatar: "🎮",
-      text: "Who wants to play Memory Match?",
-      time: "11:00"
-    },
-    {
-      id: 2,
-      name: "Ananya",
-      avatar: "⭐",
-      text: "Me! I got 200 points yesterday!",
-      time: "11:02"
-    },
-    {
-      id: 3,
-      name: "Karan",
-      avatar: "🏆",
-      text: "I beat the Word Puzzle 🎉",
-      time: "11:05"
-    }
-  ],
-  creative: [
-    {
-      id: 1,
-      name: "Riya",
-      avatar: "🎨",
-      text: "I drew a butterfly today 🦋",
-      time: "14:00"
-    },
-    {
-      id: 2,
-      name: "Sam",
-      avatar: "✏️",
-      text: "Wow share it please!",
-      time: "14:02"
-    }
-  ]
-};
-function ChatPage() {
-  const [activeRoom, setActiveRoom] = reactExports.useState(null);
-  const [messages, setMessages] = reactExports.useState(SEED_MSGS);
-  const [input, setInput] = reactExports.useState("");
-  const messagesEndRef = reactExports.useRef(null);
-  const currentMsgs = activeRoom ? messages[activeRoom] ?? [] : [];
-  const msgCount = currentMsgs.length;
-  reactExports.useEffect(() => {
-    var _a3;
-    (_a3 = messagesEndRef.current) == null ? void 0 : _a3.scrollIntoView({ behavior: "smooth" });
-  }, [msgCount]);
-  const sendMessage = () => {
-    if (!input.trim() || !activeRoom) return;
-    const newMsg = {
-      id: Date.now(),
-      name: "You",
-      avatar: "👤",
-      text: input.trim(),
-      time: (/* @__PURE__ */ new Date()).toLocaleTimeString("en", {
-        hour: "2-digit",
-        minute: "2-digit"
-      }),
-      self: true
-    };
-    setMessages((prev) => ({
-      ...prev,
-      [activeRoom]: [...prev[activeRoom] ?? [], newMsg]
-    }));
-    setInput("");
-  };
-  if (activeRoom) {
-    const room = ROOMS.find((r2) => r2.id === activeRoom);
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col", style: { height: "calc(100vh - 130px)" }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 px-4 py-3 bg-white border-b-2 border-border", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "button",
-          {
-            type: "button",
-            "data-ocid": "chat.back.button",
-            onClick: () => setActiveRoom(null),
-            className: "text-2xl text-kids-blue",
-            children: "←"
-          }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl", children: room.emoji }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-foreground", children: room.hindi }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: room.name })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 overflow-y-auto px-4 md:px-8 py-3 space-y-3 bg-blue-50/30", children: [
-        currentMsgs.map((msg) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      className: "min-h-screen bg-background px-4 md:px-8 py-6",
+      "data-ocid": "about.page",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
           motion.div,
           {
-            initial: { opacity: 0, y: 10 },
+            initial: { opacity: 0, y: -20 },
             animate: { opacity: 1, y: 0 },
-            className: `flex gap-2 ${msg.self ? "flex-row-reverse" : ""}`,
+            className: "text-center mb-8",
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-9 h-9 rounded-full bg-white border-2 border-border flex items-center justify-center text-lg flex-shrink-0", children: msg.avatar }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "div",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl mb-3", children: "🏠" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-3xl font-black", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Kids " }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "House" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground font-semibold text-sm mt-2 max-w-sm mx-auto", children: t.about.desc })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0, x: -30 },
+            animate: { opacity: 1, x: 0 },
+            transition: { delay: 0.1 },
+            className: "bg-gradient-to-r from-kids-blue/10 to-kids-purple/10 rounded-3xl p-6 mb-6 border-2 border-kids-blue/20",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-xl font-black text-kids-blue mb-2", children: [
+                "🎯 ",
+                t.about.mission
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-foreground font-semibold", children: t.about.missionText })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-xl font-black text-foreground mb-4", children: [
+            "✨ ",
+            t.about.features
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4", children: features.map((feat, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.div,
+            {
+              initial: { opacity: 0, scale: 0.9 },
+              animate: { opacity: 1, scale: 1 },
+              transition: { delay: 0.15 + i * 0.07 },
+              "data-ocid": `about.item.${i + 1}`,
+              className: `bg-gradient-to-br ${feat.bg} rounded-3xl p-5 text-white font-black text-base shadow-card`,
+              children: feat.text
+            },
+            feat.text
+          )) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("footer", { className: "text-center py-6 text-xs text-muted-foreground font-semibold", children: [
+          "© ",
+          (/* @__PURE__ */ new Date()).getFullYear(),
+          ". Built with ❤️ using",
+          " ",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "a",
+            {
+              href: `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`,
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "text-primary hover:underline",
+              children: "caffeine.ai"
+            }
+          )
+        ] })
+      ]
+    }
+  );
+}
+function ContactPage() {
+  const { t } = useLanguage();
+  const [name, setName] = reactExports.useState("");
+  const [email, setEmail] = reactExports.useState("");
+  const [message, setMessage] = reactExports.useState("");
+  const [sent, setSent] = reactExports.useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSent(true);
+    setName("");
+    setEmail("");
+    setMessage("");
+    setTimeout(() => setSent(false), 4e3);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: "min-h-screen bg-background px-4 md:px-8 py-6",
+      "data-ocid": "contact.page",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0, y: -20 },
+            animate: { opacity: 1, y: 0 },
+            className: "text-center mb-8",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl mb-2", children: "📞" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-3xl font-black", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-kids-blue", children: [
+                  t.contact.title.split(" ")[0],
+                  " "
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: t.contact.title.split(" ").slice(1).join(" ") })
+              ] })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0, x: -30 },
+            animate: { opacity: 1, x: 0 },
+            transition: { delay: 0.1 },
+            className: "bg-gradient-to-r from-kids-green/10 to-kids-blue/10 rounded-3xl p-5 mb-6 border-2 border-kids-green/30",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "font-black text-kids-green text-lg mb-2", children: [
+                "📍 ",
+                t.contact.info
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-foreground", children: t.contact.address }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-muted-foreground text-sm mt-1", children: "hello@kidshouse.app" })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.form,
+          {
+            initial: { opacity: 0, y: 20 },
+            animate: { opacity: 1, y: 0 },
+            transition: { delay: 0.15 },
+            onSubmit: handleSubmit,
+            className: "bg-card rounded-3xl shadow-card p-6 space-y-4 border-2 border-border",
+            "data-ocid": "contact.panel",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "label",
+                  {
+                    htmlFor: "contact-name",
+                    className: "block font-black text-sm text-foreground mb-1",
+                    children: t.contact.name
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    id: "contact-name",
+                    "data-ocid": "contact.input",
+                    type: "text",
+                    required: true,
+                    value: name,
+                    onChange: (e) => setName(e.target.value),
+                    placeholder: t.contact.name,
+                    className: "w-full rounded-2xl border-2 border-border bg-background px-4 py-3 font-semibold text-sm focus:outline-none focus:border-kids-blue"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "label",
+                  {
+                    htmlFor: "contact-email",
+                    className: "block font-black text-sm text-foreground mb-1",
+                    children: t.contact.email
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "input",
+                  {
+                    id: "contact-email",
+                    "data-ocid": "contact.input",
+                    type: "email",
+                    required: true,
+                    value: email,
+                    onChange: (e) => setEmail(e.target.value),
+                    placeholder: t.contact.email,
+                    className: "w-full rounded-2xl border-2 border-border bg-background px-4 py-3 font-semibold text-sm focus:outline-none focus:border-kids-blue"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "label",
+                  {
+                    htmlFor: "contact-message",
+                    className: "block font-black text-sm text-foreground mb-1",
+                    children: t.contact.message
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "textarea",
+                  {
+                    id: "contact-message",
+                    "data-ocid": "contact.textarea",
+                    required: true,
+                    value: message,
+                    onChange: (e) => setMessage(e.target.value),
+                    placeholder: t.contact.message,
+                    rows: 4,
+                    className: "w-full rounded-2xl border-2 border-border bg-background px-4 py-3 font-semibold text-sm focus:outline-none focus:border-kids-blue resize-none"
+                  }
+                )
+              ] }),
+              sent ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                motion.div,
                 {
-                  className: `max-w-[70%] ${msg.self ? "items-end" : "items-start"} flex flex-col gap-0.5`,
+                  initial: { scale: 0.8, opacity: 0 },
+                  animate: { scale: 1, opacity: 1 },
+                  "data-ocid": "contact.success_state",
+                  className: "bg-kids-green/10 border-2 border-kids-green rounded-2xl p-4 text-center font-black text-kids-green",
+                  children: t.contact.sent
+                }
+              ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "button",
+                {
+                  type: "submit",
+                  "data-ocid": "contact.submit_button",
+                  className: "w-full py-4 rounded-full bg-gradient-to-r from-kids-blue to-kids-purple text-white font-black text-base shadow-btn active:scale-95 transition-transform",
                   children: [
-                    !msg.self && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-muted-foreground px-1", children: msg.name }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(
-                      "div",
-                      {
-                        className: `px-3 py-2 rounded-2xl text-sm font-semibold ${msg.self ? "bg-kids-blue text-white rounded-tr-sm" : "bg-white border border-border rounded-tl-sm"}`,
-                        children: msg.text
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] text-muted-foreground px-1", children: msg.time })
+                    t.contact.send,
+                    " 🚀"
                   ]
                 }
               )
             ]
-          },
-          msg.id
-        )),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: messagesEndRef })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 px-4 md:px-8 py-3 bg-white border-t-2 border-border", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "input",
-          {
-            "data-ocid": "chat.input",
-            value: input,
-            onChange: (e) => setInput(e.target.value),
-            onKeyDown: (e) => e.key === "Enter" && sendMessage(),
-            placeholder: "Message लिखें...",
-            className: "flex-1 px-4 py-3 rounded-full border-2 border-border bg-blue-50/50 font-semibold text-sm focus:outline-none focus:border-kids-blue"
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "button",
-          {
-            type: "button",
-            "data-ocid": "chat.submit_button",
-            onClick: sendMessage,
-            className: "w-12 h-12 rounded-full bg-kids-blue text-white flex items-center justify-center text-xl shadow-btn active:scale-95",
-            children: "📤"
-          }
-        )
-      ] })
-    ] });
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 md:px-8 pt-4 pb-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-purple", children: "चैट " }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Chat" }),
-        " 💬"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: "Safe group chats for kids!" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 md:px-8 py-3 grid grid-cols-1 md:grid-cols-2 gap-3", children: ROOMS.map((room, i) => {
-      var _a3;
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        motion.button,
-        {
-          type: "button",
-          initial: { opacity: 0, x: -20 },
-          animate: { opacity: 1, x: 0 },
-          transition: { delay: i * 0.07 },
-          "data-ocid": `chat.room.${i + 1}`,
-          onClick: () => setActiveRoom(room.id),
-          className: "w-full bg-card rounded-3xl p-4 flex items-center gap-4 border-4 border-border shadow-card text-left",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-14 h-14 rounded-full bg-gradient-to-br from-kids-blue/20 to-kids-purple/20 flex items-center justify-center text-3xl flex-shrink-0", children: room.emoji }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-foreground", children: room.hindi }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold truncate", children: ((_a3 = (messages[room.id] ?? []).slice(-1)[0]) == null ? void 0 : _a3.text) ?? "Start chatting!" })
-            ] }),
-            room.unread > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-6 h-6 bg-kids-red rounded-full text-white text-xs font-black flex items-center justify-center flex-shrink-0", children: room.unread })
-          ]
-        },
-        room.id
-      );
-    }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-4 md:mx-8 mt-4 bg-kids-green/10 border-2 border-kids-green rounded-2xl p-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-kids-green", children: "🛡️ Safe Chat Environment" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold mt-1", children: "All messages are moderated for child safety. माता-पिता द्वारा निगरानी।" })
-    ] })
-  ] });
-}
-const COURSES = [
-  {
-    id: "coding",
-    emoji: "💻",
-    title: "Coding",
-    hindi: "कोडिंग",
-    gradient: "from-blue-400 to-blue-600",
-    border: "border-blue-400",
-    lessons: [
-      {
-        id: 1,
-        title: "What is a Computer?",
-        hindi: "कंप्यूटर क्या है?",
-        emoji: "🖥️",
-        duration: "5 min"
-      },
-      {
-        id: 2,
-        title: "What is Code?",
-        hindi: "कोड क्या है?",
-        emoji: "📝",
-        duration: "7 min"
-      },
-      {
-        id: 3,
-        title: "Variables & Values",
-        hindi: "वेरिएबल",
-        emoji: "📦",
-        duration: "8 min"
-      },
-      {
-        id: 4,
-        title: "If-Else Logic",
-        hindi: "अगर-नहीं तो",
-        emoji: "🔀",
-        duration: "10 min"
-      },
-      {
-        id: 5,
-        title: "Loops & Repetition",
-        hindi: "दोहराना",
-        emoji: "🔁",
-        duration: "10 min"
-      }
-    ]
-  },
-  {
-    id: "doctor",
-    emoji: "🏥",
-    title: "Doctor",
-    hindi: "डॉक्टर",
-    gradient: "from-red-400 to-rose-600",
-    border: "border-red-400",
-    lessons: [
-      {
-        id: 1,
-        title: "Why do we get sick?",
-        hindi: "बीमारी क्यों होती है?",
-        emoji: "🤒",
-        duration: "5 min"
-      },
-      {
-        id: 2,
-        title: "Body Parts",
-        hindi: "शरीर के अंग",
-        emoji: "🫀",
-        duration: "8 min"
-      },
-      {
-        id: 3,
-        title: "Medicines & Safety",
-        hindi: "दवाइयां",
-        emoji: "💊",
-        duration: "6 min"
-      },
-      {
-        id: 4,
-        title: "Healthy Eating",
-        hindi: "स्वस्थ खाना",
-        emoji: "🥦",
-        duration: "7 min"
-      }
-    ]
-  },
-  {
-    id: "teacher",
-    emoji: "📖",
-    title: "Teacher",
-    hindi: "अध्यापक",
-    gradient: "from-green-400 to-emerald-600",
-    border: "border-green-400",
-    lessons: [
-      {
-        id: 1,
-        title: "How to Explain Well",
-        hindi: "समझाना सीखें",
-        emoji: "🗣️",
-        duration: "6 min"
-      },
-      {
-        id: 2,
-        title: "Making Lessons Fun",
-        hindi: "पढ़ाई मज़ेदार",
-        emoji: "🎨",
-        duration: "8 min"
-      },
-      {
-        id: 3,
-        title: "Helping Students",
-        hindi: "छात्रों की मदद",
-        emoji: "🤝",
-        duration: "7 min"
-      }
-    ]
-  },
-  {
-    id: "police",
-    emoji: "👮",
-    title: "Police",
-    hindi: "पुलिस",
-    gradient: "from-indigo-400 to-indigo-700",
-    border: "border-indigo-400",
-    lessons: [
-      {
-        id: 1,
-        title: "Keeping People Safe",
-        hindi: "सुरक्षा",
-        emoji: "🛡️",
-        duration: "5 min"
-      },
-      {
-        id: 2,
-        title: "Rules & Laws",
-        hindi: "कानून",
-        emoji: "⚖️",
-        duration: "7 min"
-      },
-      {
-        id: 3,
-        title: "Emergency Response",
-        hindi: "आपातकाल",
-        emoji: "🚨",
-        duration: "8 min"
-      }
-    ]
-  },
-  {
-    id: "business",
-    emoji: "💼",
-    title: "Business",
-    hindi: "बिज़नेस",
-    gradient: "from-amber-400 to-orange-600",
-    border: "border-amber-400",
-    lessons: [
-      {
-        id: 1,
-        title: "What is Business?",
-        hindi: "व्यापार क्या है?",
-        emoji: "🏪",
-        duration: "5 min"
-      },
-      {
-        id: 2,
-        title: "Buying & Selling",
-        hindi: "खरीदना-बेचना",
-        emoji: "🛒",
-        duration: "6 min"
-      },
-      {
-        id: 3,
-        title: "Making Money",
-        hindi: "पैसे कमाना",
-        emoji: "💰",
-        duration: "7 min"
-      },
-      {
-        id: 4,
-        title: "Saving & Investing",
-        hindi: "बचत",
-        emoji: "🏦",
-        duration: "8 min"
-      }
-    ]
-  }
-];
-function CoursesPage() {
-  const [expanded, setExpanded] = reactExports.useState(null);
-  const [completed, setCompleted] = reactExports.useState({});
-  const toggleLesson = (courseId, lessonId) => {
-    setCompleted((prev) => {
-      const set = new Set(prev[courseId] ?? []);
-      if (set.has(lessonId)) set.delete(lessonId);
-      else set.add(lessonId);
-      return { ...prev, [courseId]: set };
-    });
-  };
-  const getProgress = (courseId, total) => {
-    var _a3;
-    const done = ((_a3 = completed[courseId]) == null ? void 0 : _a3.size) ?? 0;
-    return Math.round(done / total * 100);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 pt-4 pb-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-amber", children: "कोर्स " }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Courses" }),
-        " 📚"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: "Choose your dream career path!" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 py-3 space-y-3", children: COURSES.map((course, i) => {
-      const prog = getProgress(course.id, course.lessons.length);
-      const isOpen = expanded === course.id;
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        motion.div,
-        {
-          initial: { opacity: 0, y: 20 },
-          animate: { opacity: 1, y: 0 },
-          transition: { delay: i * 0.07 },
-          "data-ocid": `courses.item.${i + 1}`,
-          className: `bg-card rounded-3xl overflow-hidden border-4 ${course.border} shadow-card`,
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              "button",
-              {
-                type: "button",
-                "data-ocid": `courses.open_modal_button.${i + 1}`,
-                onClick: () => setExpanded(isOpen ? null : course.id),
-                className: "w-full text-left",
-                children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "div",
-                    {
-                      className: `bg-gradient-to-r ${course.gradient} p-4 flex items-center gap-3`,
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-4xl", children: course.emoji }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-white text-lg", children: course.hindi }),
-                          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/80 text-xs font-semibold", children: [
-                            course.title,
-                            " · ",
-                            course.lessons.length,
-                            " Lessons"
-                          ] })
-                        ] }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-white text-xl", children: isOpen ? "▲" : "▼" })
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 py-2", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-between text-xs font-bold text-muted-foreground mb-1", children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Progress / प्रगति" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-                        prog,
-                        "%"
-                      ] })
-                    ] }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(Progress, { value: prog, className: "h-2 rounded-full" })
-                  ] })
-                ]
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(
-              motion.div,
-              {
-                initial: { height: 0, opacity: 0 },
-                animate: { height: "auto", opacity: 1 },
-                exit: { height: 0, opacity: 0 },
-                transition: { duration: 0.25 },
-                className: "overflow-hidden",
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 pb-4 space-y-2", children: course.lessons.map((lesson, j2) => {
-                  var _a3;
-                  const done = ((_a3 = completed[course.id]) == null ? void 0 : _a3.has(lesson.id)) ?? false;
-                  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "button",
-                    {
-                      type: "button",
-                      "data-ocid": `courses.lesson.${j2 + 1}`,
-                      onClick: () => toggleLesson(course.id, lesson.id),
-                      className: `w-full flex items-center gap-3 p-3 rounded-2xl border-2 transition-all ${done ? "bg-green-50 border-green-300" : "bg-white border-border hover:border-kids-blue"}`,
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: done ? "✅" : lesson.emoji }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 text-left", children: [
-                          /* @__PURE__ */ jsxRuntimeExports.jsx(
-                            "p",
-                            {
-                              className: `text-sm font-black ${done ? "line-through text-muted-foreground" : "text-foreground"}`,
-                              children: lesson.hindi
-                            }
-                          ),
-                          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-muted-foreground font-semibold", children: [
-                            lesson.title,
-                            " · ",
-                            lesson.duration
-                          ] })
-                        ] }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx(
-                          "div",
-                          {
-                            className: `w-6 h-6 rounded-full border-2 flex items-center justify-center ${done ? "bg-green-400 border-green-400" : "border-muted-foreground"}`,
-                            children: done && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs", children: "✓" })
-                          }
-                        )
-                      ]
-                    },
-                    lesson.id
-                  );
-                }) })
-              }
-            ) })
-          ]
-        },
-        course.id
-      );
-    }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("footer", { className: "text-center py-6 text-xs text-muted-foreground font-semibold px-4", children: [
-      "© ",
-      (/* @__PURE__ */ new Date()).getFullYear(),
-      ". Built with ❤️ using",
-      " ",
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "a",
-        {
-          href: `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`,
-          target: "_blank",
-          rel: "noopener noreferrer",
-          className: "text-primary hover:underline",
-          children: "caffeine.ai"
-        }
-      )
-    ] })
-  ] });
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("footer", { className: "text-center py-6 text-xs text-muted-foreground font-semibold", children: [
+          "© ",
+          (/* @__PURE__ */ new Date()).getFullYear(),
+          ". Built with ❤️ using",
+          " ",
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "a",
+            {
+              href: `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`,
+              target: "_blank",
+              rel: "noopener noreferrer",
+              className: "text-primary hover:underline",
+              children: "caffeine.ai"
+            }
+          )
+        ] })
+      ]
+    }
+  );
 }
 const CARD_EMOJIS = ["🐶", "🐱", "🐸", "🦊", "🐻", "🐯", "🦁", "🐮"];
 function MemoryMatch({ onClose }) {
+  const { t } = useLanguage();
   const makeBoard = reactExports.useCallback(() => {
     const pairs = [...CARD_EMOJIS, ...CARD_EMOJIS];
     return pairs.map((emoji, i) => ({ id: i, emoji, flipped: false, matched: false })).sort(() => Math.random() - 0.5);
@@ -45655,7 +45495,10 @@ function MemoryMatch({ onClose }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-purple text-white", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-lg", children: "🧠 Memory Match" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "🧠 ",
+          t.games.memoryTitle
+        ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
           "Score: ",
           score,
@@ -45663,20 +45506,23 @@ function MemoryMatch({ onClose }) {
           moves
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "button",
         {
           type: "button",
           onClick: restart,
           className: "bg-white/20 rounded-full px-3 py-1 text-xs font-black",
-          children: "↺ Restart"
+          children: [
+            "↺ ",
+            t.games.restart
+          ]
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl ml-2", children: "✕" })
     ] }),
     done ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 bg-kids-purple/10", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl", children: "🎉" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-2xl text-kids-purple", children: "शाबाश! Well Done!" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-2xl text-kids-purple", children: t.games.wellDone }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-muted-foreground font-semibold", children: [
         "Score: ",
         score,
@@ -45690,7 +45536,7 @@ function MemoryMatch({ onClose }) {
           type: "button",
           onClick: restart,
           className: "bg-kids-purple text-white rounded-full px-6 py-3 font-black",
-          children: "Play Again"
+          children: t.games.playAgain
         }
       )
     ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 p-4 bg-kids-purple/5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-4 gap-2 max-w-sm mx-auto", children: cards.map((card) => /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -45720,6 +45566,7 @@ const genQ = () => {
   return { a: a2, b: b2, op, answer, opts };
 };
 function MathQuiz({ onClose }) {
+  const { t } = useLanguage();
   const [q2, setQ] = reactExports.useState(() => genQ());
   const [score, setScore] = reactExports.useState(0);
   const [round2, setRound] = reactExports.useState(1);
@@ -45741,7 +45588,10 @@ function MathQuiz({ onClose }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-green text-white", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-lg", children: "🔢 Math Quiz" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "🔢 ",
+          t.games.mathTitle
+        ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
           "Score: ",
           score,
@@ -45790,6 +45640,7 @@ const WORDS = [
   { word: "CUP", hint: "You drink from it ☕" }
 ];
 function WordPuzzle({ onClose }) {
+  const { t } = useLanguage();
   const [idx, setIdx] = reactExports.useState(0);
   const [input, setInput] = reactExports.useState("");
   const [result, setResult] = reactExports.useState(null);
@@ -45812,7 +45663,10 @@ function WordPuzzle({ onClose }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-amber text-white", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-lg", children: "📝 Word Puzzle" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "📝 ",
+          t.games.wordTitle
+        ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
           "Score: ",
           score
@@ -45871,6 +45725,7 @@ const COLOR_OPTIONS = [
   { name: "Orange", hindi: "नारंगी", bg: "bg-orange-500" }
 ];
 function ColorMatch({ onClose }) {
+  const { lang, t } = useLanguage();
   const getRound = reactExports.useCallback(() => {
     const shuffled = [...COLOR_OPTIONS].sort(() => Math.random() - 0.5);
     const target = shuffled[0];
@@ -45895,7 +45750,10 @@ function ColorMatch({ onClose }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-red text-white", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-lg", children: "🎨 Color Match" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "🎨 ",
+          t.games.colorTitle
+        ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
           "Score: ",
           score
@@ -45904,15 +45762,8 @@ function ColorMatch({ onClose }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-red-50", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-foreground", children: "इस रंग को ढूंढो: Find this color!" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full max-w-sm", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-4xl font-black text-foreground", children: round2.target.hindi }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-lg text-muted-foreground font-semibold", children: [
-          "(",
-          round2.target.name,
-          ")"
-        ] })
-      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-foreground", children: t.games.findColor }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full max-w-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-4xl font-black text-foreground", children: lang === "hi" ? round2.target.hindi : round2.target.name }) }),
       feedback && /* @__PURE__ */ jsxRuntimeExports.jsx(
         motion.p,
         {
@@ -45928,67 +45779,70 @@ function ColorMatch({ onClose }) {
           type: "button",
           onClick: () => pick(opt.name),
           className: `${opt.bg} rounded-2xl h-20 text-white font-black text-lg shadow-lg active:scale-95 transition-transform`,
-          children: opt.hindi
+          children: lang === "hi" ? opt.hindi : opt.name
         },
         opt.name
       )) })
     ] })
   ] });
 }
-const GAME_CATS = [
-  { id: "all", hindi: "सभी" },
-  { id: "brain", hindi: "दिमाग" },
-  { id: "fun", hindi: "मज़ा" },
-  { id: "learning", hindi: "सीखें" }
-];
-const GAMES = [
-  {
-    id: "memory",
-    hindi: "याददाश्त",
-    desc: "Flip cards and find pairs!",
-    emoji: "🧠",
-    cat: "brain",
-    gradient: "from-purple-400 to-purple-600"
-  },
-  {
-    id: "math",
-    hindi: "गणित",
-    desc: "Solve simple math questions!",
-    emoji: "🔢",
-    cat: "learning",
-    gradient: "from-green-400 to-green-600"
-  },
-  {
-    id: "word",
-    hindi: "शब्द पहेली",
-    desc: "Unscramble words with hints!",
-    emoji: "📝",
-    cat: "learning",
-    gradient: "from-amber-400 to-amber-600"
-  },
-  {
-    id: "color",
-    hindi: "रंग मिलाओ",
-    desc: "Match colors in Hindi!",
-    emoji: "🎨",
-    cat: "fun",
-    gradient: "from-red-400 to-pink-600"
-  }
-];
 function GamesPage() {
+  const { t } = useLanguage();
   const [activeGame, setActiveGame] = reactExports.useState(null);
   const [activeCat, setActiveCat] = reactExports.useState("all");
+  const GAME_CATS = [
+    { id: "all", label: t.games.cats.all },
+    { id: "brain", label: t.games.cats.brain },
+    { id: "fun", label: t.games.cats.fun },
+    { id: "learning", label: t.games.cats.learning }
+  ];
+  const GAMES = [
+    {
+      id: "memory",
+      title: t.games.memoryTitle,
+      desc: "Flip cards and find pairs!",
+      emoji: "🧠",
+      cat: "brain",
+      gradient: "from-purple-400 to-purple-600"
+    },
+    {
+      id: "math",
+      title: t.games.mathTitle,
+      desc: "Solve simple math questions!",
+      emoji: "🔢",
+      cat: "learning",
+      gradient: "from-green-400 to-green-600"
+    },
+    {
+      id: "word",
+      title: t.games.wordTitle,
+      desc: "Unscramble words with hints!",
+      emoji: "📝",
+      cat: "learning",
+      gradient: "from-amber-400 to-amber-600"
+    },
+    {
+      id: "color",
+      title: t.games.colorTitle,
+      desc: "Match colors!",
+      emoji: "🎨",
+      cat: "fun",
+      gradient: "from-red-400 to-pink-600"
+    }
+  ];
   const filtered = GAMES.filter(
     (g2) => activeCat === "all" || g2.cat === activeCat
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 md:px-8 pt-4 pb-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-green", children: "गेम्स " }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Games" }),
-        " 🎮"
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-kids-green", children: [
+          t.games.title,
+          " "
+        ] }),
+        "🎮"
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: "Fun educational mini-games!" })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: t.games.subtitle })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar", children: GAME_CATS.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
@@ -45997,7 +45851,7 @@ function GamesPage() {
         "data-ocid": `games.${cat.id}.tab`,
         onClick: () => setActiveCat(cat.id),
         className: `flex-shrink-0 px-4 py-2 rounded-full text-xs font-black border-2 transition-all ${activeCat === cat.id ? "bg-kids-green text-white border-kids-green" : "bg-card border-border"}`,
-        children: cat.hindi
+        children: cat.label
       },
       cat.id
     )) }),
@@ -46017,9 +45871,12 @@ function GamesPage() {
             className: `w-full bg-gradient-to-br ${game.gradient} rounded-3xl p-4 text-white text-left shadow-card border-4 border-white/30 active:scale-95 transition-transform`,
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl mb-2", children: game.emoji }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm leading-tight", children: game.hindi }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm leading-tight", children: game.title }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs opacity-80 mt-0.5", children: game.desc }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-3 bg-white/20 rounded-full py-1 text-center text-xs font-black", children: "▶ खेलें Play" })
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-3 bg-white/20 rounded-full py-1 text-center text-xs font-black", children: [
+                "▶ ",
+                t.games.play
+              ] })
             ]
           }
         )
@@ -46054,13 +45911,13 @@ function Skeleton({ className, ...props }) {
     }
   );
 }
-const CATEGORIES = [
-  { id: "all", label: "All", hindi: "सभी", emoji: "🌈" },
-  { id: "education", label: "Education", hindi: "शिक्षा", emoji: "📖" },
-  { id: "fun", label: "Fun", hindi: "मज़ा", emoji: "😄" },
-  { id: "coding", label: "Coding", hindi: "कोडिंग", emoji: "💻" },
-  { id: "career", label: "Career", hindi: "करियर", emoji: "🌟" },
-  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" }
+const CATEGORY_IDS = [
+  { id: "all", emoji: "🌈" },
+  { id: "education", emoji: "📖" },
+  { id: "fun", emoji: "😄" },
+  { id: "coding", emoji: "💻" },
+  { id: "career", emoji: "🌟" },
+  { id: "games", emoji: "🎮" }
 ];
 const BORDER_COLORS = [
   "border-kids-blue",
@@ -46220,6 +46077,15 @@ function HomePage() {
   const { data: videos, isLoading } = useAllVideos();
   const [activeCategory, setActiveCategory] = reactExports.useState("all");
   const [search, setSearch] = reactExports.useState("");
+  const { t } = useLanguage();
+  const catLabels = {
+    all: t.home.categories.all,
+    education: t.home.categories.education,
+    fun: t.home.categories.fun,
+    coding: t.home.categories.coding,
+    career: t.home.categories.career,
+    games: t.home.categories.games
+  };
   const hasReal = videos && videos.length > 0;
   const allVideos = hasReal ? videos.map((v2) => ({
     id: v2.id,
@@ -46240,14 +46106,14 @@ function HomePage() {
         "input",
         {
           "data-ocid": "home.search_input",
-          placeholder: "Search videos... خोजें",
+          placeholder: t.home.search,
           value: search,
           onChange: (e) => setSearch(e.target.value),
           className: "w-full pl-9 pr-4 py-3 rounded-2xl border-2 border-border bg-card font-semibold text-sm focus:outline-none focus:border-kids-blue"
         }
       )
     ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar", children: CATEGORIES.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar", children: CATEGORY_IDS.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "button",
       {
         type: "button",
@@ -46256,7 +46122,7 @@ function HomePage() {
         className: `flex-shrink-0 flex items-center gap-1 px-3 py-2 rounded-full text-xs font-black border-2 transition-all ${activeCategory === cat.id ? "bg-kids-blue text-white border-kids-blue shadow-btn" : "bg-card text-foreground border-border"}`,
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cat.emoji }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: cat.hindi })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: catLabels[cat.id] })
         ]
       },
       cat.id
@@ -46270,10 +46136,12 @@ function HomePage() {
       }
     ) : filtered.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-ocid": "videos.empty_state", className: "text-center py-16", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl mb-3", children: "🔍" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-muted-foreground", children: "कोई वीडियो नहीं मिला" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "No videos found" })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-muted-foreground", children: t.home.noVideos })
     ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      !hasReal && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-bold text-kids-amber", children: "🎦 Demo videos — Upload your own from Profile!" }) }),
+      !hasReal && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs font-bold text-kids-amber", children: [
+        "🎦 ",
+        t.home.demoNote
+      ] }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: filtered.map((v2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(VideoCard, { video: v2, index: i, isDemo: !hasReal }, v2.id)) })
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("footer", { className: "text-center py-6 text-xs text-muted-foreground font-semibold px-4", children: [
@@ -46338,6 +46206,7 @@ function LoginPage() {
   const [pin, setPin] = reactExports.useState("");
   const [parentalPin, setParentalPin] = reactExports.useState("");
   const { login, isLoggingIn, identity } = useInternetIdentity();
+  const { lang, toggleLang, t } = useLanguage();
   const createUser = useCreateUser();
   const handleLogin = () => {
     login();
@@ -46357,237 +46226,246 @@ function LoginPage() {
         username,
         email,
         password,
-        pinSettings: {
-          userPIN: pin,
-          parentalPIN: parentalPin || "0000"
-        }
+        pinSettings: { userPIN: pin, parentalPIN: parentalPin || "0000" }
       });
       ue.success("Account created! 🎉");
     } catch (e) {
       ue.error(e.message || "Signup failed");
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-screen bg-background flex items-center justify-center p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-[420px]", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      motion.div,
-      {
-        initial: { scale: 0.7, opacity: 0 },
-        animate: { scale: 1, opacity: 1 },
-        transition: { type: "spring", stiffness: 300, damping: 20 },
-        className: "text-center mb-8",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl mb-2", children: "🏠" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-4xl font-black", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "KIDS " }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "HO" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-green", children: "USE" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center gap-1 mt-2", children: RAINBOW_DOTS.map((color2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "div",
-            {
-              className: `w-4 h-4 rounded-full bg-kids-${color2}`
-            },
-            color2
-          )) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground font-semibold mt-2 text-sm", children: "Fun Learning for Kids! 🌟" })
-        ]
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-card rounded-3xl shadow-card p-1.5 flex mb-6 gap-1", children: ["login", "signup"].map((t) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background flex items-center justify-center p-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed top-4 right-4 z-50", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         type: "button",
-        "data-ocid": `auth.${t}.tab`,
-        onClick: () => setTab(t),
-        className: `flex-1 py-3 rounded-2xl font-black text-base transition-all ${tab === t ? "bg-primary text-primary-foreground shadow-btn" : "text-muted-foreground hover:text-foreground"}`,
-        children: t === "login" ? "🔑 Login" : "✨ Sign Up"
-      },
-      t
-    )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      motion.div,
-      {
-        initial: { opacity: 0, x: tab === "login" ? -20 : 20 },
-        animate: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: tab === "login" ? 20 : -20 },
-        transition: { duration: 0.2 },
-        className: "bg-card rounded-3xl shadow-card p-6 space-y-4",
-        children: tab === "login" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-2xl font-black text-foreground mb-2", children: "Welcome Back! 👋" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Username" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Input,
-                {
-                  "data-ocid": "login.username.input",
-                  placeholder: "Your username",
-                  value: username,
-                  onChange: (e) => setUsername(e.target.value),
-                  className: "mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
-                }
-              )
+        "data-ocid": "login.lang.toggle",
+        onClick: toggleLang,
+        className: "rounded-full bg-gradient-to-r from-kids-blue to-kids-purple text-white text-xs font-black px-3 py-1.5 shadow-btn",
+        children: lang === "en" ? "हिंदी" : "English"
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-[420px]", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { scale: 0.7, opacity: 0 },
+          animate: { scale: 1, opacity: 1 },
+          transition: { type: "spring", stiffness: 300, damping: 20 },
+          className: "text-center mb-8",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl mb-2", children: "🏠" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-4xl font-black", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "KIDS " }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "HO" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-green", children: "USE" })
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Password" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Input,
-                {
-                  "data-ocid": "login.password.input",
-                  type: "password",
-                  placeholder: "Your password",
-                  value: password,
-                  onChange: (e) => setPassword(e.target.value),
-                  className: "mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
-                }
-              )
-            ] })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            Button,
-            {
-              "data-ocid": "login.submit_button",
-              onClick: handleLogin,
-              disabled: isLoggingIn,
-              className: "w-full h-14 rounded-full text-lg font-black bg-primary hover:bg-primary/90 shadow-btn",
-              children: [
-                isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-5 w-5 animate-spin" }) : "🔑",
-                isLoggingIn ? "Logging in..." : "Login with Internet Identity"
-              ]
-            }
-          )
-        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-2xl font-black text-foreground mb-2", children: "Create Account! 🎉" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Username" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Input,
-                {
-                  "data-ocid": "signup.username.input",
-                  placeholder: "Choose a username",
-                  value: username,
-                  onChange: (e) => setUsername(e.target.value),
-                  className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Email" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Input,
-                {
-                  "data-ocid": "signup.email.input",
-                  type: "email",
-                  placeholder: "Your email",
-                  value: email,
-                  onChange: (e) => setEmail(e.target.value),
-                  className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Password" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Input,
-                {
-                  "data-ocid": "signup.password.input",
-                  type: "password",
-                  placeholder: "Create a password",
-                  value: password,
-                  onChange: (e) => setPassword(e.target.value),
-                  className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center gap-1 mt-2", children: RAINBOW_DOTS.map((color2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "div",
+              {
+                className: `w-4 h-4 rounded-full bg-kids-${color2}`
+              },
+              color2
+            )) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground font-semibold mt-2 text-sm", children: t.login.subtitle })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-card rounded-3xl shadow-card p-1.5 flex mb-6 gap-1", children: ["login", "signup"].map((tabId) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          "data-ocid": `auth.${tabId}.tab`,
+          onClick: () => setTab(tabId),
+          className: `flex-1 py-3 rounded-2xl font-black text-base transition-all ${tab === tabId ? "bg-primary text-primary-foreground shadow-btn" : "text-muted-foreground hover:text-foreground"}`,
+          children: tabId === "login" ? "🔑 Login" : "✨ Sign Up"
+        },
+        tabId
+      )) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        motion.div,
+        {
+          initial: { opacity: 0, x: tab === "login" ? -20 : 20 },
+          animate: { opacity: 1, x: 0 },
+          exit: { opacity: 0, x: tab === "login" ? 20 : -20 },
+          transition: { duration: 0.2 },
+          className: "bg-card rounded-3xl shadow-card p-6 space-y-4",
+          children: tab === "login" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-2xl font-black text-foreground mb-2", children: "Welcome Back! 👋" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Your PIN" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Username" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   Input,
                   {
-                    "data-ocid": "signup.pin.input",
+                    "data-ocid": "login.username.input",
+                    placeholder: "Your username",
+                    value: username,
+                    onChange: (e) => setUsername(e.target.value),
+                    className: "mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Password" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Input,
+                  {
+                    "data-ocid": "login.password.input",
                     type: "password",
-                    maxLength: 6,
-                    placeholder: "4-6 digits",
-                    value: pin,
-                    onChange: (e) => setPin(e.target.value),
+                    placeholder: "Your password",
+                    value: password,
+                    onChange: (e) => setPassword(e.target.value),
+                    className: "mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
+                  }
+                )
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              Button,
+              {
+                "data-ocid": "login.submit_button",
+                onClick: handleLogin,
+                disabled: isLoggingIn,
+                className: "w-full h-14 rounded-full text-lg font-black bg-primary hover:bg-primary/90 shadow-btn",
+                children: [
+                  isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-5 w-5 animate-spin" }) : "🔑",
+                  isLoggingIn ? "Logging in..." : t.login.loginBtn
+                ]
+              }
+            )
+          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-2xl font-black text-foreground mb-2", children: "Create Account! 🎉" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Username" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Input,
+                  {
+                    "data-ocid": "signup.username.input",
+                    placeholder: "Choose a username",
+                    value: username,
+                    onChange: (e) => setUsername(e.target.value),
                     className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
                   }
                 )
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Parent PIN" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Email" }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   Input,
                   {
-                    "data-ocid": "signup.parental_pin.input",
-                    type: "password",
-                    maxLength: 6,
-                    placeholder: "4-6 digits",
-                    value: parentalPin,
-                    onChange: (e) => setParentalPin(e.target.value),
+                    "data-ocid": "signup.email.input",
+                    type: "email",
+                    placeholder: "Your email",
+                    value: email,
+                    onChange: (e) => setEmail(e.target.value),
                     className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
                   }
                 )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Password" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Input,
+                  {
+                    "data-ocid": "signup.password.input",
+                    type: "password",
+                    placeholder: "Create a password",
+                    value: password,
+                    onChange: (e) => setPassword(e.target.value),
+                    className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Your PIN" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Input,
+                    {
+                      "data-ocid": "signup.pin.input",
+                      type: "password",
+                      maxLength: 6,
+                      placeholder: "4-6 digits",
+                      value: pin,
+                      onChange: (e) => setPin(e.target.value),
+                      className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Parent PIN" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Input,
+                    {
+                      "data-ocid": "signup.parental_pin.input",
+                      type: "password",
+                      maxLength: 6,
+                      placeholder: "4-6 digits",
+                      value: parentalPin,
+                      onChange: (e) => setParentalPin(e.target.value),
+                      className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
+                    }
+                  )
+                ] })
               ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+              !identity && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Button,
+                {
+                  "data-ocid": "signup.connect_button",
+                  onClick: handleLogin,
+                  disabled: isLoggingIn,
+                  variant: "outline",
+                  className: "w-full h-12 rounded-full font-bold border-2 border-primary text-primary",
+                  children: [
+                    isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-4 w-4 animate-spin" }) : "🔗",
+                    isLoggingIn ? "Connecting..." : "Connect Internet Identity"
+                  ]
+                }
+              ),
+              identity && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-xs text-secondary font-semibold", children: "✅ Identity connected!" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Button,
+                {
+                  "data-ocid": "signup.submit_button",
+                  onClick: handleSignup,
+                  disabled: createUser.isPending,
+                  className: "w-full h-14 rounded-full text-lg font-black shadow-btn",
+                  style: {
+                    background: "oklch(var(--secondary))",
+                    color: "white"
+                  },
+                  children: [
+                    createUser.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-5 w-5 animate-spin" }) : "✨",
+                    createUser.isPending ? "Creating..." : "Create Account"
+                  ]
+                }
+              )
             ] })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-            !identity && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              Button,
-              {
-                "data-ocid": "signup.connect_button",
-                onClick: handleLogin,
-                disabled: isLoggingIn,
-                variant: "outline",
-                className: "w-full h-12 rounded-full font-bold border-2 border-primary text-primary",
-                children: [
-                  isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-4 w-4 animate-spin" }) : "🔗",
-                  isLoggingIn ? "Connecting..." : "Connect Internet Identity"
-                ]
-              }
-            ),
-            identity && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-xs text-secondary font-semibold", children: "✅ Identity connected!" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              Button,
-              {
-                "data-ocid": "signup.submit_button",
-                onClick: handleSignup,
-                disabled: createUser.isPending,
-                className: "w-full h-14 rounded-full text-lg font-black shadow-btn",
-                style: {
-                  background: "oklch(var(--secondary))",
-                  color: "white"
-                },
-                children: [
-                  createUser.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-5 w-5 animate-spin" }) : "✨",
-                  createUser.isPending ? "Creating..." : "Create Account"
-                ]
-              }
-            )
           ] })
-        ] })
-      },
-      tab
-    ) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-center text-xs text-muted-foreground mt-6 font-semibold", children: [
-      "© ",
-      (/* @__PURE__ */ new Date()).getFullYear(),
-      ". Built with ❤️ using",
-      " ",
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "a",
-        {
-          href: `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`,
-          target: "_blank",
-          rel: "noopener noreferrer",
-          className: "text-primary hover:underline",
-          children: "caffeine.ai"
-        }
-      )
+        },
+        tab
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-center text-xs text-muted-foreground mt-6 font-semibold", children: [
+        "© ",
+        (/* @__PURE__ */ new Date()).getFullYear(),
+        ". Built with ❤️ using",
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "a",
+          {
+            href: `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            className: "text-primary hover:underline",
+            children: "caffeine.ai"
+          }
+        )
+      ] })
     ] })
-  ] }) });
+  ] });
 }
 const SHORTS = [
   {
@@ -46823,14 +46701,7 @@ function ShortsPage() {
   );
 }
 const LOADING_DOTS = ["purple", "red", "green", "blue", "amber"];
-const SIDEBAR_TABS = [
-  { id: "home", label: "Home", hindi: "घर", emoji: "🏠" },
-  { id: "shorts", label: "Shorts", hindi: "शॉर्ट्स", emoji: "▶️" },
-  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
-  { id: "courses", label: "Courses", hindi: "कोर्स", emoji: "📚" },
-  { id: "chat", label: "Chat", hindi: "चैट", emoji: "💬" }
-];
-function App() {
+function AppContent() {
   var _a3, _b3;
   const { identity, isInitializing } = useInternetIdentity();
   const isAuthenticated = !!identity;
@@ -46839,6 +46710,14 @@ function App() {
   const [showNotifications, setShowNotifications] = reactExports.useState(false);
   const [notifCount, setNotifCount] = reactExports.useState(3);
   const { data: profile, isLoading: profileLoading } = useCallerProfile();
+  const { lang, toggleLang, t } = useLanguage();
+  const SIDEBAR_TABS = [
+    { id: "home", label: t.nav.home, emoji: "🏠" },
+    { id: "videos", label: t.nav.videos, emoji: "▶️" },
+    { id: "games", label: t.nav.games, emoji: "🎮" },
+    { id: "about", label: t.nav.about, emoji: "ℹ️" },
+    { id: "contact", label: t.nav.contact, emoji: "📞" }
+  ];
   if (isInitializing || isAuthenticated && profileLoading) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-screen bg-background flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col items-center gap-4", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl animate-bounce", children: "🏠" }),
@@ -46881,6 +46760,16 @@ function App() {
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            type: "button",
+            "data-ocid": "header.lang.toggle",
+            onClick: toggleLang,
+            className: "rounded-full bg-gradient-to-r from-kids-blue to-kids-purple text-white text-xs font-black px-3 py-1.5 shadow-btn hover:opacity-90 transition-opacity",
+            children: lang === "en" ? "हिंदी" : "English"
+          }
+        ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs(
           "button",
           {
@@ -46916,8 +46805,9 @@ function App() {
           "button",
           {
             type: "button",
+            "data-ocid": `nav.${tab.id}.link`,
             onClick: () => setActiveTab(tab.id),
-            className: `flex items-center gap-3 px-4 py-3 rounded-2xl mb-1 font-black text-sm transition-all ${isActive ? "bg-kids-blue/10 text-kids-blue" : "text-muted-foreground hover:bg-muted"}`,
+            className: `relative flex items-center gap-3 px-4 py-3 rounded-2xl mb-1 font-black text-sm transition-all ${isActive ? "bg-kids-blue/10 text-kids-blue" : "text-muted-foreground hover:bg-muted"}`,
             children: [
               isActive && /* @__PURE__ */ jsxRuntimeExports.jsx(
                 motion.div,
@@ -46928,7 +46818,7 @@ function App() {
                 }
               ),
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: tab.emoji }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: tab.hindi })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "relative z-10", children: tab.label })
             ]
           },
           tab.id
@@ -46936,10 +46826,10 @@ function App() {
       }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "flex-1 min-w-0 pb-24 md:pb-8 overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-3xl mx-auto", children: [
         activeTab === "home" && /* @__PURE__ */ jsxRuntimeExports.jsx(HomePage, {}),
-        activeTab === "shorts" && /* @__PURE__ */ jsxRuntimeExports.jsx(ShortsPage, {}),
+        activeTab === "videos" && /* @__PURE__ */ jsxRuntimeExports.jsx(ShortsPage, {}),
         activeTab === "games" && /* @__PURE__ */ jsxRuntimeExports.jsx(GamesPage, {}),
-        activeTab === "courses" && /* @__PURE__ */ jsxRuntimeExports.jsx(CoursesPage, {}),
-        activeTab === "chat" && /* @__PURE__ */ jsxRuntimeExports.jsx(ChatPage, {})
+        activeTab === "about" && /* @__PURE__ */ jsxRuntimeExports.jsx(AboutPage, {}),
+        activeTab === "contact" && /* @__PURE__ */ jsxRuntimeExports.jsx(ContactPage, {})
       ] }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(BottomNav, { activeTab, onChange: setActiveTab }),
@@ -46953,6 +46843,9 @@ function App() {
     showNotifications && /* @__PURE__ */ jsxRuntimeExports.jsx(NotificationsPanel, { onClose: () => setShowNotifications(false) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Toaster, { position: "top-center" })
   ] });
+}
+function App() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(LanguageProvider, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(AppContent, {}) });
 }
 BigInt.prototype.toJSON = function() {
   return this.toString();

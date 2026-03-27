@@ -1,10 +1,12 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useState } from "react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 // ---- Mini Game: Memory Match ----
 const CARD_EMOJIS = ["🐶", "🐱", "🐸", "🦊", "🐻", "🐯", "🦁", "🐮"];
 
 function MemoryMatch({ onClose }: { onClose: () => void }) {
+  const { t } = useLanguage();
   const makeBoard = useCallback(() => {
     const pairs = [...CARD_EMOJIS, ...CARD_EMOJIS];
     return pairs
@@ -63,7 +65,7 @@ function MemoryMatch({ onClose }: { onClose: () => void }) {
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between p-4 bg-kids-purple text-white">
         <div>
-          <p className="font-black text-lg">🧠 Memory Match</p>
+          <p className="font-black text-lg">🧠 {t.games.memoryTitle}</p>
           <p className="text-xs opacity-80">
             Score: {score} | Moves: {moves}
           </p>
@@ -73,7 +75,7 @@ function MemoryMatch({ onClose }: { onClose: () => void }) {
           onClick={restart}
           className="bg-white/20 rounded-full px-3 py-1 text-xs font-black"
         >
-          ↺ Restart
+          ↺ {t.games.restart}
         </button>
         <button type="button" onClick={onClose} className="text-2xl ml-2">
           ✕
@@ -83,7 +85,7 @@ function MemoryMatch({ onClose }: { onClose: () => void }) {
         <div className="flex-1 flex flex-col items-center justify-center gap-4 bg-kids-purple/10">
           <div className="text-7xl">🎉</div>
           <p className="font-black text-2xl text-kids-purple">
-            शाबाश! Well Done!
+            {t.games.wellDone}
           </p>
           <p className="text-muted-foreground font-semibold">
             Score: {score} in {moves} moves
@@ -93,7 +95,7 @@ function MemoryMatch({ onClose }: { onClose: () => void }) {
             onClick={restart}
             className="bg-kids-purple text-white rounded-full px-6 py-3 font-black"
           >
-            Play Again
+            {t.games.playAgain}
           </button>
         </div>
       ) : (
@@ -139,6 +141,7 @@ const genQ = () => {
 };
 
 function MathQuiz({ onClose }: { onClose: () => void }) {
+  const { t } = useLanguage();
   const [q, setQ] = useState(() => genQ());
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(1);
@@ -163,7 +166,7 @@ function MathQuiz({ onClose }: { onClose: () => void }) {
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between p-4 bg-kids-green text-white">
         <div>
-          <p className="font-black text-lg">🔢 Math Quiz</p>
+          <p className="font-black text-lg">🔢 {t.games.mathTitle}</p>
           <p className="text-xs opacity-80">
             Score: {score} | Q: {round}
           </p>
@@ -214,6 +217,7 @@ const WORDS = [
 ];
 
 function WordPuzzle({ onClose }: { onClose: () => void }) {
+  const { t } = useLanguage();
   const [idx, setIdx] = useState(0);
   const [input, setInput] = useState("");
   const [result, setResult] = useState<"correct" | "wrong" | null>(null);
@@ -242,7 +246,7 @@ function WordPuzzle({ onClose }: { onClose: () => void }) {
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between p-4 bg-kids-amber text-white">
         <div>
-          <p className="font-black text-lg">📝 Word Puzzle</p>
+          <p className="font-black text-lg">📝 {t.games.wordTitle}</p>
           <p className="text-xs opacity-80">Score: {score}</p>
         </div>
         <button type="button" onClick={onClose} className="text-2xl">
@@ -302,6 +306,7 @@ const COLOR_OPTIONS = [
 ];
 
 function ColorMatch({ onClose }: { onClose: () => void }) {
+  const { lang, t } = useLanguage();
   const getRound = useCallback(() => {
     const shuffled = [...COLOR_OPTIONS].sort(() => Math.random() - 0.5);
     const target = shuffled[0];
@@ -330,7 +335,7 @@ function ColorMatch({ onClose }: { onClose: () => void }) {
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between p-4 bg-kids-red text-white">
         <div>
-          <p className="font-black text-lg">🎨 Color Match</p>
+          <p className="font-black text-lg">🎨 {t.games.colorTitle}</p>
           <p className="text-xs opacity-80">Score: {score}</p>
         </div>
         <button type="button" onClick={onClose} className="text-2xl">
@@ -339,14 +344,11 @@ function ColorMatch({ onClose }: { onClose: () => void }) {
       </div>
       <div className="flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-red-50">
         <p className="font-black text-xl text-foreground">
-          इस रंग को ढूंढो: Find this color!
+          {t.games.findColor}
         </p>
         <div className="bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full max-w-sm">
           <p className="text-4xl font-black text-foreground">
-            {round.target.hindi}
-          </p>
-          <p className="text-lg text-muted-foreground font-semibold">
-            ({round.target.name})
+            {lang === "hi" ? round.target.hindi : round.target.name}
           </p>
         </div>
         {feedback && (
@@ -366,7 +368,7 @@ function ColorMatch({ onClose }: { onClose: () => void }) {
               onClick={() => pick(opt.name)}
               className={`${opt.bg} rounded-2xl h-20 text-white font-black text-lg shadow-lg active:scale-95 transition-transform`}
             >
-              {opt.hindi}
+              {lang === "hi" ? opt.hindi : opt.name}
             </button>
           ))}
         </div>
@@ -376,51 +378,52 @@ function ColorMatch({ onClose }: { onClose: () => void }) {
 }
 
 // ---- Main GamesPage ----
-const GAME_CATS = [
-  { id: "all", hindi: "सभी" },
-  { id: "brain", hindi: "दिमाग" },
-  { id: "fun", hindi: "मज़ा" },
-  { id: "learning", hindi: "सीखें" },
-];
-
-const GAMES = [
-  {
-    id: "memory",
-    hindi: "याददाश्त",
-    desc: "Flip cards and find pairs!",
-    emoji: "🧠",
-    cat: "brain",
-    gradient: "from-purple-400 to-purple-600",
-  },
-  {
-    id: "math",
-    hindi: "गणित",
-    desc: "Solve simple math questions!",
-    emoji: "🔢",
-    cat: "learning",
-    gradient: "from-green-400 to-green-600",
-  },
-  {
-    id: "word",
-    hindi: "शब्द पहेली",
-    desc: "Unscramble words with hints!",
-    emoji: "📝",
-    cat: "learning",
-    gradient: "from-amber-400 to-amber-600",
-  },
-  {
-    id: "color",
-    hindi: "रंग मिलाओ",
-    desc: "Match colors in Hindi!",
-    emoji: "🎨",
-    cat: "fun",
-    gradient: "from-red-400 to-pink-600",
-  },
-];
-
 export default function GamesPage() {
+  const { t } = useLanguage();
   const [activeGame, setActiveGame] = useState<string | null>(null);
   const [activeCat, setActiveCat] = useState("all");
+
+  const GAME_CATS = [
+    { id: "all", label: t.games.cats.all },
+    { id: "brain", label: t.games.cats.brain },
+    { id: "fun", label: t.games.cats.fun },
+    { id: "learning", label: t.games.cats.learning },
+  ];
+
+  const GAMES = [
+    {
+      id: "memory",
+      title: t.games.memoryTitle,
+      desc: "Flip cards and find pairs!",
+      emoji: "🧠",
+      cat: "brain",
+      gradient: "from-purple-400 to-purple-600",
+    },
+    {
+      id: "math",
+      title: t.games.mathTitle,
+      desc: "Solve simple math questions!",
+      emoji: "🔢",
+      cat: "learning",
+      gradient: "from-green-400 to-green-600",
+    },
+    {
+      id: "word",
+      title: t.games.wordTitle,
+      desc: "Unscramble words with hints!",
+      emoji: "📝",
+      cat: "learning",
+      gradient: "from-amber-400 to-amber-600",
+    },
+    {
+      id: "color",
+      title: t.games.colorTitle,
+      desc: "Match colors!",
+      emoji: "🎨",
+      cat: "fun",
+      gradient: "from-red-400 to-pink-600",
+    },
+  ];
 
   const filtered = GAMES.filter(
     (g) => activeCat === "all" || g.cat === activeCat,
@@ -430,11 +433,10 @@ export default function GamesPage() {
     <div className="min-h-screen bg-background">
       <div className="px-4 md:px-8 pt-4 pb-2">
         <h1 className="text-2xl font-black">
-          <span className="text-kids-green">गेम्स </span>
-          <span className="text-kids-blue">Games</span> 🎮
+          <span className="text-kids-green">{t.games.title} </span>🎮
         </h1>
         <p className="text-xs text-muted-foreground font-semibold">
-          Fun educational mini-games!
+          {t.games.subtitle}
         </p>
       </div>
 
@@ -451,7 +453,7 @@ export default function GamesPage() {
                 : "bg-card border-border"
             }`}
           >
-            {cat.hindi}
+            {cat.label}
           </button>
         ))}
       </div>
@@ -472,10 +474,10 @@ export default function GamesPage() {
               className={`w-full bg-gradient-to-br ${game.gradient} rounded-3xl p-4 text-white text-left shadow-card border-4 border-white/30 active:scale-95 transition-transform`}
             >
               <div className="text-4xl mb-2">{game.emoji}</div>
-              <p className="font-black text-sm leading-tight">{game.hindi}</p>
+              <p className="font-black text-sm leading-tight">{game.title}</p>
               <p className="text-xs opacity-80 mt-0.5">{game.desc}</p>
               <div className="mt-3 bg-white/20 rounded-full py-1 text-center text-xs font-black">
-                ▶ खेलें Play
+                ▶ {t.games.play}
               </div>
             </button>
           </motion.div>

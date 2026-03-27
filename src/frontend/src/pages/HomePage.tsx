@@ -3,16 +3,17 @@ import { Play } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import type { VideoMeta } from "../backend";
+import { useLanguage } from "../contexts/LanguageContext";
 import { useAllVideos } from "../hooks/useQueries";
 
-const CATEGORIES = [
-  { id: "all", label: "All", hindi: "सभी", emoji: "🌈" },
-  { id: "education", label: "Education", hindi: "शिक्षा", emoji: "📖" },
-  { id: "fun", label: "Fun", hindi: "मज़ा", emoji: "😄" },
-  { id: "coding", label: "Coding", hindi: "कोडिंग", emoji: "💻" },
-  { id: "career", label: "Career", hindi: "करियर", emoji: "🌟" },
-  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
-];
+const CATEGORY_IDS = [
+  { id: "all", emoji: "🌈" },
+  { id: "education", emoji: "📖" },
+  { id: "fun", emoji: "😄" },
+  { id: "coding", emoji: "💻" },
+  { id: "career", emoji: "🌟" },
+  { id: "games", emoji: "🎮" },
+] as const;
 
 const BORDER_COLORS = [
   "border-kids-blue",
@@ -182,6 +183,16 @@ export default function HomePage() {
   const { data: videos, isLoading } = useAllVideos();
   const [activeCategory, setActiveCategory] = useState("all");
   const [search, setSearch] = useState("");
+  const { t } = useLanguage();
+
+  const catLabels: Record<string, string> = {
+    all: t.home.categories.all,
+    education: t.home.categories.education,
+    fun: t.home.categories.fun,
+    coding: t.home.categories.coding,
+    career: t.home.categories.career,
+    games: t.home.categories.games,
+  };
 
   const hasReal = videos && videos.length > 0;
   const allVideos: DisplayVideo[] = hasReal
@@ -203,7 +214,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Search bar */}
       <div className="px-4 md:px-8 pt-4 pb-2">
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-lg">
@@ -211,7 +221,7 @@ export default function HomePage() {
           </span>
           <input
             data-ocid="home.search_input"
-            placeholder="Search videos... خोजें"
+            placeholder={t.home.search}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-4 py-3 rounded-2xl border-2 border-border bg-card font-semibold text-sm focus:outline-none focus:border-kids-blue"
@@ -219,9 +229,8 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Category chips */}
       <div className="flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar">
-        {CATEGORIES.map((cat) => (
+        {CATEGORY_IDS.map((cat) => (
           <button
             type="button"
             key={cat.id}
@@ -234,7 +243,7 @@ export default function HomePage() {
             }`}
           >
             <span>{cat.emoji}</span>
-            <span>{cat.hindi}</span>
+            <span>{catLabels[cat.id]}</span>
           </button>
         ))}
       </div>
@@ -253,16 +262,15 @@ export default function HomePage() {
           <div data-ocid="videos.empty_state" className="text-center py-16">
             <div className="text-6xl mb-3">🔍</div>
             <p className="font-black text-xl text-muted-foreground">
-              कोई वीडियो नहीं मिला
+              {t.home.noVideos}
             </p>
-            <p className="text-sm text-muted-foreground">No videos found</p>
           </div>
         ) : (
           <>
             {!hasReal && (
               <div className="bg-kids-amber/10 rounded-2xl px-4 py-2 border-2 border-kids-amber mb-4">
                 <p className="text-xs font-bold text-kids-amber">
-                  🎦 Demo videos — Upload your own from Profile!
+                  🎦 {t.home.demoNote}
                 </p>
               </div>
             )}

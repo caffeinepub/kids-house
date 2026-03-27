@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useLanguage } from "../contexts/LanguageContext";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
 import { useCreateUser } from "../hooks/useQueries";
 
@@ -19,6 +20,7 @@ export default function LoginPage() {
   const [parentalPin, setParentalPin] = useState("");
 
   const { login, isLoggingIn, identity } = useInternetIdentity();
+  const { lang, toggleLang, t } = useLanguage();
   const createUser = useCreateUser();
 
   const handleLogin = () => {
@@ -40,10 +42,7 @@ export default function LoginPage() {
         username,
         email,
         password,
-        pinSettings: {
-          userPIN: pin,
-          parentalPIN: parentalPin || "0000",
-        },
+        pinSettings: { userPIN: pin, parentalPIN: parentalPin || "0000" },
       });
       toast.success("Account created! 🎉");
     } catch (e: any) {
@@ -53,6 +52,18 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      {/* Language toggle top-right */}
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          type="button"
+          data-ocid="login.lang.toggle"
+          onClick={toggleLang}
+          className="rounded-full bg-gradient-to-r from-kids-blue to-kids-purple text-white text-xs font-black px-3 py-1.5 shadow-btn"
+        >
+          {lang === "en" ? "हिंदी" : "English"}
+        </button>
+      </div>
+
       <div className="w-full max-w-[420px]">
         {/* Logo */}
         <motion.div
@@ -76,25 +87,25 @@ export default function LoginPage() {
             ))}
           </div>
           <p className="text-muted-foreground font-semibold mt-2 text-sm">
-            Fun Learning for Kids! 🌟
+            {t.login.subtitle}
           </p>
         </motion.div>
 
         {/* Tabs */}
         <div className="bg-card rounded-3xl shadow-card p-1.5 flex mb-6 gap-1">
-          {(["login", "signup"] as const).map((t) => (
+          {(["login", "signup"] as const).map((tabId) => (
             <button
               type="button"
-              key={t}
-              data-ocid={`auth.${t}.tab`}
-              onClick={() => setTab(t)}
+              key={tabId}
+              data-ocid={`auth.${tabId}.tab`}
+              onClick={() => setTab(tabId)}
               className={`flex-1 py-3 rounded-2xl font-black text-base transition-all ${
-                tab === t
+                tab === tabId
                   ? "bg-primary text-primary-foreground shadow-btn"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {t === "login" ? "🔑 Login" : "✨ Sign Up"}
+              {tabId === "login" ? "🔑 Login" : "✨ Sign Up"}
             </button>
           ))}
         </div>
@@ -151,9 +162,7 @@ export default function LoginPage() {
                   ) : (
                     "🔑"
                   )}
-                  {isLoggingIn
-                    ? "Logging in..."
-                    : "Login with Internet Identity"}
+                  {isLoggingIn ? "Logging in..." : t.login.loginBtn}
                 </Button>
               </>
             ) : (

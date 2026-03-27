@@ -1,13 +1,6 @@
 import { motion } from "motion/react";
 import type { Tab } from "../App";
-
-const tabs: { id: Tab; label: string; hindi: string; emoji: string }[] = [
-  { id: "home", label: "Home", hindi: "घर", emoji: "🏠" },
-  { id: "shorts", label: "Shorts", hindi: "शॉर्ट्स", emoji: "▶️" },
-  { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
-  { id: "courses", label: "Courses", hindi: "कोर्स", emoji: "📚" },
-  { id: "chat", label: "Chat", hindi: "चैट", emoji: "💬" },
-];
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface BottomNavProps {
   activeTab: Tab;
@@ -15,6 +8,16 @@ interface BottomNavProps {
 }
 
 export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
+  const { t } = useLanguage();
+
+  const tabs: { id: Tab; label: string; emoji: string }[] = [
+    { id: "home", label: t.nav.home, emoji: "🏠" },
+    { id: "videos", label: t.nav.videos, emoji: "▶️" },
+    { id: "games", label: t.nav.games, emoji: "🎮" },
+    { id: "about", label: t.nav.about, emoji: "ℹ️" },
+    { id: "contact", label: t.nav.contact, emoji: "📞" },
+  ];
+
   return (
     <nav
       className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-border px-2 py-2 z-50"
@@ -29,7 +32,7 @@ export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
               key={tab.id}
               data-ocid={`nav.${tab.id}.tab`}
               onClick={() => onChange(tab.id)}
-              className="flex flex-col items-center gap-0 relative min-w-[56px] min-h-[52px] justify-center px-1"
+              className="flex flex-col items-center gap-0 relative min-w-[52px] min-h-[52px] justify-center px-1"
             >
               {isActive && (
                 <motion.div
@@ -40,11 +43,11 @@ export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
               )}
               <span className="text-xl relative z-10">{tab.emoji}</span>
               <span
-                className={`text-[9px] font-black relative z-10 leading-tight ${
+                className={`text-[9px] font-black relative z-10 leading-tight truncate max-w-[48px] text-center ${
                   isActive ? "text-kids-blue" : "text-muted-foreground"
                 }`}
               >
-                {tab.hindi}
+                {tab.label}
               </span>
             </button>
           );

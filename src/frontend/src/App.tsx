@@ -4,29 +4,21 @@ import { useState } from "react";
 import BottomNav from "./components/BottomNav";
 import NotificationsPanel from "./components/NotificationsPanel";
 import ProfileModal from "./components/ProfileModal";
+import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
 import { useInternetIdentity } from "./hooks/useInternetIdentity";
 import { useCallerProfile } from "./hooks/useQueries";
-import ChatPage from "./pages/ChatPage";
-import CoursesPage from "./pages/CoursesPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 import GamesPage from "./pages/GamesPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import ShortsPage from "./pages/ShortsPage";
 
-export type Tab = "home" | "shorts" | "games" | "courses" | "chat";
+export type Tab = "home" | "videos" | "games" | "about" | "contact";
 
 const LOADING_DOTS = ["purple", "red", "green", "blue", "amber"] as const;
 
-const SIDEBAR_TABS: { id: Tab; label: string; hindi: string; emoji: string }[] =
-  [
-    { id: "home", label: "Home", hindi: "घर", emoji: "🏠" },
-    { id: "shorts", label: "Shorts", hindi: "शॉर्ट्स", emoji: "▶️" },
-    { id: "games", label: "Games", hindi: "गेम्स", emoji: "🎮" },
-    { id: "courses", label: "Courses", hindi: "कोर्स", emoji: "📚" },
-    { id: "chat", label: "Chat", hindi: "चैट", emoji: "💬" },
-  ];
-
-export default function App() {
+function AppContent() {
   const { identity, isInitializing } = useInternetIdentity();
   const isAuthenticated = !!identity;
   const [activeTab, setActiveTab] = useState<Tab>("home");
@@ -34,6 +26,15 @@ export default function App() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifCount, setNotifCount] = useState(3);
   const { data: profile, isLoading: profileLoading } = useCallerProfile();
+  const { lang, toggleLang, t } = useLanguage();
+
+  const SIDEBAR_TABS: { id: Tab; label: string; emoji: string }[] = [
+    { id: "home", label: t.nav.home, emoji: "🏠" },
+    { id: "videos", label: t.nav.videos, emoji: "▶️" },
+    { id: "games", label: t.nav.games, emoji: "🎮" },
+    { id: "about", label: t.nav.about, emoji: "ℹ️" },
+    { id: "contact", label: t.nav.contact, emoji: "📞" },
+  ];
 
   if (isInitializing || (isAuthenticated && profileLoading)) {
     return (
@@ -69,7 +70,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top Header — full width on desktop */}
+      {/* Top Header */}
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between">
         <button
           type="button"
@@ -84,6 +85,15 @@ export default function App() {
           </span>
         </button>
         <div className="flex items-center gap-2">
+          {/* Language toggle */}
+          <button
+            type="button"
+            data-ocid="header.lang.toggle"
+            onClick={toggleLang}
+            className="rounded-full bg-gradient-to-r from-kids-blue to-kids-purple text-white text-xs font-black px-3 py-1.5 shadow-btn hover:opacity-90 transition-opacity"
+          >
+            {lang === "en" ? "हिंदी" : "English"}
+          </button>
           <button
             type="button"
             data-ocid="header.notifications.button"
@@ -111,7 +121,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Body: sidebar on desktop, bottom nav on mobile */}
+      {/* Body */}
       <div className="flex">
         {/* Desktop Sidebar */}
         <aside className="hidden md:flex flex-col w-56 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] border-r border-border bg-white/80 backdrop-blur-sm pt-4 pb-6 px-3">
@@ -121,8 +131,9 @@ export default function App() {
               <button
                 type="button"
                 key={tab.id}
+                data-ocid={`nav.${tab.id}.link`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-2xl mb-1 font-black text-sm transition-all ${
+                className={`relative flex items-center gap-3 px-4 py-3 rounded-2xl mb-1 font-black text-sm transition-all ${
                   isActive
                     ? "bg-kids-blue/10 text-kids-blue"
                     : "text-muted-foreground hover:bg-muted"
@@ -136,7 +147,7 @@ export default function App() {
                   />
                 )}
                 <span className="text-xl">{tab.emoji}</span>
-                <span>{tab.hindi}</span>
+                <span className="relative z-10">{tab.label}</span>
               </button>
             );
           })}
@@ -146,10 +157,10 @@ export default function App() {
         <main className="flex-1 min-w-0 pb-24 md:pb-8 overflow-y-auto">
           <div className="w-full max-w-3xl mx-auto">
             {activeTab === "home" && <HomePage />}
-            {activeTab === "shorts" && <ShortsPage />}
+            {activeTab === "videos" && <ShortsPage />}
             {activeTab === "games" && <GamesPage />}
-            {activeTab === "courses" && <CoursesPage />}
-            {activeTab === "chat" && <ChatPage />}
+            {activeTab === "about" && <AboutPage />}
+            {activeTab === "contact" && <ContactPage />}
           </div>
         </main>
       </div>
@@ -170,5 +181,13 @@ export default function App() {
 
       <Toaster position="top-center" />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }
