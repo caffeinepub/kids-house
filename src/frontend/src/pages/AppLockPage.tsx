@@ -88,7 +88,6 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
     "idle" | "granted" | "denied" | "timeout"
   >("idle");
   const [timeLeft, setTimeLeft] = useState(5);
-  const [shake, setShake] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const correctPin = loadPin();
 
@@ -135,11 +134,18 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
     }
   }, [status, onClose]);
 
+  // Close after denied message (Kids House Opening)
+  useEffect(() => {
+    if (status === "denied") {
+      const t = setTimeout(onClose, 1500);
+      return () => clearTimeout(t);
+    }
+  }, [status, onClose]);
+
   const handleKey = (key: string) => {
     if (status !== "idle") return;
     if (key === "⌫") {
       setPin((p) => p.slice(0, -1));
-      // Reset timer on activity
       startTimer();
       return;
     }
@@ -150,9 +156,8 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
     if (pin.length >= 4) return;
     const next = pin + key;
     setPin(next);
-    startTimer(); // reset timer on keypress
+    startTimer();
     if (next.length === 4) {
-      // auto-check
       setTimeout(() => checkPin(next), 100);
     }
   };
@@ -163,13 +168,6 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
       setStatus("granted");
     } else {
       setStatus("denied");
-      setShake(true);
-      setTimeout(() => {
-        setShake(false);
-        setPin("");
-        setStatus("idle");
-        startTimer();
-      }, 1000);
     }
   };
 
@@ -227,6 +225,21 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
               <p className="text-gray-500 text-sm mt-1">Opening {appName}...</p>
             </motion.div>
           )}
+          {status === "denied" && (
+            <motion.div
+              key="denied"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-center py-6"
+            >
+              <div className="text-5xl mb-2">🏠</div>
+              <p className="text-kids-blue font-black text-lg">
+                Kids House Opening...
+              </p>
+              <p className="text-gray-500 text-sm mt-1">Wrong PIN entered</p>
+            </motion.div>
+          )}
           {status === "timeout" && (
             <motion.div
               key="timeout"
@@ -241,35 +254,22 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
               </p>
             </motion.div>
           )}
-          {(status === "idle" || status === "denied") && (
+          {status === "idle" && (
             <motion.div key="input" exit={{ opacity: 0 }}>
               {/* PIN dots */}
-              <motion.div
-                animate={shake ? { x: [-8, 8, -8, 8, -4, 4, 0] } : { x: 0 }}
-                transition={{ duration: 0.4 }}
-                className="flex justify-center gap-4 mb-3"
-              >
+              <div className="flex justify-center gap-4 mb-3">
                 {Array.from({ length: 4 }).map((_, i) => (
                   <div
                     // biome-ignore lint/suspicious/noArrayIndexKey: fixed 4 dots
                     key={i}
                     className={`w-5 h-5 rounded-full border-2 transition-all duration-150 ${
                       i < pin.length
-                        ? status === "denied"
-                          ? "bg-kids-red border-kids-red"
-                          : "bg-kids-blue border-kids-blue"
+                        ? "bg-kids-blue border-kids-blue"
                         : "bg-gray-100 border-gray-300"
                     }`}
                   />
                 ))}
-              </motion.div>
-
-              {/* Wrong PIN message */}
-              {status === "denied" && (
-                <p className="text-center text-kids-red font-black text-sm mb-2">
-                  ❌ Wrong PIN!
-                </p>
-              )}
+              </div>
 
               {/* Timer */}
               <div className="text-center mb-4">
@@ -310,7 +310,7 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
         </AnimatePresence>
 
         {/* Cancel */}
-        {(status === "idle" || status === "denied") && (
+        {status === "idle" && (
           <button
             type="button"
             data-ocid="applock.close_button"

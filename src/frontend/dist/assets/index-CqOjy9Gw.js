@@ -18,6 +18,25 @@ var __privateWrapper = (obj, member, setter, getter) => ({
   }
 });
 var _provider, _providerCalled, _a2, _focused, _cleanup, _setup, _b2, _online, _cleanup2, _setup2, _c, _gcTimeout, _d, _initialState, _revertState, _cache, _client, _retryer, _defaultOptions, _abortSignalConsumed, _Query_instances, dispatch_fn, _e, _client2, _currentQuery, _currentQueryInitialState, _currentResult, _currentResultState, _currentResultOptions, _currentThenable, _selectError, _selectFn, _selectResult, _lastQueryWithDefinedData, _staleTimeoutId, _refetchIntervalId, _currentRefetchInterval, _trackedProps, _QueryObserver_instances, executeFetch_fn, updateStaleTimeout_fn, computeRefetchInterval_fn, updateRefetchInterval_fn, updateTimers_fn, clearStaleTimeout_fn, clearRefetchInterval_fn, updateQuery_fn, notify_fn, _f, _client3, _observers, _mutationCache, _retryer2, _Mutation_instances, dispatch_fn2, _g, _mutations, _scopes, _mutationId, _h, _client4, _currentResult2, _currentMutation, _mutateOptions, _MutationObserver_instances, updateResult_fn, notify_fn2, _i, _queries, _j, _queryCache, _mutationCache2, _defaultOptions2, _queryDefaults, _mutationDefaults, _mountCount, _unsubscribeFocus, _unsubscribeOnline, _k, _disableTimeVerification, _agent, _inner, _expirationTime, _rawKey, _derKey, _l, _currentInterval, _randomizationFactor, _multiplier, _maxInterval, _startTime, _maxElapsedTime, _maxIterations, _date, _count, _rootKeyPromise, _shouldFetchRootKey, _timeDiffMsecs, _hasSyncedTime, _syncTimePromise, _shouldSyncTime, _identity, _fetch, _fetchOptions, _callOptions, _credentials, _retryTimes, _backoffStrategy, _maxIngressExpiryInMinutes, _HttpAgent_instances, maxIngressExpiryInMs_get, _queryPipeline, _updatePipeline, _subnetKeys, _verifyQuerySignatures, requestAndRetryQuery_fn, requestAndRetry_fn, _verifyQueryResponse, asyncGuard_fn, rootKeyGuard_fn, syncTimeGuard_fn, _rawKey2, _derKey2, _publicKey, _privateKey, _inner2, _delegation, _options;
+function _mergeNamespaces(n, m2) {
+  for (var i = 0; i < m2.length; i++) {
+    const e = m2[i];
+    if (typeof e !== "string" && !Array.isArray(e)) {
+      for (const k2 in e) {
+        if (k2 !== "default" && !(k2 in n)) {
+          const d2 = Object.getOwnPropertyDescriptor(e, k2);
+          if (d2) {
+            Object.defineProperty(n, k2, d2.get ? d2 : {
+              enumerable: true,
+              get: () => e[k2]
+            });
+          }
+        }
+      }
+    }
+  }
+  return Object.freeze(Object.defineProperty(n, Symbol.toStringTag, { value: "Module" }));
+}
 (function polyfill() {
   const relList = document.createElement("link").relList;
   if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -3031,6 +3050,10 @@ react_production.version = "19.1.1";
 }
 var reactExports = react.exports;
 const o$1 = /* @__PURE__ */ getDefaultExportFromCjs(reactExports);
+const React$2 = /* @__PURE__ */ _mergeNamespaces({
+  __proto__: null,
+  default: o$1
+}, [reactExports]);
 var QueryClientContext = reactExports.createContext(
   void 0
 );
@@ -15149,7 +15172,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$a = [
+const __iconNode$b = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   [
     "path",
@@ -15159,14 +15182,14 @@ const __iconNode$a = [
     }
   ]
 ];
-const Bell = createLucideIcon("bell", __iconNode$a);
+const Bell = createLucideIcon("bell", __iconNode$b);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$9 = [
+const __iconNode$a = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M7 3v18", key: "bbkbws" }],
   ["path", { d: "M3 7.5h4", key: "zfgn84" }],
@@ -15176,14 +15199,14 @@ const __iconNode$9 = [
   ["path", { d: "M17 7.5h4", key: "myr1c1" }],
   ["path", { d: "M17 16.5h4", key: "go4c1d" }]
 ];
-const Film = createLucideIcon("film", __iconNode$9);
+const Film = createLucideIcon("film", __iconNode$a);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [
+const __iconNode$9 = [
   ["line", { x1: "6", x2: "10", y1: "11", y2: "11", key: "1gktln" }],
   ["line", { x1: "8", x2: "8", y1: "9", y2: "13", key: "qnk9ow" }],
   ["line", { x1: "15", x2: "15.01", y1: "12", y2: "12", key: "krot7o" }],
@@ -15196,14 +15219,14 @@ const __iconNode$8 = [
     }
   ]
 ];
-const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$8);
+const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$9);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$7 = [
+const __iconNode$8 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -15213,15 +15236,26 @@ const __iconNode$7 = [
     }
   ]
 ];
-const House = createLucideIcon("house", __iconNode$7);
+const House = createLucideIcon("house", __iconNode$8);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$6 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$6);
+const __iconNode$7 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$7);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$6 = [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+];
+const Lock = createLucideIcon("lock", __iconNode$6);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -21294,7 +21328,7 @@ function composeRefs$1(...refs) {
     }
   };
 }
-function useComposedRefs(...refs) {
+function useComposedRefs$1(...refs) {
   return reactExports.useCallback(composeRefs$1(...refs), refs);
 }
 class PopChildMeasure extends reactExports.Component {
@@ -21337,7 +21371,7 @@ function PopChild({ children, isPresent, anchorX, anchorY, root: root2, pop: pop
   });
   const { nonce } = reactExports.useContext(MotionConfigContext);
   const childRef = ((_a3 = children.props) == null ? void 0 : _a3.ref) ?? (children == null ? void 0 : children.ref);
-  const composedRef = useComposedRefs(ref, childRef);
+  const composedRef = useComposedRefs$1(ref, childRef);
   reactExports.useInsertionEffect(() => {
     const { width, height, top, left, right, bottom } = size.current;
     if (isPresent || pop2 === false || !ref.current || !width || !height)
@@ -36707,466 +36741,475 @@ function InternetIdentityProvider({
     children
   });
 }
-const CARD_EMOJIS = ["🐶", "🐱", "🐸", "🦊", "🐻", "🐯", "🦁", "🐮"];
-function MemoryMatch({ onClose }) {
-  const { t } = useLanguage();
-  const makeBoard = reactExports.useCallback(() => {
-    const pairs = [...CARD_EMOJIS, ...CARD_EMOJIS];
-    return pairs.map((emoji, i) => ({ id: i, emoji, flipped: false, matched: false })).sort(() => Math.random() - 0.5);
-  }, []);
-  const [cards, setCards] = reactExports.useState(() => makeBoard());
-  const [selected, setSelected] = reactExports.useState([]);
-  const [score, setScore] = reactExports.useState(0);
-  const [moves, setMoves] = reactExports.useState(0);
-  const done = cards.every((c2) => c2.matched);
-  const restart = () => {
-    setCards(makeBoard());
-    setScore(0);
-    setMoves(0);
-    setSelected([]);
-  };
-  const flip = (id2) => {
-    if (selected.length === 2) return;
-    const card = cards.find((c2) => c2.id === id2);
-    if (!card || card.flipped || card.matched) return;
-    const newSelected = [...selected, id2];
-    setCards(
-      (prev) => prev.map((c2) => c2.id === id2 ? { ...c2, flipped: true } : c2)
-    );
-    if (newSelected.length === 2) {
-      setMoves((m2) => m2 + 1);
-      const [a2, b2] = newSelected.map((sid) => cards.find((c2) => c2.id === sid));
-      if (a2.emoji === b2.emoji) {
-        setCards(
-          (prev) => prev.map(
-            (c2) => newSelected.includes(c2.id) ? { ...c2, matched: true } : c2
-          )
-        );
-        setScore((s2) => s2 + 10);
-        setSelected([]);
-      } else {
-        setTimeout(() => {
-          setCards(
-            (prev) => prev.map(
-              (c2) => newSelected.includes(c2.id) ? { ...c2, flipped: false } : c2
-            )
-          );
-          setSelected([]);
-        }, 800);
-      }
-    } else {
-      setSelected(newSelected);
+function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
+  return function handleEvent(event) {
+    originalEventHandler == null ? void 0 : originalEventHandler(event);
+    if (checkForDefaultPrevented === false || !event.defaultPrevented) {
+      return ourEventHandler == null ? void 0 : ourEventHandler(event);
     }
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-purple text-white", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
-          "🧠 ",
-          t.games.memoryTitle
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
-          "Score: ",
-          score,
-          " | Moves: ",
-          moves
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "button",
-        {
-          type: "button",
-          onClick: restart,
-          className: "bg-white/20 rounded-full px-3 py-1 text-xs font-black",
-          children: [
-            "↺ ",
-            t.games.restart
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl ml-2", children: "✕" })
-    ] }),
-    done ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 bg-kids-purple/10", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl", children: "🎉" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-2xl text-kids-purple", children: t.games.wellDone }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-muted-foreground font-semibold", children: [
-        "Score: ",
-        score,
-        " in ",
-        moves,
-        " moves"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          type: "button",
-          onClick: restart,
-          className: "bg-kids-purple text-white rounded-full px-6 py-3 font-black",
-          children: t.games.playAgain
-        }
-      )
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 p-4 bg-kids-purple/5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-4 gap-2 max-w-sm mx-auto", children: cards.map((card) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "button",
-      {
-        type: "button",
-        onClick: () => flip(card.id),
-        className: `aspect-square rounded-2xl text-3xl flex items-center justify-center font-bold border-4 transition-all ${card.matched ? "bg-green-100 border-green-400" : card.flipped ? "bg-white border-kids-purple" : "bg-kids-purple border-kids-purple text-white"}`,
-        children: card.flipped || card.matched ? card.emoji : "?"
-      },
-      card.id
-    )) }) })
-  ] });
 }
-const genQ = () => {
-  const a2 = Math.floor(Math.random() * 10) + 1;
-  const b2 = Math.floor(Math.random() * 10) + 1;
-  const ops = ["+", "-"];
-  const op = ops[Math.floor(Math.random() * 2)];
-  const answer = op === "+" ? a2 + b2 : a2 - b2;
-  const opts = [answer];
-  while (opts.length < 4) {
-    const wrong = answer + (Math.floor(Math.random() * 7) - 3);
-    if (!opts.includes(wrong)) opts.push(wrong);
+function setRef(ref, value) {
+  if (typeof ref === "function") {
+    return ref(value);
+  } else if (ref !== null && ref !== void 0) {
+    ref.current = value;
   }
-  opts.sort(() => Math.random() - 0.5);
-  return { a: a2, b: b2, op, answer, opts };
-};
-function MathQuiz({ onClose }) {
-  const { t } = useLanguage();
-  const [q2, setQ] = reactExports.useState(() => genQ());
-  const [score, setScore] = reactExports.useState(0);
-  const [round, setRound] = reactExports.useState(1);
-  const [feedback, setFeedback] = reactExports.useState(null);
-  const answer = (opt) => {
-    if (feedback) return;
-    if (opt === q2.answer) {
-      setScore((s2) => s2 + 10);
-      setFeedback("correct");
-    } else {
-      setFeedback("wrong");
-    }
-    setTimeout(() => {
-      setQ(genQ());
-      setRound((r2) => r2 + 1);
-      setFeedback(null);
-    }, 900);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-green text-white", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
-          "🔢 ",
-          t.games.mathTitle
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
-          "Score: ",
-          score,
-          " | Q: ",
-          round
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-kids-green/5", children: [
-      feedback && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        motion.div,
-        {
-          initial: { scale: 0.5, opacity: 0 },
-          animate: { scale: 1, opacity: 1 },
-          className: `text-5xl ${feedback === "correct" ? "text-green-500" : "text-red-500"}`,
-          children: feedback === "correct" ? "✅" : "❌"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-green w-full max-w-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-5xl font-black text-foreground", children: [
-        q2.a,
-        " ",
-        q2.op,
-        " ",
-        q2.b,
-        " = ?"
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full max-w-sm", children: q2.opts.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          type: "button",
-          onClick: () => answer(opt),
-          className: "py-5 rounded-2xl bg-white border-4 border-kids-green text-2xl font-black text-foreground shadow active:scale-95 transition-transform",
-          children: opt
-        },
-        `opt-${opt}`
-      )) })
-    ] })
-  ] });
 }
-const WORDS = [
-  { word: "CAT", hint: "A small furry pet 🐱" },
-  { word: "DOG", hint: "Man's best friend 🐶" },
-  { word: "SUN", hint: "It shines in the sky ☀️" },
-  { word: "BUS", hint: "You ride to school 🚌" },
-  { word: "CUP", hint: "You drink from it ☕" }
-];
-function WordPuzzle({ onClose }) {
-  const { t } = useLanguage();
-  const [idx, setIdx] = reactExports.useState(0);
-  const [input, setInput] = reactExports.useState("");
-  const [result, setResult] = reactExports.useState(null);
-  const [score, setScore] = reactExports.useState(0);
-  const w2 = WORDS[idx % WORDS.length];
-  const scrambled = w2.word.split("").sort(() => Math.random() - 0.5).join("");
-  const check = () => {
-    if (input.toUpperCase() === w2.word) {
-      setResult("correct");
-      setScore((s2) => s2 + 10);
-    } else {
-      setResult("wrong");
+function composeRefs(...refs) {
+  return (node) => {
+    let hasCleanup = false;
+    const cleanups = refs.map((ref) => {
+      const cleanup = setRef(ref, node);
+      if (!hasCleanup && typeof cleanup == "function") {
+        hasCleanup = true;
+      }
+      return cleanup;
+    });
+    if (hasCleanup) {
+      return () => {
+        for (let i = 0; i < cleanups.length; i++) {
+          const cleanup = cleanups[i];
+          if (typeof cleanup == "function") {
+            cleanup();
+          } else {
+            setRef(refs[i], null);
+          }
+        }
+      };
     }
-    setTimeout(() => {
-      setIdx((i) => i + 1);
-      setInput("");
-      setResult(null);
-    }, 1e3);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-amber text-white", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
-          "📝 ",
-          t.games.wordTitle
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
-          "Score: ",
-          score
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-amber-50", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card p-6 w-full max-w-sm text-center border-4 border-kids-amber", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-bold text-muted-foreground mb-1", children: "Scrambled Word:" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-5xl font-black text-kids-amber tracking-widest", children: scrambled }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-muted-foreground font-semibold mt-3", children: [
-          "Hint: ",
-          w2.hint
-        ] })
-      ] }),
-      result && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        motion.p,
-        {
-          initial: { scale: 0 },
-          animate: { scale: 1 },
-          className: `text-4xl ${result === "correct" ? "text-green-500" : "text-red-500"}`,
-          children: result === "correct" ? "✅ Correct!" : `❌ It was ${w2.word}`
+}
+function useComposedRefs(...refs) {
+  return reactExports.useCallback(composeRefs(...refs), refs);
+}
+function createContextScope(scopeName, createContextScopeDeps = []) {
+  let defaultContexts = [];
+  function createContext3(rootComponentName, defaultContext) {
+    const BaseContext = reactExports.createContext(defaultContext);
+    const index2 = defaultContexts.length;
+    defaultContexts = [...defaultContexts, defaultContext];
+    const Provider = (props) => {
+      var _a3;
+      const { scope, children, ...context } = props;
+      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
+      const value = reactExports.useMemo(() => context, Object.values(context));
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
+    };
+    Provider.displayName = rootComponentName + "Provider";
+    function useContext2(consumerName, scope) {
+      var _a3;
+      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
+      const context = reactExports.useContext(Context);
+      if (context) return context;
+      if (defaultContext !== void 0) return defaultContext;
+      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
+    }
+    return [Provider, useContext2];
+  }
+  const createScope = () => {
+    const scopeContexts = defaultContexts.map((defaultContext) => {
+      return reactExports.createContext(defaultContext);
+    });
+    return function useScope(scope) {
+      const contexts = (scope == null ? void 0 : scope[scopeName]) || scopeContexts;
+      return reactExports.useMemo(
+        () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
+        [scope, contexts]
+      );
+    };
+  };
+  createScope.scopeName = scopeName;
+  return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
+}
+function composeContextScopes(...scopes) {
+  const baseScope = scopes[0];
+  if (scopes.length === 1) return baseScope;
+  const createScope = () => {
+    const scopeHooks = scopes.map((createScope2) => ({
+      useScope: createScope2(),
+      scopeName: createScope2.scopeName
+    }));
+    return function useComposedScopes(overrideScopes) {
+      const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
+        const scopeProps = useScope(overrideScopes);
+        const currentScope = scopeProps[`__scope${scopeName}`];
+        return { ...nextScopes2, ...currentScope };
+      }, {});
+      return reactExports.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
+    };
+  };
+  createScope.scopeName = baseScope.scopeName;
+  return createScope;
+}
+var useLayoutEffect2 = (globalThis == null ? void 0 : globalThis.document) ? reactExports.useLayoutEffect : () => {
+};
+var useInsertionEffect = React$2[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
+function useControllableState({
+  prop,
+  defaultProp,
+  onChange = () => {
+  },
+  caller
+}) {
+  const [uncontrolledProp, setUncontrolledProp, onChangeRef] = useUncontrolledState({
+    defaultProp,
+    onChange
+  });
+  const isControlled = prop !== void 0;
+  const value = isControlled ? prop : uncontrolledProp;
+  {
+    const isControlledRef = reactExports.useRef(prop !== void 0);
+    reactExports.useEffect(() => {
+      const wasControlled = isControlledRef.current;
+      if (wasControlled !== isControlled) {
+        const from = wasControlled ? "controlled" : "uncontrolled";
+        const to = isControlled ? "controlled" : "uncontrolled";
+        console.warn(
+          `${caller} is changing from ${from} to ${to}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`
+        );
+      }
+      isControlledRef.current = isControlled;
+    }, [isControlled, caller]);
+  }
+  const setValue = reactExports.useCallback(
+    (nextValue) => {
+      var _a3;
+      if (isControlled) {
+        const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
+        if (value2 !== prop) {
+          (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value2);
         }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "input",
-        {
-          "data-ocid": "games.word_puzzle.input",
-          value: input,
-          onChange: (e) => setInput(e.target.value),
-          onKeyDown: (e) => e.key === "Enter" && check(),
-          placeholder: "Type the word...",
-          className: "w-full max-w-sm text-center text-xl font-black uppercase rounded-2xl border-4 border-kids-amber p-4 focus:outline-none",
-          maxLength: 6
+      } else {
+        setUncontrolledProp(nextValue);
+      }
+    },
+    [isControlled, prop, setUncontrolledProp, onChangeRef]
+  );
+  return [value, setValue];
+}
+function useUncontrolledState({
+  defaultProp,
+  onChange
+}) {
+  const [value, setValue] = reactExports.useState(defaultProp);
+  const prevValueRef = reactExports.useRef(value);
+  const onChangeRef = reactExports.useRef(onChange);
+  useInsertionEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+  reactExports.useEffect(() => {
+    var _a3;
+    if (prevValueRef.current !== value) {
+      (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value);
+      prevValueRef.current = value;
+    }
+  }, [value, prevValueRef]);
+  return [value, setValue, onChangeRef];
+}
+function isFunction(value) {
+  return typeof value === "function";
+}
+function usePrevious(value) {
+  const ref = reactExports.useRef({ value, previous: value });
+  return reactExports.useMemo(() => {
+    if (ref.current.value !== value) {
+      ref.current.previous = ref.current.value;
+      ref.current.value = value;
+    }
+    return ref.current.previous;
+  }, [value]);
+}
+function useSize(element) {
+  const [size, setSize] = reactExports.useState(void 0);
+  useLayoutEffect2(() => {
+    if (element) {
+      setSize({ width: element.offsetWidth, height: element.offsetHeight });
+      const resizeObserver = new ResizeObserver((entries) => {
+        if (!Array.isArray(entries)) {
+          return;
         }
-      ),
+        if (!entries.length) {
+          return;
+        }
+        const entry = entries[0];
+        let width;
+        let height;
+        if ("borderBoxSize" in entry) {
+          const borderSizeEntry = entry["borderBoxSize"];
+          const borderSize = Array.isArray(borderSizeEntry) ? borderSizeEntry[0] : borderSizeEntry;
+          width = borderSize["inlineSize"];
+          height = borderSize["blockSize"];
+        } else {
+          width = element.offsetWidth;
+          height = element.offsetHeight;
+        }
+        setSize({ width, height });
+      });
+      resizeObserver.observe(element, { box: "border-box" });
+      return () => resizeObserver.unobserve(element);
+    } else {
+      setSize(void 0);
+    }
+  }, [element]);
+  return size;
+}
+// @__NO_SIDE_EFFECTS__
+function createSlot(ownerName) {
+  const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
+  const Slot2 = reactExports.forwardRef((props, forwardedRef) => {
+    const { children, ...slotProps } = props;
+    const childrenArray = reactExports.Children.toArray(children);
+    const slottable = childrenArray.find(isSlottable);
+    if (slottable) {
+      const newElement = slottable.props.children;
+      const newChildren = childrenArray.map((child) => {
+        if (child === slottable) {
+          if (reactExports.Children.count(newElement) > 1) return reactExports.Children.only(null);
+          return reactExports.isValidElement(newElement) ? newElement.props.children : null;
+        } else {
+          return child;
+        }
+      });
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: reactExports.isValidElement(newElement) ? reactExports.cloneElement(newElement, void 0, newChildren) : null });
+    }
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
+  });
+  Slot2.displayName = `${ownerName}.Slot`;
+  return Slot2;
+}
+var Slot = /* @__PURE__ */ createSlot("Slot");
+// @__NO_SIDE_EFFECTS__
+function createSlotClone(ownerName) {
+  const SlotClone = reactExports.forwardRef((props, forwardedRef) => {
+    const { children, ...slotProps } = props;
+    if (reactExports.isValidElement(children)) {
+      const childrenRef = getElementRef(children);
+      const props2 = mergeProps(slotProps, children.props);
+      if (children.type !== reactExports.Fragment) {
+        props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
+      }
+      return reactExports.cloneElement(children, props2);
+    }
+    return reactExports.Children.count(children) > 1 ? reactExports.Children.only(null) : null;
+  });
+  SlotClone.displayName = `${ownerName}.SlotClone`;
+  return SlotClone;
+}
+var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
+function isSlottable(child) {
+  return reactExports.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
+}
+function mergeProps(slotProps, childProps) {
+  const overrideProps = { ...childProps };
+  for (const propName in childProps) {
+    const slotPropValue = slotProps[propName];
+    const childPropValue = childProps[propName];
+    const isHandler = /^on[A-Z]/.test(propName);
+    if (isHandler) {
+      if (slotPropValue && childPropValue) {
+        overrideProps[propName] = (...args) => {
+          const result = childPropValue(...args);
+          slotPropValue(...args);
+          return result;
+        };
+      } else if (slotPropValue) {
+        overrideProps[propName] = slotPropValue;
+      }
+    } else if (propName === "style") {
+      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
+    } else if (propName === "className") {
+      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(" ");
+    }
+  }
+  return { ...slotProps, ...overrideProps };
+}
+function getElementRef(element) {
+  var _a3, _b3;
+  let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
+  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  if (mayWarn) {
+    return element.ref;
+  }
+  getter = (_b3 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b3.get;
+  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  if (mayWarn) {
+    return element.props.ref;
+  }
+  return element.props.ref || element.ref;
+}
+var NODES = [
+  "a",
+  "button",
+  "div",
+  "form",
+  "h2",
+  "h3",
+  "img",
+  "input",
+  "label",
+  "li",
+  "nav",
+  "ol",
+  "p",
+  "select",
+  "span",
+  "svg",
+  "ul"
+];
+var Primitive = NODES.reduce((primitive, node) => {
+  const Slot2 = /* @__PURE__ */ createSlot(`Primitive.${node}`);
+  const Node = reactExports.forwardRef((props, forwardedRef) => {
+    const { asChild, ...primitiveProps } = props;
+    const Comp = asChild ? Slot2 : node;
+    if (typeof window !== "undefined") {
+      window[Symbol.for("radix-ui")] = true;
+    }
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Comp, { ...primitiveProps, ref: forwardedRef });
+  });
+  Node.displayName = `Primitive.${node}`;
+  return { ...primitive, [node]: Node };
+}, {});
+var SWITCH_NAME = "Switch";
+var [createSwitchContext] = createContextScope(SWITCH_NAME);
+var [SwitchProvider, useSwitchContext] = createSwitchContext(SWITCH_NAME);
+var Switch$1 = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const {
+      __scopeSwitch,
+      name,
+      checked: checkedProp,
+      defaultChecked,
+      required,
+      disabled,
+      value = "on",
+      onCheckedChange,
+      form,
+      ...switchProps
+    } = props;
+    const [button, setButton] = reactExports.useState(null);
+    const composedRefs = useComposedRefs(forwardedRef, (node) => setButton(node));
+    const hasConsumerStoppedPropagationRef = reactExports.useRef(false);
+    const isFormControl = button ? form || !!button.closest("form") : true;
+    const [checked, setChecked] = useControllableState({
+      prop: checkedProp,
+      defaultProp: defaultChecked ?? false,
+      onChange: onCheckedChange,
+      caller: SWITCH_NAME
+    });
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(SwitchProvider, { scope: __scopeSwitch, checked, disabled, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
+        Primitive.button,
         {
           type: "button",
-          onClick: check,
-          className: "w-full max-w-sm py-4 bg-kids-amber text-white rounded-full font-black text-lg",
-          children: "Check ✓"
+          role: "switch",
+          "aria-checked": checked,
+          "aria-required": required,
+          "data-state": getState(checked),
+          "data-disabled": disabled ? "" : void 0,
+          disabled,
+          value,
+          ...switchProps,
+          ref: composedRefs,
+          onClick: composeEventHandlers(props.onClick, (event) => {
+            setChecked((prevChecked) => !prevChecked);
+            if (isFormControl) {
+              hasConsumerStoppedPropagationRef.current = event.isPropagationStopped();
+              if (!hasConsumerStoppedPropagationRef.current) event.stopPropagation();
+            }
+          })
+        }
+      ),
+      isFormControl && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        SwitchBubbleInput,
+        {
+          control: button,
+          bubbles: !hasConsumerStoppedPropagationRef.current,
+          name,
+          value,
+          checked,
+          required,
+          disabled,
+          form,
+          style: { transform: "translateX(-100%)" }
         }
       )
-    ] })
-  ] });
-}
-const COLOR_OPTIONS = [
-  { name: "Red", hindi: "लाल", bg: "bg-red-500" },
-  { name: "Blue", hindi: "नीला", bg: "bg-blue-500" },
-  { name: "Green", hindi: "हरा", bg: "bg-green-500" },
-  { name: "Yellow", hindi: "पीला", bg: "bg-yellow-400" },
-  { name: "Purple", hindi: "बैंगनी", bg: "bg-purple-500" },
-  { name: "Orange", hindi: "नारंगी", bg: "bg-orange-500" }
-];
-function ColorMatch({ onClose }) {
-  const { lang, t } = useLanguage();
-  const getRound = reactExports.useCallback(() => {
-    const shuffled = [...COLOR_OPTIONS].sort(() => Math.random() - 0.5);
-    const target = shuffled[0];
-    return { target, options: shuffled.slice(0, 4) };
-  }, []);
-  const [round, setRound] = reactExports.useState(() => getRound());
-  const [score, setScore] = reactExports.useState(0);
-  const [feedback, setFeedback] = reactExports.useState(null);
-  const pick = (name) => {
-    if (feedback) return;
-    if (name === round.target.name) {
-      setScore((s2) => s2 + 10);
-      setFeedback("correct");
-    } else {
-      setFeedback("wrong");
-    }
-    setTimeout(() => {
-      setRound(getRound());
-      setFeedback(null);
-    }, 800);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-red text-white", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
-          "🎨 ",
-          t.games.colorTitle
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
-          "Score: ",
-          score
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-red-50", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-foreground", children: t.games.findColor }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full max-w-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-4xl font-black text-foreground", children: lang === "hi" ? round.target.hindi : round.target.name }) }),
-      feedback && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        motion.p,
-        {
-          initial: { scale: 0 },
-          animate: { scale: 1 },
-          className: `text-3xl ${feedback === "correct" ? "text-green-500" : "text-red-500"}`,
-          children: feedback === "correct" ? "✅" : "❌"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full max-w-sm", children: round.options.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          type: "button",
-          onClick: () => pick(opt.name),
-          className: `${opt.bg} rounded-2xl h-20 text-white font-black text-lg shadow-lg active:scale-95 transition-transform`,
-          children: lang === "hi" ? opt.hindi : opt.name
-        },
-        opt.name
-      )) })
-    ] })
-  ] });
-}
-function GamesPage() {
-  const { t } = useLanguage();
-  const [activeGame, setActiveGame] = reactExports.useState(null);
-  const [activeCat, setActiveCat] = reactExports.useState("all");
-  const GAME_CATS = [
-    { id: "all", label: t.games.cats.all },
-    { id: "brain", label: t.games.cats.brain },
-    { id: "fun", label: t.games.cats.fun },
-    { id: "learning", label: t.games.cats.learning }
-  ];
-  const GAMES = [
-    {
-      id: "memory",
-      title: t.games.memoryTitle,
-      desc: "Flip cards and find pairs!",
-      emoji: "🧠",
-      cat: "brain",
-      gradient: "from-purple-400 to-purple-600"
-    },
-    {
-      id: "math",
-      title: t.games.mathTitle,
-      desc: "Solve simple math questions!",
-      emoji: "🔢",
-      cat: "learning",
-      gradient: "from-green-400 to-green-600"
-    },
-    {
-      id: "word",
-      title: t.games.wordTitle,
-      desc: "Unscramble words with hints!",
-      emoji: "📝",
-      cat: "learning",
-      gradient: "from-amber-400 to-amber-600"
-    },
-    {
-      id: "color",
-      title: t.games.colorTitle,
-      desc: "Match colors!",
-      emoji: "🎨",
-      cat: "fun",
-      gradient: "from-red-400 to-pink-600"
-    }
-  ];
-  const filtered = GAMES.filter(
-    (g2) => activeCat === "all" || g2.cat === activeCat
-  );
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 md:px-8 pt-4 pb-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-kids-green", children: [
-          t.games.title,
-          " "
-        ] }),
-        "🎮"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: t.games.subtitle })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar", children: GAME_CATS.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "button",
+    ] });
+  }
+);
+Switch$1.displayName = SWITCH_NAME;
+var THUMB_NAME = "SwitchThumb";
+var SwitchThumb = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeSwitch, ...thumbProps } = props;
+    const context = useSwitchContext(THUMB_NAME, __scopeSwitch);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Primitive.span,
       {
-        type: "button",
-        "data-ocid": `games.${cat.id}.tab`,
-        onClick: () => setActiveCat(cat.id),
-        className: `flex-shrink-0 px-4 py-2 rounded-full text-xs font-black border-2 transition-all ${activeCat === cat.id ? "bg-kids-green text-white border-kids-green" : "bg-card border-border"}`,
-        children: cat.label
-      },
-      cat.id
-    )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 md:px-8 py-3 grid grid-cols-2 md:grid-cols-4 gap-3", children: filtered.map((game, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      motion.div,
-      {
-        initial: { opacity: 0, scale: 0.9 },
-        animate: { opacity: 1, scale: 1 },
-        transition: { delay: i * 0.08 },
-        "data-ocid": `games.item.${i + 1}`,
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "button",
-          {
-            type: "button",
-            "data-ocid": `games.play_button.${i + 1}`,
-            onClick: () => setActiveGame(game.id),
-            className: `w-full bg-gradient-to-br ${game.gradient} rounded-3xl p-4 text-white text-left shadow-card border-4 border-white/30 active:scale-95 transition-transform`,
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl mb-2", children: game.emoji }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm leading-tight", children: game.title }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs opacity-80 mt-0.5", children: game.desc }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-3 bg-white/20 rounded-full py-1 text-center text-xs font-black", children: [
-                "▶ ",
-                t.games.play
-              ] })
-            ]
-          }
-        )
-      },
-      game.id
-    )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeGame && /* @__PURE__ */ jsxRuntimeExports.jsx(
-      motion.div,
-      {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        exit: { opacity: 0 },
-        "data-ocid": "games.modal",
-        className: "fixed inset-0 z-50 bg-background flex flex-col md:items-center md:justify-center",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full h-full md:max-w-lg md:h-auto md:max-h-[90vh] md:rounded-3xl md:overflow-hidden md:shadow-2xl flex flex-col", children: [
-          activeGame === "memory" && /* @__PURE__ */ jsxRuntimeExports.jsx(MemoryMatch, { onClose: () => setActiveGame(null) }),
-          activeGame === "math" && /* @__PURE__ */ jsxRuntimeExports.jsx(MathQuiz, { onClose: () => setActiveGame(null) }),
-          activeGame === "word" && /* @__PURE__ */ jsxRuntimeExports.jsx(WordPuzzle, { onClose: () => setActiveGame(null) }),
-          activeGame === "color" && /* @__PURE__ */ jsxRuntimeExports.jsx(ColorMatch, { onClose: () => setActiveGame(null) })
-        ] })
+        "data-state": getState(context.checked),
+        "data-disabled": context.disabled ? "" : void 0,
+        ...thumbProps,
+        ref: forwardedRef
       }
-    ) })
-  ] });
+    );
+  }
+);
+SwitchThumb.displayName = THUMB_NAME;
+var BUBBLE_INPUT_NAME = "SwitchBubbleInput";
+var SwitchBubbleInput = reactExports.forwardRef(
+  ({
+    __scopeSwitch,
+    control,
+    checked,
+    bubbles = true,
+    ...props
+  }, forwardedRef) => {
+    const ref = reactExports.useRef(null);
+    const composedRefs = useComposedRefs(ref, forwardedRef);
+    const prevChecked = usePrevious(checked);
+    const controlSize = useSize(control);
+    reactExports.useEffect(() => {
+      const input = ref.current;
+      if (!input) return;
+      const inputProto = window.HTMLInputElement.prototype;
+      const descriptor = Object.getOwnPropertyDescriptor(
+        inputProto,
+        "checked"
+      );
+      const setChecked = descriptor.set;
+      if (prevChecked !== checked && setChecked) {
+        const event = new Event("click", { bubbles });
+        setChecked.call(input, checked);
+        input.dispatchEvent(event);
+      }
+    }, [prevChecked, checked, bubbles]);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        type: "checkbox",
+        "aria-hidden": true,
+        defaultChecked: checked,
+        ...props,
+        tabIndex: -1,
+        ref: composedRefs,
+        style: {
+          ...props.style,
+          ...controlSize,
+          position: "absolute",
+          pointerEvents: "none",
+          opacity: 0,
+          margin: 0
+        }
+      }
+    );
+  }
+);
+SwitchBubbleInput.displayName = BUBBLE_INPUT_NAME;
+function getState(checked) {
+  return checked ? "checked" : "unchecked";
 }
+var Root$2 = Switch$1;
+var Thumb = SwitchThumb;
 function r(e) {
   var t, f, n = "";
   if ("string" == typeof e || "number" == typeof e) n += e;
@@ -39642,13 +39685,28 @@ const twMerge = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
 function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
-function Skeleton({ className, ...props }) {
+function Switch({
+  className,
+  ...props
+}) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "div",
+    Root$2,
     {
-      "data-slot": "skeleton",
-      className: cn("bg-accent animate-pulse rounded-md", className),
-      ...props
+      "data-slot": "switch",
+      className: cn(
+        "peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      ),
+      ...props,
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Thumb,
+        {
+          "data-slot": "switch-thumb",
+          className: cn(
+            "bg-background dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none block size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0"
+          )
+        }
+      )
     }
   );
 }
@@ -39814,6 +39872,20 @@ function useCreateVideoMeta() {
     }
   });
 }
+function useSaveAppLock() {
+  const { actor } = useActor();
+  const { identity } = useInternetIdentity();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (appLocks) => {
+      if (!actor || !identity) throw new Error("Not authenticated");
+      return actor.saveAppLock(identity.getPrincipal(), appLocks);
+    },
+    onSuccess: () => {
+      queryClient2.invalidateQueries({ queryKey: ["callerProfile"] });
+    }
+  });
+}
 function useMySubscriptions() {
   const { actor, isFetching } = useActor();
   const { identity } = useInternetIdentity();
@@ -39906,6 +39978,962 @@ function useUnsubscribeMutation() {
       });
     }
   });
+}
+const STORAGE_PIN_KEY = "kidshouse_pin";
+const STORAGE_LOCKS_KEY = "kidshouse_locks";
+const DEFAULT_PIN = "1234";
+const ALL_APPS = [
+  {
+    key: "youtube",
+    name: "YouTube",
+    emoji: "▶️",
+    gradient: "from-red-400 to-red-600",
+    backend: true
+  },
+  {
+    key: "instagram",
+    name: "Instagram",
+    emoji: "📸",
+    gradient: "from-purple-400 to-pink-500",
+    backend: true
+  },
+  {
+    key: "whatsapp",
+    name: "WhatsApp",
+    emoji: "💬",
+    gradient: "from-green-400 to-green-600",
+    backend: false
+  },
+  {
+    key: "games",
+    name: "Games",
+    emoji: "🎮",
+    gradient: "from-blue-500 to-purple-600",
+    backend: false
+  },
+  {
+    key: "tiktok",
+    name: "TikTok",
+    emoji: "🎵",
+    gradient: "from-gray-700 to-gray-900",
+    backend: true
+  },
+  {
+    key: "facebook",
+    name: "Facebook",
+    emoji: "👥",
+    gradient: "from-blue-500 to-blue-700",
+    backend: true
+  }
+];
+function loadLocks() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_LOCKS_KEY) ?? "{}");
+  } catch {
+    return {};
+  }
+}
+function saveLocks(locks) {
+  localStorage.setItem(STORAGE_LOCKS_KEY, JSON.stringify(locks));
+}
+function loadPin() {
+  return localStorage.getItem(STORAGE_PIN_KEY) ?? DEFAULT_PIN;
+}
+function LockScreen({ appName, appEmoji, onClose }) {
+  const [pin, setPin] = reactExports.useState("");
+  const [status, setStatus] = reactExports.useState("idle");
+  const [timeLeft, setTimeLeft] = reactExports.useState(5);
+  const timerRef = reactExports.useRef(null);
+  const correctPin = loadPin();
+  const clearTimer = reactExports.useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+  const startTimer = reactExports.useCallback(() => {
+    clearTimer();
+    setTimeLeft(5);
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearTimer();
+          setStatus("timeout");
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1e3);
+  }, [clearTimer]);
+  reactExports.useEffect(() => {
+    startTimer();
+    return clearTimer;
+  }, [startTimer, clearTimer]);
+  reactExports.useEffect(() => {
+    if (status === "timeout") {
+      const t = setTimeout(onClose, 1500);
+      return () => clearTimeout(t);
+    }
+  }, [status, onClose]);
+  reactExports.useEffect(() => {
+    if (status === "granted") {
+      const t = setTimeout(onClose, 2e3);
+      return () => clearTimeout(t);
+    }
+  }, [status, onClose]);
+  reactExports.useEffect(() => {
+    if (status === "denied") {
+      const t = setTimeout(onClose, 1500);
+      return () => clearTimeout(t);
+    }
+  }, [status, onClose]);
+  const handleKey = (key) => {
+    if (status !== "idle") return;
+    if (key === "⌫") {
+      setPin((p2) => p2.slice(0, -1));
+      startTimer();
+      return;
+    }
+    if (key === "✓") {
+      checkPin(pin);
+      return;
+    }
+    if (pin.length >= 4) return;
+    const next = pin + key;
+    setPin(next);
+    startTimer();
+    if (next.length === 4) {
+      setTimeout(() => checkPin(next), 100);
+    }
+  };
+  const checkPin = (p2) => {
+    clearTimer();
+    if (p2 === correctPin) {
+      setStatus("granted");
+    } else {
+      setStatus("denied");
+    }
+  };
+  const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫", "0", "✓"];
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    motion.div,
+    {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      "data-ocid": "applock.modal",
+      className: "fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-4",
+      children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { scale: 0.85, opacity: 0, y: 40 },
+          animate: { scale: 1, opacity: 1, y: 0 },
+          exit: { scale: 0.85, opacity: 0, y: 40 },
+          transition: { type: "spring", stiffness: 350, damping: 28 },
+          className: "bg-white rounded-3xl shadow-2xl p-6 w-full max-w-sm",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center mb-4", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl mb-1", children: "🏠" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xl font-black", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Kids " }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "House" })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center mb-5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-3xl mb-1", children: appEmoji }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-gray-800 text-lg", children: [
+                appName,
+                " is locked 🔒"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 font-semibold mt-1", children: "Enter parent PIN to unlock" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(AnimatePresence, { mode: "wait", children: [
+              status === "granted" && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                motion.div,
+                {
+                  initial: { opacity: 0, scale: 0.8 },
+                  animate: { opacity: 1, scale: 1 },
+                  exit: { opacity: 0 },
+                  className: "text-center py-6",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-5xl mb-2", children: "✅" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-green-600 font-black text-lg", children: "Access Granted!" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-gray-500 text-sm mt-1", children: [
+                      "Opening ",
+                      appName,
+                      "..."
+                    ] })
+                  ]
+                },
+                "granted"
+              ),
+              status === "denied" && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                motion.div,
+                {
+                  initial: { opacity: 0, scale: 0.8 },
+                  animate: { opacity: 1, scale: 1 },
+                  exit: { opacity: 0 },
+                  className: "text-center py-6",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-5xl mb-2", children: "🏠" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-kids-blue font-black text-lg", children: "Kids House Opening..." }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm mt-1", children: "Wrong PIN entered" })
+                  ]
+                },
+                "denied"
+              ),
+              status === "timeout" && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                motion.div,
+                {
+                  initial: { opacity: 0, scale: 0.8 },
+                  animate: { opacity: 1, scale: 1 },
+                  exit: { opacity: 0 },
+                  className: "text-center py-6",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-5xl mb-2", children: "⏳" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-kids-red font-black text-lg", children: "Time's Up! Screen locked." })
+                  ]
+                },
+                "timeout"
+              ),
+              status === "idle" && /* @__PURE__ */ jsxRuntimeExports.jsxs(motion.div, { exit: { opacity: 0 }, children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center gap-4 mb-3", children: Array.from({ length: 4 }).map((_2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "div",
+                  {
+                    className: `w-5 h-5 rounded-full border-2 transition-all duration-150 ${i < pin.length ? "bg-kids-blue border-kids-blue" : "bg-gray-100 border-gray-300"}`
+                  },
+                  i
+                )) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "span",
+                  {
+                    className: `text-sm font-black px-3 py-1 rounded-full ${timeLeft <= 2 ? "bg-kids-red/10 text-kids-red" : "bg-gray-100 text-gray-600"}`,
+                    children: [
+                      "⏰ ",
+                      timeLeft,
+                      "s"
+                    ]
+                  }
+                ) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-3 gap-2", children: KEYS.map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  motion.button,
+                  {
+                    type: "button",
+                    "data-ocid": `applock.${key === "⌫" ? "delete_button" : key === "✓" ? "confirm_button" : `${key}.button`}`,
+                    whileTap: { scale: 0.88 },
+                    onClick: () => handleKey(key),
+                    className: `min-h-[72px] rounded-2xl text-xl font-black transition-colors select-none ${key === "✓" ? "bg-green-500 text-white hover:bg-green-600" : key === "⌫" ? "bg-gray-200 text-gray-700 hover:bg-gray-300" : "bg-kids-blue/10 text-kids-blue hover:bg-kids-blue/20"}`,
+                    children: key
+                  },
+                  key
+                )) })
+              ] }, "input")
+            ] }),
+            status === "idle" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                type: "button",
+                "data-ocid": "applock.close_button",
+                onClick: onClose,
+                className: "w-full mt-4 text-xs text-gray-400 font-semibold hover:text-gray-600 transition-colors",
+                children: "Cancel"
+              }
+            )
+          ]
+        }
+      )
+    }
+  );
+}
+function PinSettingsCard() {
+  const [expanded, setExpanded] = reactExports.useState(false);
+  const [newPin, setNewPin] = reactExports.useState("");
+  const [currentPin] = reactExports.useState(loadPin);
+  const [saved, setSaved] = reactExports.useState(false);
+  const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "⌫", "0", "✓"];
+  const handleKey = (key) => {
+    if (key === "⌫") {
+      setNewPin((p2) => p2.slice(0, -1));
+      return;
+    }
+    if (key === "✓") {
+      if (newPin.length === 4) {
+        localStorage.setItem(STORAGE_PIN_KEY, newPin);
+        setSaved(true);
+        ue.success("PIN updated! 🔐");
+        setTimeout(() => {
+          setExpanded(false);
+          setNewPin("");
+          setSaved(false);
+        }, 1200);
+      }
+      return;
+    }
+    if (newPin.length < 4) setNewPin((p2) => p2 + key);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card border-2 border-kids-amber/40 p-5 mb-4", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-gray-800 text-sm", children: "🔐 Parent PIN" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 mt-1", children: Array.from({ length: 4 }).map((_2, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: fixed 4 dots
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl text-kids-blue", children: "●" }, i)
+        )) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs text-gray-400 font-semibold mt-0.5", children: [
+          "Current PIN: ",
+          currentPin
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          "data-ocid": "applock.open_modal_button",
+          onClick: () => setExpanded((v2) => !v2),
+          className: "bg-kids-amber/20 hover:bg-kids-amber/30 text-kids-amber font-black text-xs px-4 py-2 rounded-xl transition-colors",
+          children: expanded ? "Cancel" : "Change PIN"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: expanded && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      motion.div,
+      {
+        initial: { height: 0, opacity: 0 },
+        animate: { height: "auto", opacity: 1 },
+        exit: { height: 0, opacity: 0 },
+        transition: { duration: 0.25 },
+        className: "overflow-hidden",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pt-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-gray-500 font-semibold text-center mb-2", children: "Enter new 4-digit PIN" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center gap-4 mb-3", children: [0, 1, 2, 3].map((i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: `w-4 h-4 rounded-full border-2 transition-all ${i < newPin.length ? "bg-kids-amber border-kids-amber" : "bg-gray-100 border-gray-300"}`
+            },
+            i
+          )) }),
+          saved && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-center text-green-600 font-black text-sm mb-2", children: "✅ Saved!" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-3 gap-2", children: KEYS.map((key) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.button,
+            {
+              type: "button",
+              whileTap: { scale: 0.88 },
+              onClick: () => handleKey(key),
+              className: `min-h-[60px] rounded-xl text-lg font-black transition-colors ${key === "✓" ? "bg-green-500 text-white hover:bg-green-600" : key === "⌫" ? "bg-gray-200 text-gray-700 hover:bg-gray-300" : "bg-kids-amber/10 text-kids-amber hover:bg-kids-amber/20"}`,
+              children: key
+            },
+            key
+          )) })
+        ] })
+      }
+    ) })
+  ] });
+}
+function AppLockPage({ profile }) {
+  const [locks, setLocks] = reactExports.useState(loadLocks);
+  const [lockScreen, setLockScreen] = reactExports.useState(null);
+  const saveAppLock = useSaveAppLock();
+  reactExports.useEffect(() => {
+    var _a3;
+    if ((_a3 = profile == null ? void 0 : profile.settings) == null ? void 0 : _a3.appLocks) {
+      const al = profile.settings.appLocks;
+      setLocks((prev) => ({
+        ...prev,
+        youtube: al.youtube.isLocked,
+        instagram: al.instagram.isLocked,
+        tiktok: al.tiktok.isLocked,
+        facebook: al.facebook.isLocked
+      }));
+    }
+  }, [profile]);
+  const toggleLock = async (key, isBackend) => {
+    const updated = { ...locks, [key]: !locks[key] };
+    setLocks(updated);
+    saveLocks(updated);
+    if (isBackend) {
+      const backendLocks = {
+        youtube: { isLocked: updated.youtube ?? false },
+        instagram: { isLocked: updated.instagram ?? false },
+        tiktok: { isLocked: updated.tiktok ?? false },
+        facebook: { isLocked: updated.facebook ?? false }
+      };
+      try {
+        await saveAppLock.mutateAsync(backendLocks);
+      } catch {
+      }
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "px-4 md:px-8 pt-6 pb-4 border-b border-border", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "App" }),
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Lock" }),
+        " 🔒"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold mt-0.5", children: "Control which apps kids can access" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 md:px-8 py-5 space-y-4 max-w-2xl", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(PinSettingsCard, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-kids-blue/5 border-2 border-kids-blue/20 rounded-2xl px-4 py-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs font-bold text-kids-blue", children: [
+        "💡 Toggle to lock apps. Tap ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "▶ Try Demo" }),
+        " on a locked app to test the lock screen."
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3", children: ALL_APPS.map((app, i) => {
+        const isLocked = locks[app.key] ?? false;
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0, y: 16 },
+            animate: { opacity: 1, y: 0 },
+            transition: { delay: i * 0.05 },
+            "data-ocid": `applock.item.${i + 1}`,
+            className: "bg-white rounded-2xl shadow-card border border-border p-4 flex items-center gap-4",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  className: `w-12 h-12 rounded-2xl bg-gradient-to-br ${app.gradient} flex items-center justify-center text-2xl flex-shrink-0 shadow-md`,
+                  children: app.emoji
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-gray-800", children: app.name }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "p",
+                  {
+                    className: `text-xs font-semibold ${isLocked ? "text-kids-red" : "text-secondary"}`,
+                    children: isLocked ? "🔒 Locked" : "🔓 Unlocked"
+                  }
+                ),
+                isLocked && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  motion.button,
+                  {
+                    type: "button",
+                    initial: { opacity: 0, scale: 0.8 },
+                    animate: { opacity: 1, scale: 1 },
+                    "data-ocid": `applock.secondary_button.${i + 1}`,
+                    onClick: () => setLockScreen({
+                      key: app.key,
+                      name: app.name,
+                      emoji: app.emoji
+                    }),
+                    className: "mt-1.5 bg-kids-red/10 hover:bg-kids-red/20 text-kids-red text-xs font-black px-3 py-1 rounded-xl transition-colors",
+                    children: "▶ Try Demo"
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Switch,
+                {
+                  "data-ocid": `applock.toggle.${i + 1}`,
+                  checked: isLocked,
+                  onCheckedChange: () => toggleLock(app.key, app.backend),
+                  className: "data-[state=checked]:bg-kids-red flex-shrink-0"
+                }
+              )
+            ]
+          },
+          app.key
+        );
+      }) }),
+      Object.values(locks).some(Boolean) && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, scale: 0.9 },
+          animate: { opacity: 1, scale: 1 },
+          className: "bg-kids-red/10 border-2 border-kids-red/30 rounded-2xl p-4 text-center",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-3xl mb-1", children: "🛡️" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-kids-red text-sm", children: [
+              Object.values(locks).filter(Boolean).length,
+              " app(s) locked"
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold mt-1", children: "Kids will see the PIN screen when trying to open locked apps" })
+          ]
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: lockScreen && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      LockScreen,
+      {
+        appName: lockScreen.name,
+        appEmoji: lockScreen.emoji,
+        onClose: () => setLockScreen(null)
+      }
+    ) })
+  ] });
+}
+const CARD_EMOJIS = ["🐶", "🐱", "🐸", "🦊", "🐻", "🐯", "🦁", "🐮"];
+function MemoryMatch({ onClose }) {
+  const { t } = useLanguage();
+  const makeBoard = reactExports.useCallback(() => {
+    const pairs = [...CARD_EMOJIS, ...CARD_EMOJIS];
+    return pairs.map((emoji, i) => ({ id: i, emoji, flipped: false, matched: false })).sort(() => Math.random() - 0.5);
+  }, []);
+  const [cards, setCards] = reactExports.useState(() => makeBoard());
+  const [selected, setSelected] = reactExports.useState([]);
+  const [score, setScore] = reactExports.useState(0);
+  const [moves, setMoves] = reactExports.useState(0);
+  const done = cards.every((c2) => c2.matched);
+  const restart = () => {
+    setCards(makeBoard());
+    setScore(0);
+    setMoves(0);
+    setSelected([]);
+  };
+  const flip = (id2) => {
+    if (selected.length === 2) return;
+    const card = cards.find((c2) => c2.id === id2);
+    if (!card || card.flipped || card.matched) return;
+    const newSelected = [...selected, id2];
+    setCards(
+      (prev) => prev.map((c2) => c2.id === id2 ? { ...c2, flipped: true } : c2)
+    );
+    if (newSelected.length === 2) {
+      setMoves((m2) => m2 + 1);
+      const [a2, b2] = newSelected.map((sid) => cards.find((c2) => c2.id === sid));
+      if (a2.emoji === b2.emoji) {
+        setCards(
+          (prev) => prev.map(
+            (c2) => newSelected.includes(c2.id) ? { ...c2, matched: true } : c2
+          )
+        );
+        setScore((s2) => s2 + 10);
+        setSelected([]);
+      } else {
+        setTimeout(() => {
+          setCards(
+            (prev) => prev.map(
+              (c2) => newSelected.includes(c2.id) ? { ...c2, flipped: false } : c2
+            )
+          );
+          setSelected([]);
+        }, 800);
+      }
+    } else {
+      setSelected(newSelected);
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-purple text-white", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "🧠 ",
+          t.games.memoryTitle
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
+          "Score: ",
+          score,
+          " | Moves: ",
+          moves
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          onClick: restart,
+          className: "bg-white/20 rounded-full px-3 py-1 text-xs font-black",
+          children: [
+            "↺ ",
+            t.games.restart
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl ml-2", children: "✕" })
+    ] }),
+    done ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 bg-kids-purple/10", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl", children: "🎉" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-2xl text-kids-purple", children: t.games.wellDone }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-muted-foreground font-semibold", children: [
+        "Score: ",
+        score,
+        " in ",
+        moves,
+        " moves"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          onClick: restart,
+          className: "bg-kids-purple text-white rounded-full px-6 py-3 font-black",
+          children: t.games.playAgain
+        }
+      )
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 p-4 bg-kids-purple/5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-4 gap-2 max-w-sm mx-auto", children: cards.map((card) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "button",
+      {
+        type: "button",
+        onClick: () => flip(card.id),
+        className: `aspect-square rounded-2xl text-3xl flex items-center justify-center font-bold border-4 transition-all ${card.matched ? "bg-green-100 border-green-400" : card.flipped ? "bg-white border-kids-purple" : "bg-kids-purple border-kids-purple text-white"}`,
+        children: card.flipped || card.matched ? card.emoji : "?"
+      },
+      card.id
+    )) }) })
+  ] });
+}
+const genQ = () => {
+  const a2 = Math.floor(Math.random() * 10) + 1;
+  const b2 = Math.floor(Math.random() * 10) + 1;
+  const ops = ["+", "-"];
+  const op = ops[Math.floor(Math.random() * 2)];
+  const answer = op === "+" ? a2 + b2 : a2 - b2;
+  const opts = [answer];
+  while (opts.length < 4) {
+    const wrong = answer + (Math.floor(Math.random() * 7) - 3);
+    if (!opts.includes(wrong)) opts.push(wrong);
+  }
+  opts.sort(() => Math.random() - 0.5);
+  return { a: a2, b: b2, op, answer, opts };
+};
+function MathQuiz({ onClose }) {
+  const { t } = useLanguage();
+  const [q2, setQ] = reactExports.useState(() => genQ());
+  const [score, setScore] = reactExports.useState(0);
+  const [round, setRound] = reactExports.useState(1);
+  const [feedback, setFeedback] = reactExports.useState(null);
+  const answer = (opt) => {
+    if (feedback) return;
+    if (opt === q2.answer) {
+      setScore((s2) => s2 + 10);
+      setFeedback("correct");
+    } else {
+      setFeedback("wrong");
+    }
+    setTimeout(() => {
+      setQ(genQ());
+      setRound((r2) => r2 + 1);
+      setFeedback(null);
+    }, 900);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-green text-white", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "🔢 ",
+          t.games.mathTitle
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
+          "Score: ",
+          score,
+          " | Q: ",
+          round
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-kids-green/5", children: [
+      feedback && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        motion.div,
+        {
+          initial: { scale: 0.5, opacity: 0 },
+          animate: { scale: 1, opacity: 1 },
+          className: `text-5xl ${feedback === "correct" ? "text-green-500" : "text-red-500"}`,
+          children: feedback === "correct" ? "✅" : "❌"
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-green w-full max-w-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-5xl font-black text-foreground", children: [
+        q2.a,
+        " ",
+        q2.op,
+        " ",
+        q2.b,
+        " = ?"
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full max-w-sm", children: q2.opts.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          onClick: () => answer(opt),
+          className: "py-5 rounded-2xl bg-white border-4 border-kids-green text-2xl font-black text-foreground shadow active:scale-95 transition-transform",
+          children: opt
+        },
+        `opt-${opt}`
+      )) })
+    ] })
+  ] });
+}
+const WORDS = [
+  { word: "CAT", hint: "A small furry pet 🐱" },
+  { word: "DOG", hint: "Man's best friend 🐶" },
+  { word: "SUN", hint: "It shines in the sky ☀️" },
+  { word: "BUS", hint: "You ride to school 🚌" },
+  { word: "CUP", hint: "You drink from it ☕" }
+];
+function WordPuzzle({ onClose }) {
+  const { t } = useLanguage();
+  const [idx, setIdx] = reactExports.useState(0);
+  const [input, setInput] = reactExports.useState("");
+  const [result, setResult] = reactExports.useState(null);
+  const [score, setScore] = reactExports.useState(0);
+  const w2 = WORDS[idx % WORDS.length];
+  const scrambled = w2.word.split("").sort(() => Math.random() - 0.5).join("");
+  const check = () => {
+    if (input.toUpperCase() === w2.word) {
+      setResult("correct");
+      setScore((s2) => s2 + 10);
+    } else {
+      setResult("wrong");
+    }
+    setTimeout(() => {
+      setIdx((i) => i + 1);
+      setInput("");
+      setResult(null);
+    }, 1e3);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-amber text-white", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "📝 ",
+          t.games.wordTitle
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
+          "Score: ",
+          score
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-amber-50", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-3xl shadow-card p-6 w-full max-w-sm text-center border-4 border-kids-amber", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-bold text-muted-foreground mb-1", children: "Scrambled Word:" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-5xl font-black text-kids-amber tracking-widest", children: scrambled }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-muted-foreground font-semibold mt-3", children: [
+          "Hint: ",
+          w2.hint
+        ] })
+      ] }),
+      result && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        motion.p,
+        {
+          initial: { scale: 0 },
+          animate: { scale: 1 },
+          className: `text-4xl ${result === "correct" ? "text-green-500" : "text-red-500"}`,
+          children: result === "correct" ? "✅ Correct!" : `❌ It was ${w2.word}`
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "input",
+        {
+          "data-ocid": "games.word_puzzle.input",
+          value: input,
+          onChange: (e) => setInput(e.target.value),
+          onKeyDown: (e) => e.key === "Enter" && check(),
+          placeholder: "Type the word...",
+          className: "w-full max-w-sm text-center text-xl font-black uppercase rounded-2xl border-4 border-kids-amber p-4 focus:outline-none",
+          maxLength: 6
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          onClick: check,
+          className: "w-full max-w-sm py-4 bg-kids-amber text-white rounded-full font-black text-lg",
+          children: "Check ✓"
+        }
+      )
+    ] })
+  ] });
+}
+const COLOR_OPTIONS = [
+  { name: "Red", hindi: "लाल", bg: "bg-red-500" },
+  { name: "Blue", hindi: "नीला", bg: "bg-blue-500" },
+  { name: "Green", hindi: "हरा", bg: "bg-green-500" },
+  { name: "Yellow", hindi: "पीला", bg: "bg-yellow-400" },
+  { name: "Purple", hindi: "बैंगनी", bg: "bg-purple-500" },
+  { name: "Orange", hindi: "नारंगी", bg: "bg-orange-500" }
+];
+function ColorMatch({ onClose }) {
+  const { lang, t } = useLanguage();
+  const getRound = reactExports.useCallback(() => {
+    const shuffled = [...COLOR_OPTIONS].sort(() => Math.random() - 0.5);
+    const target = shuffled[0];
+    return { target, options: shuffled.slice(0, 4) };
+  }, []);
+  const [round, setRound] = reactExports.useState(() => getRound());
+  const [score, setScore] = reactExports.useState(0);
+  const [feedback, setFeedback] = reactExports.useState(null);
+  const pick = (name) => {
+    if (feedback) return;
+    if (name === round.target.name) {
+      setScore((s2) => s2 + 10);
+      setFeedback("correct");
+    } else {
+      setFeedback("wrong");
+    }
+    setTimeout(() => {
+      setRound(getRound());
+      setFeedback(null);
+    }, 800);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between p-4 bg-kids-red text-white", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "font-black text-lg", children: [
+          "🎨 ",
+          t.games.colorTitle
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-xs opacity-80", children: [
+          "Score: ",
+          score
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: onClose, className: "text-2xl", children: "✕" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-6 p-6 bg-red-50", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-xl text-foreground", children: t.games.findColor }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white rounded-3xl shadow-card p-8 text-center border-4 border-kids-red w-full max-w-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-4xl font-black text-foreground", children: lang === "hi" ? round.target.hindi : round.target.name }) }),
+      feedback && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        motion.p,
+        {
+          initial: { scale: 0 },
+          animate: { scale: 1 },
+          className: `text-3xl ${feedback === "correct" ? "text-green-500" : "text-red-500"}`,
+          children: feedback === "correct" ? "✅" : "❌"
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 gap-3 w-full max-w-sm", children: round.options.map((opt) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          onClick: () => pick(opt.name),
+          className: `${opt.bg} rounded-2xl h-20 text-white font-black text-lg shadow-lg active:scale-95 transition-transform`,
+          children: lang === "hi" ? opt.hindi : opt.name
+        },
+        opt.name
+      )) })
+    ] })
+  ] });
+}
+function GamesPage() {
+  const { t } = useLanguage();
+  const [activeGame, setActiveGame] = reactExports.useState(null);
+  const [activeCat, setActiveCat] = reactExports.useState("all");
+  const GAME_CATS = [
+    { id: "all", label: t.games.cats.all },
+    { id: "brain", label: t.games.cats.brain },
+    { id: "fun", label: t.games.cats.fun },
+    { id: "learning", label: t.games.cats.learning }
+  ];
+  const GAMES = [
+    {
+      id: "memory",
+      title: t.games.memoryTitle,
+      desc: "Flip cards and find pairs!",
+      emoji: "🧠",
+      cat: "brain",
+      gradient: "from-purple-400 to-purple-600"
+    },
+    {
+      id: "math",
+      title: t.games.mathTitle,
+      desc: "Solve simple math questions!",
+      emoji: "🔢",
+      cat: "learning",
+      gradient: "from-green-400 to-green-600"
+    },
+    {
+      id: "word",
+      title: t.games.wordTitle,
+      desc: "Unscramble words with hints!",
+      emoji: "📝",
+      cat: "learning",
+      gradient: "from-amber-400 to-amber-600"
+    },
+    {
+      id: "color",
+      title: t.games.colorTitle,
+      desc: "Match colors!",
+      emoji: "🎨",
+      cat: "fun",
+      gradient: "from-red-400 to-pink-600"
+    }
+  ];
+  const filtered = GAMES.filter(
+    (g2) => activeCat === "all" || g2.cat === activeCat
+  );
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 md:px-8 pt-4 pb-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-kids-green", children: [
+          t.games.title,
+          " "
+        ] }),
+        "🎮"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground font-semibold", children: t.games.subtitle })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-2 px-4 md:px-8 py-2 overflow-x-auto no-scrollbar", children: GAME_CATS.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "button",
+      {
+        type: "button",
+        "data-ocid": `games.${cat.id}.tab`,
+        onClick: () => setActiveCat(cat.id),
+        className: `flex-shrink-0 px-4 py-2 rounded-full text-xs font-black border-2 transition-all ${activeCat === cat.id ? "bg-kids-green text-white border-kids-green" : "bg-card border-border"}`,
+        children: cat.label
+      },
+      cat.id
+    )) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 md:px-8 py-3 grid grid-cols-2 md:grid-cols-4 gap-3", children: filtered.map((game, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      motion.div,
+      {
+        initial: { opacity: 0, scale: 0.9 },
+        animate: { opacity: 1, scale: 1 },
+        transition: { delay: i * 0.08 },
+        "data-ocid": `games.item.${i + 1}`,
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            type: "button",
+            "data-ocid": `games.play_button.${i + 1}`,
+            onClick: () => setActiveGame(game.id),
+            className: `w-full bg-gradient-to-br ${game.gradient} rounded-3xl p-4 text-white text-left shadow-card border-4 border-white/30 active:scale-95 transition-transform`,
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl mb-2", children: game.emoji }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm leading-tight", children: game.title }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs opacity-80 mt-0.5", children: game.desc }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-3 bg-white/20 rounded-full py-1 text-center text-xs font-black", children: [
+                "▶ ",
+                t.games.play
+              ] })
+            ]
+          }
+        )
+      },
+      game.id
+    )) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: activeGame && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      motion.div,
+      {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+        "data-ocid": "games.modal",
+        className: "fixed inset-0 z-50 bg-background flex flex-col md:items-center md:justify-center",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full h-full md:max-w-lg md:h-auto md:max-h-[90vh] md:rounded-3xl md:overflow-hidden md:shadow-2xl flex flex-col", children: [
+          activeGame === "memory" && /* @__PURE__ */ jsxRuntimeExports.jsx(MemoryMatch, { onClose: () => setActiveGame(null) }),
+          activeGame === "math" && /* @__PURE__ */ jsxRuntimeExports.jsx(MathQuiz, { onClose: () => setActiveGame(null) }),
+          activeGame === "word" && /* @__PURE__ */ jsxRuntimeExports.jsx(WordPuzzle, { onClose: () => setActiveGame(null) }),
+          activeGame === "color" && /* @__PURE__ */ jsxRuntimeExports.jsx(ColorMatch, { onClose: () => setActiveGame(null) })
+        ] })
+      }
+    ) })
+  ] });
+}
+function Skeleton({ className, ...props }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "div",
+    {
+      "data-slot": "skeleton",
+      className: cn("bg-accent animate-pulse rounded-md", className),
+      ...props
+    }
+  );
 }
 const CATEGORY_IDS = [
   { id: "all", emoji: "🌈" },
@@ -40158,121 +41186,6 @@ function HomePage() {
     ] })
   ] });
 }
-function setRef(ref, value) {
-  if (typeof ref === "function") {
-    return ref(value);
-  } else if (ref !== null && ref !== void 0) {
-    ref.current = value;
-  }
-}
-function composeRefs(...refs) {
-  return (node) => {
-    let hasCleanup = false;
-    const cleanups = refs.map((ref) => {
-      const cleanup = setRef(ref, node);
-      if (!hasCleanup && typeof cleanup == "function") {
-        hasCleanup = true;
-      }
-      return cleanup;
-    });
-    if (hasCleanup) {
-      return () => {
-        for (let i = 0; i < cleanups.length; i++) {
-          const cleanup = cleanups[i];
-          if (typeof cleanup == "function") {
-            cleanup();
-          } else {
-            setRef(refs[i], null);
-          }
-        }
-      };
-    }
-  };
-}
-// @__NO_SIDE_EFFECTS__
-function createSlot(ownerName) {
-  const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
-  const Slot2 = reactExports.forwardRef((props, forwardedRef) => {
-    const { children, ...slotProps } = props;
-    const childrenArray = reactExports.Children.toArray(children);
-    const slottable = childrenArray.find(isSlottable);
-    if (slottable) {
-      const newElement = slottable.props.children;
-      const newChildren = childrenArray.map((child) => {
-        if (child === slottable) {
-          if (reactExports.Children.count(newElement) > 1) return reactExports.Children.only(null);
-          return reactExports.isValidElement(newElement) ? newElement.props.children : null;
-        } else {
-          return child;
-        }
-      });
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: reactExports.isValidElement(newElement) ? reactExports.cloneElement(newElement, void 0, newChildren) : null });
-    }
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
-  });
-  Slot2.displayName = `${ownerName}.Slot`;
-  return Slot2;
-}
-var Slot = /* @__PURE__ */ createSlot("Slot");
-// @__NO_SIDE_EFFECTS__
-function createSlotClone(ownerName) {
-  const SlotClone = reactExports.forwardRef((props, forwardedRef) => {
-    const { children, ...slotProps } = props;
-    if (reactExports.isValidElement(children)) {
-      const childrenRef = getElementRef(children);
-      const props2 = mergeProps(slotProps, children.props);
-      if (children.type !== reactExports.Fragment) {
-        props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
-      }
-      return reactExports.cloneElement(children, props2);
-    }
-    return reactExports.Children.count(children) > 1 ? reactExports.Children.only(null) : null;
-  });
-  SlotClone.displayName = `${ownerName}.SlotClone`;
-  return SlotClone;
-}
-var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
-function isSlottable(child) {
-  return reactExports.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
-}
-function mergeProps(slotProps, childProps) {
-  const overrideProps = { ...childProps };
-  for (const propName in childProps) {
-    const slotPropValue = slotProps[propName];
-    const childPropValue = childProps[propName];
-    const isHandler = /^on[A-Z]/.test(propName);
-    if (isHandler) {
-      if (slotPropValue && childPropValue) {
-        overrideProps[propName] = (...args) => {
-          const result = childPropValue(...args);
-          slotPropValue(...args);
-          return result;
-        };
-      } else if (slotPropValue) {
-        overrideProps[propName] = slotPropValue;
-      }
-    } else if (propName === "style") {
-      overrideProps[propName] = { ...slotPropValue, ...childPropValue };
-    } else if (propName === "className") {
-      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(" ");
-    }
-  }
-  return { ...slotProps, ...overrideProps };
-}
-function getElementRef(element) {
-  var _a3, _b3;
-  let getter = (_a3 = Object.getOwnPropertyDescriptor(element.props, "ref")) == null ? void 0 : _a3.get;
-  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.ref;
-  }
-  getter = (_b3 = Object.getOwnPropertyDescriptor(element, "ref")) == null ? void 0 : _b3.get;
-  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
-  if (mayWarn) {
-    return element.props.ref;
-  }
-  return element.props.ref || element.ref;
-}
 const falsyToString = (value) => typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;
 const cx = clsx;
 const cva = (base, config) => (props) => {
@@ -40371,38 +41284,6 @@ function Input({ className, type, ...props }) {
     }
   );
 }
-var NODES = [
-  "a",
-  "button",
-  "div",
-  "form",
-  "h2",
-  "h3",
-  "img",
-  "input",
-  "label",
-  "li",
-  "nav",
-  "ol",
-  "p",
-  "select",
-  "span",
-  "svg",
-  "ul"
-];
-var Primitive = NODES.reduce((primitive, node) => {
-  const Slot2 = /* @__PURE__ */ createSlot(`Primitive.${node}`);
-  const Node = reactExports.forwardRef((props, forwardedRef) => {
-    const { asChild, ...primitiveProps } = props;
-    const Comp = asChild ? Slot2 : node;
-    if (typeof window !== "undefined") {
-      window[Symbol.for("radix-ui")] = true;
-    }
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(Comp, { ...primitiveProps, ref: forwardedRef });
-  });
-  Node.displayName = `Primitive.${node}`;
-  return { ...primitive, [node]: Node };
-}, {});
 var NAME = "Label";
 var Label$1 = reactExports.forwardRef((props, forwardedRef) => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -40935,64 +41816,238 @@ function ProfilePage() {
     ] })
   ] });
 }
-function createContextScope(scopeName, createContextScopeDeps = []) {
-  let defaultContexts = [];
-  function createContext3(rootComponentName, defaultContext) {
-    const BaseContext = reactExports.createContext(defaultContext);
-    const index2 = defaultContexts.length;
-    defaultContexts = [...defaultContexts, defaultContext];
-    const Provider = (props) => {
-      var _a3;
-      const { scope, children, ...context } = props;
-      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
-      const value = reactExports.useMemo(() => context, Object.values(context));
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(Context.Provider, { value, children });
-    };
-    Provider.displayName = rootComponentName + "Provider";
-    function useContext2(consumerName, scope) {
-      var _a3;
-      const Context = ((_a3 = scope == null ? void 0 : scope[scopeName]) == null ? void 0 : _a3[index2]) || BaseContext;
-      const context = reactExports.useContext(Context);
-      if (context) return context;
-      if (defaultContext !== void 0) return defaultContext;
-      throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
-    }
-    return [Provider, useContext2];
+const SHORTS = [
+  {
+    id: 1,
+    title: "ABC Song Fun 🎵",
+    creator: "Happy Kids",
+    emoji: "🎵",
+    gradient: "from-blue-400 via-blue-500 to-indigo-600",
+    likes: 1204,
+    comments: 89
+  },
+  {
+    id: 2,
+    title: "Count with me! 🍎🍊🍋",
+    creator: "Math Fun",
+    emoji: "🔢",
+    gradient: "from-orange-400 via-amber-500 to-yellow-500",
+    likes: 987,
+    comments: 56
+  },
+  {
+    id: 3,
+    title: "Dance with Animals 🐘",
+    creator: "Animal World",
+    emoji: "🐘",
+    gradient: "from-green-400 via-emerald-500 to-teal-600",
+    likes: 2341,
+    comments: 134
+  },
+  {
+    id: 4,
+    title: "Colors of Rainbow 🌈",
+    creator: "Rainbow Kids",
+    emoji: "🌈",
+    gradient: "from-purple-400 via-pink-500 to-rose-500",
+    likes: 1876,
+    comments: 98
+  },
+  {
+    id: 5,
+    title: "Coding for Beginners 💻",
+    creator: "Code Kids",
+    emoji: "💻",
+    gradient: "from-cyan-400 via-sky-500 to-blue-600",
+    likes: 654,
+    comments: 43
+  },
+  {
+    id: 6,
+    title: "Draw a Butterfly 🦋",
+    creator: "Art Academy",
+    emoji: "🦋",
+    gradient: "from-pink-400 via-rose-500 to-red-500",
+    likes: 1532,
+    comments: 76
   }
-  const createScope = () => {
-    const scopeContexts = defaultContexts.map((defaultContext) => {
-      return reactExports.createContext(defaultContext);
+];
+function ShortsPage() {
+  const [current, setCurrent] = reactExports.useState(0);
+  const [liked, setLiked] = reactExports.useState(/* @__PURE__ */ new Set());
+  const touchStartY = reactExports.useRef(0);
+  const containerRef = reactExports.useRef(null);
+  const currentRef = reactExports.useRef(current);
+  currentRef.current = current;
+  const toggleLike = (id2) => {
+    setLiked((prev) => {
+      const next = new Set(prev);
+      if (next.has(id2)) next.delete(id2);
+      else next.add(id2);
+      return next;
     });
-    return function useScope(scope) {
-      const contexts = (scope == null ? void 0 : scope[scopeName]) || scopeContexts;
-      return reactExports.useMemo(
-        () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
-        [scope, contexts]
-      );
-    };
   };
-  createScope.scopeName = scopeName;
-  return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
-}
-function composeContextScopes(...scopes) {
-  const baseScope = scopes[0];
-  if (scopes.length === 1) return baseScope;
-  const createScope = () => {
-    const scopeHooks = scopes.map((createScope2) => ({
-      useScope: createScope2(),
-      scopeName: createScope2.scopeName
-    }));
-    return function useComposedScopes(overrideScopes) {
-      const nextScopes = scopeHooks.reduce((nextScopes2, { useScope, scopeName }) => {
-        const scopeProps = useScope(overrideScopes);
-        const currentScope = scopeProps[`__scope${scopeName}`];
-        return { ...nextScopes2, ...currentScope };
-      }, {});
-      return reactExports.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
+  reactExports.useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const onTouchStart = (e) => {
+      touchStartY.current = e.touches[0].clientY;
     };
-  };
-  createScope.scopeName = baseScope.scopeName;
-  return createScope;
+    const onTouchEnd = (e) => {
+      const delta = touchStartY.current - e.changedTouches[0].clientY;
+      if (delta > 60) setCurrent((c2) => Math.min(c2 + 1, SHORTS.length - 1));
+      else if (delta < -60) setCurrent((c2) => Math.max(c2 - 1, 0));
+    };
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchend", onTouchEnd);
+    };
+  }, []);
+  const short = SHORTS[current];
+  return (
+    // Mobile: full screen. Desktop: centered card layout
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: containerRef, className: "bg-background min-h-screen md:py-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden md:flex flex-col items-center gap-4 px-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black self-start", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "शॉर्ट्स " }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "Shorts" }),
+          " ▶️"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3 w-full max-w-2xl justify-center flex-wrap", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            type: "button",
+            onClick: () => setCurrent(i),
+            className: `px-4 py-2 rounded-full text-sm font-black border-2 transition-all ${current === i ? "bg-kids-blue text-white border-kids-blue" : "bg-card border-border text-foreground"}`,
+            children: [
+              s2.emoji,
+              " ",
+              s2.title.split(" ")[0]
+            ]
+          },
+          s2.id
+        )) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.div,
+          {
+            initial: { opacity: 0, y: 20 },
+            animate: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -20 },
+            className: `w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 bg-gradient-to-b ${short.gradient}`,
+            style: { minHeight: 480 },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", style: { minHeight: 480 }, children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 p-8", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-9xl", children: short.emoji }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-3xl text-white text-center drop-shadow-lg", children: short.title }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/80 font-semibold text-lg", children: [
+                  "by ",
+                  short.creator
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-4 bg-black/20", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "button",
+                  {
+                    type: "button",
+                    onClick: () => toggleLike(short.id),
+                    className: "flex items-center gap-2 bg-white/20 rounded-full px-4 py-2",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked.has(short.id) ? "❤️" : "🤍" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-black", children: short.likes + (liked.has(short.id) ? 1 : 0) })
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-white/70 font-semibold text-sm", children: [
+                  "💬 ",
+                  short.comments
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => setCurrent((c2) => Math.max(c2 - 1, 0)),
+                      disabled: current === 0,
+                      className: "bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-40",
+                      children: "↑"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "button",
+                    {
+                      type: "button",
+                      onClick: () => setCurrent((c2) => Math.min(c2 + 1, SHORTS.length - 1)),
+                      disabled: current === SHORTS.length - 1,
+                      className: "bg-white/20 text-white rounded-full w-10 h-10 flex items-center justify-center disabled:opacity-40",
+                      children: "↓"
+                    }
+                  )
+                ] })
+              ] })
+            ] })
+          },
+          short.id
+        ) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          className: "md:hidden relative",
+          style: { height: "calc(100dvh - 130px)" },
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 60 },
+              animate: { opacity: 1, y: 0 },
+              exit: { opacity: 0, y: -60 },
+              transition: { type: "spring", damping: 25, stiffness: 300 },
+              className: `absolute inset-0 bg-gradient-to-b ${short.gradient} flex flex-col`,
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 p-6", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-9xl", children: short.emoji }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-3xl text-white text-center drop-shadow-lg", children: short.title }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/80 font-semibold text-lg", children: [
+                    "by ",
+                    short.creator
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/60 text-sm font-semibold mt-2", children: "↕ Swipe up/down" })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-4 bg-black/20", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "button",
+                    {
+                      type: "button",
+                      "data-ocid": `shorts.like_button.${short.id}`,
+                      onClick: () => toggleLike(short.id),
+                      className: "flex items-center gap-2 bg-white/20 rounded-full px-4 py-2",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked.has(short.id) ? "❤️" : "🤍" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-black", children: short.likes + (liked.has(short.id) ? 1 : 0) })
+                      ]
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-white/70 font-semibold text-sm", children: [
+                    "💬 ",
+                    short.comments
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
+                    {
+                      className: `w-1.5 h-1.5 rounded-full transition-all ${i === current ? "bg-white w-4" : "bg-white/40"}`
+                    },
+                    s2.id
+                  )) })
+                ] })
+              ]
+            },
+            short.id
+          ) })
+        }
+      )
+    ] })
+  );
 }
 var PROGRESS_NAME = "Progress";
 var DEFAULT_MAX = 100;
@@ -41747,6 +42802,8 @@ const NAV_ITEMS = [
     labelKey: "addvideo"
   },
   { id: "games", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Gamepad2, { className: "w-5 h-5" }), labelKey: "games" },
+  { id: "shorts", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Play, { className: "w-5 h-5" }), label: "Shorts" },
+  { id: "applock", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Lock, { className: "w-5 h-5" }), label: "Lock" },
   { id: "profile", icon: /* @__PURE__ */ jsxRuntimeExports.jsx(User, { className: "w-5 h-5" }), labelKey: "profile" }
 ];
 const TAB_COLORS = {
@@ -41754,6 +42811,8 @@ const TAB_COLORS = {
   videos: "bg-kids-red text-white",
   upload: "bg-kids-green text-white",
   games: "bg-kids-amber text-white",
+  shorts: "bg-kids-purple text-white",
+  applock: "bg-kids-red text-white",
   profile: "bg-kids-purple text-white"
 };
 const TAB_ICON_COLORS = {
@@ -41761,6 +42820,8 @@ const TAB_ICON_COLORS = {
   videos: "text-kids-red",
   upload: "text-kids-green",
   games: "text-kids-amber",
+  shorts: "text-kids-purple",
+  applock: "text-kids-red",
   profile: "text-kids-purple"
 };
 function AppShell() {
@@ -41785,6 +42846,7 @@ function AppShell() {
   if (!identity) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(LoginPage, {});
   }
+  const getNavLabel = (item) => item.label ?? t.nav[item.labelKey];
   const renderPage = () => {
     switch (activeTab) {
       case "home":
@@ -41795,6 +42857,10 @@ function AppShell() {
         return /* @__PURE__ */ jsxRuntimeExports.jsx(UploadPage, {});
       case "games":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(GamesPage, {});
+      case "shorts":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(ShortsPage, {});
+      case "applock":
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(AppLockPage, { profile: null });
       case "profile":
         return /* @__PURE__ */ jsxRuntimeExports.jsx(ProfilePage, {});
     }
@@ -41815,7 +42881,7 @@ function AppShell() {
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "nav",
         {
-          className: "flex-1 px-3 py-4 space-y-1",
+          className: "flex-1 px-3 py-4 space-y-1 overflow-y-auto",
           "aria-label": "Main navigation",
           children: NAV_ITEMS.map((item) => {
             const isActive = activeTab === item.id;
@@ -41828,7 +42894,7 @@ function AppShell() {
                 className: `w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-base transition-all ${isActive ? `${TAB_COLORS[item.id]} shadow-btn` : "text-muted-foreground hover:bg-muted hover:text-foreground"}`,
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: isActive ? "" : TAB_ICON_COLORS[item.id], children: item.icon }),
-                  t.nav[item.labelKey]
+                  getNavLabel(item)
                 ]
               },
               item.id
@@ -41857,7 +42923,7 @@ function AppShell() {
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-green", children: "USE" })
           ] })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "hidden md:block font-black text-lg text-foreground", children: NAV_ITEMS.find((n) => n.id === activeTab) && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: TAB_ICON_COLORS[activeTab], children: t.nav[NAV_ITEMS.find((n) => n.id === activeTab).labelKey] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "hidden md:block font-black text-lg text-foreground", children: NAV_ITEMS.find((n) => n.id === activeTab) && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: TAB_ICON_COLORS[activeTab], children: getNavLabel(NAV_ITEMS.find((n) => n.id === activeTab)) }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(
             "button",
@@ -41910,16 +42976,16 @@ function AppShell() {
               type: "button",
               "data-ocid": `bottom_nav.${item.id}.link`,
               onClick: () => setActiveTab(item.id),
-              className: `flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-xs font-black transition-all ${isActive ? TAB_ICON_COLORS[item.id] : "text-muted-foreground"}`,
+              className: `flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 text-[10px] font-black transition-all ${isActive ? TAB_ICON_COLORS[item.id] : "text-muted-foreground"}`,
               children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   "span",
                   {
-                    className: `p-1.5 rounded-xl transition-all ${isActive ? `${TAB_COLORS[item.id]} shadow-btn` : ""}`,
+                    className: `p-1 rounded-xl transition-all ${isActive ? `${TAB_COLORS[item.id]} shadow-btn` : ""}`,
                     children: item.icon
                   }
                 ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: t.nav[item.labelKey] })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: getNavLabel(item) })
               ]
             },
             item.id
