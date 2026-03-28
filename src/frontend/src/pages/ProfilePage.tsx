@@ -1,8 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Principal } from "@icp-sdk/core/principal";
 import { useQueryClient } from "@tanstack/react-query";
-import { LogOut, Video } from "lucide-react";
+import { Camera, LogOut, Users, Video } from "lucide-react";
 import { motion } from "motion/react";
+import { useRef, useState } from "react";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
 import {
   useAllVideos,
@@ -24,6 +25,18 @@ function formatId(n: number) {
   return String(n).padStart(3, "0");
 }
 
+function useProfilePicture(principalStr: string) {
+  const key = `profile_pic_${principalStr}`;
+  const [pic, setPicState] = useState<string | null>(() =>
+    principalStr ? localStorage.getItem(key) : null,
+  );
+  const setPic = (dataUrl: string) => {
+    localStorage.setItem(key, dataUrl);
+    setPicState(dataUrl);
+  };
+  return { pic, setPic };
+}
+
 function SubscribedChannelCard({
   creator,
   videoCount,
@@ -38,6 +51,9 @@ function SubscribedChannelCard({
   const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
   const shortId = `${creator.toString().slice(0, 10)}...`;
   const avatarLetter = creator.toString()[0]?.toUpperCase() ?? "?";
+  const picKey = `profile_pic_${creator.toString()}`;
+  const creatorPic =
+    typeof localStorage !== "undefined" ? localStorage.getItem(picKey) : null;
 
   return (
     <motion.div
@@ -47,8 +63,16 @@ function SubscribedChannelCard({
       data-ocid={`subscriptions.item.${index + 1}`}
       className={`rounded-2xl border-4 ${borderColor} bg-card px-4 py-3 flex items-center gap-3 shadow-sm`}
     >
-      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shrink-0">
-        {avatarLetter}
+      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shrink-0 overflow-hidden">
+        {creatorPic ? (
+          <img
+            src={creatorPic}
+            alt="avatar"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          avatarLetter
+        )}
       </div>
       <div className="flex-1 min-w-0">
         <p className="font-black text-sm text-foreground truncate">{shortId}</p>
@@ -58,7 +82,7 @@ function SubscribedChannelCard({
           </span>
           {subCount !== undefined && (
             <span className="text-xs text-muted-foreground font-semibold">
-              · 👥 {subCount.toString()} sub{subCount === 1n ? "" : "s"}
+              · 👥 {subCount.toString()} subscriber{subCount === 1n ? "" : "s"}
             </span>
           )}
         </div>
@@ -82,9 +106,18 @@ export default function ProfilePage() {
   const { data: allVideos, isLoading: videosLoading } = useAllVideos();
   const { data: subscriptions, isLoading: subsLoading } = useMySubscriptions();
   const queryClient = useQueryClient();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const principal = identity?.getPrincipal().toString() ?? "";
   const shortPrincipal = principal ? `${principal.slice(0, 16)}...` : "";
+
+  // Profile picture (localStorage)
+  const { pic: profilePic, setPic: setProfilePic } =
+    useProfilePicture(principal);
+
+  // My subscriber count
+  const myPrincipalObj = identity?.getPrincipal() ?? null;
+  const { data: mySubscriberCount } = useSubscriberCount(myPrincipalObj);
 
   const myVideos = (allVideos ?? []).filter(
     (v) => v.uploader.toString() === principal,
@@ -93,6 +126,17 @@ export default function ProfilePage() {
   const handleLogout = () => {
     clear();
     queryClient.clear();
+  };
+
+  const handlePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const result = ev.target?.result;
+      if (typeof result === "string") setProfilePic(result);
+    };
+    reader.readAsDataURL(file);
   };
 
   const username = profile?.username ?? "Kid";
@@ -116,23 +160,60 @@ export default function ProfilePage() {
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-4">
-              {/* Avatar */}
-              <div className="w-20 h-20 rounded-full bg-white/20 border-4 border-white/50 flex items-center justify-center text-4xl font-black shadow-lg shrink-0">
-                {avatarLetter}
+            <div className="flex items-start gap-4">
+              {/* Avatar with upload */}
+              <div className="relative shrink-0">
+                <div className="w-20 h-20 rounded-full bg-white/20 border-4 border-white/50 flex items-center justify-center text-4xl font-black shadow-lg overflow-hidden">
+                  {profilePic ? (
+                    <img
+                      src={profilePic}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    avatarLetter
+                  )}
+                </div>
+                {/* Camera button */}
+                <button
+                  type="button"
+                  data-ocid="profile.pic_upload_button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform active:scale-95"
+                  title="Change profile picture"
+                >
+                  <Camera className="w-4 h-4 text-kids-blue" />
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handlePicChange}
+                />
               </div>
               {/* Info */}
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <h1 className="text-2xl font-black leading-tight truncate">
                   {username}
                 </h1>
                 <p className="text-white/70 text-xs font-semibold mt-1 break-all">
                   ID: {shortPrincipal}
                 </p>
-                <span className="inline-flex items-center gap-1 mt-2 bg-white/20 rounded-full px-3 py-1 text-xs font-black backdrop-blur-sm">
-                  <Video className="w-3 h-3" />
-                  {myVideos.length} {myVideos.length === 1 ? "Video" : "Videos"}
-                </span>
+                {/* Stats row */}
+                <div className="flex flex-wrap items-center gap-2 mt-3">
+                  <span className="inline-flex items-center gap-1 bg-white/20 rounded-full px-3 py-1 text-xs font-black backdrop-blur-sm">
+                    <Video className="w-3 h-3" />
+                    {myVideos.length}{" "}
+                    {myVideos.length === 1 ? "Video" : "Videos"}
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-white/20 rounded-full px-3 py-1 text-xs font-black backdrop-blur-sm">
+                    <Users className="w-3 h-3" />
+                    {mySubscriberCount !== undefined
+                      ? `${mySubscriberCount.toString()} Subscriber${mySubscriberCount === 1n ? "" : "s"}`
+                      : "0 Subscribers"}
+                  </span>
+                </div>
               </div>
             </div>
           )}
@@ -144,6 +225,11 @@ export default function ProfilePage() {
         <h2 className="text-xl font-black mb-4">
           <span className="text-kids-blue">🎬 My </span>
           <span className="text-kids-purple">Videos</span>
+          {myVideos.length > 0 && (
+            <span className="ml-2 text-sm font-black text-muted-foreground">
+              ({myVideos.length})
+            </span>
+          )}
         </h2>
 
         {videosLoading ? (
@@ -205,6 +291,11 @@ export default function ProfilePage() {
         <h2 className="text-xl font-black mb-4">
           <span className="text-kids-amber">🔔 Subscribed </span>
           <span className="text-kids-blue">Channels</span>
+          {subscriptions && subscriptions.length > 0 && (
+            <span className="ml-2 text-sm font-black text-muted-foreground">
+              ({subscriptions.length})
+            </span>
+          )}
         </h2>
 
         {subsLoading ? (

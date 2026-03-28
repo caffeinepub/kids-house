@@ -15172,7 +15172,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$b = [
+const __iconNode$d = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   [
     "path",
@@ -15182,14 +15182,31 @@ const __iconNode$b = [
     }
   ]
 ];
-const Bell = createLucideIcon("bell", __iconNode$b);
+const Bell = createLucideIcon("bell", __iconNode$d);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$a = [
+const __iconNode$c = [
+  [
+    "path",
+    {
+      d: "M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z",
+      key: "1tc9qg"
+    }
+  ],
+  ["circle", { cx: "12", cy: "13", r: "3", key: "1vg3eu" }]
+];
+const Camera = createLucideIcon("camera", __iconNode$c);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$b = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M7 3v18", key: "bbkbws" }],
   ["path", { d: "M3 7.5h4", key: "zfgn84" }],
@@ -15199,14 +15216,14 @@ const __iconNode$a = [
   ["path", { d: "M17 7.5h4", key: "myr1c1" }],
   ["path", { d: "M17 16.5h4", key: "go4c1d" }]
 ];
-const Film = createLucideIcon("film", __iconNode$a);
+const Film = createLucideIcon("film", __iconNode$b);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$9 = [
+const __iconNode$a = [
   ["line", { x1: "6", x2: "10", y1: "11", y2: "11", key: "1gktln" }],
   ["line", { x1: "8", x2: "8", y1: "9", y2: "13", key: "qnk9ow" }],
   ["line", { x1: "15", x2: "15.01", y1: "12", y2: "12", key: "krot7o" }],
@@ -15219,14 +15236,14 @@ const __iconNode$9 = [
     }
   ]
 ];
-const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$9);
+const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$a);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [
+const __iconNode$9 = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -15236,15 +15253,26 @@ const __iconNode$8 = [
     }
   ]
 ];
-const House = createLucideIcon("house", __iconNode$8);
+const House = createLucideIcon("house", __iconNode$9);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$7 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$7);
+const __iconNode$8 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$8);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$7 = [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+];
+const Lock = createLucideIcon("lock", __iconNode$7);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15252,30 +15280,31 @@ const LoaderCircle = createLucideIcon("loader-circle", __iconNode$7);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$6 = [
-  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
-  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
-];
-const Lock = createLucideIcon("lock", __iconNode$6);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$5 = [
   ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
   ["path", { d: "M21 12H9", key: "dn1m92" }],
   ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
 ];
-const LogOut = createLucideIcon("log-out", __iconNode$5);
+const LogOut = createLucideIcon("log-out", __iconNode$6);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$4 = [["polygon", { points: "6 3 20 12 6 21 6 3", key: "1oa8hb" }]];
-const Play = createLucideIcon("play", __iconNode$4);
+const __iconNode$5 = [["polygon", { points: "6 3 20 12 6 21 6 3", key: "1oa8hb" }]];
+const Play = createLucideIcon("play", __iconNode$5);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$4 = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M8 12h8", key: "1wcyev" }],
+  ["path", { d: "M12 8v8", key: "napkw2" }]
+];
+const SquarePlus = createLucideIcon("square-plus", __iconNode$4);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15283,11 +15312,11 @@ const Play = createLucideIcon("play", __iconNode$4);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$3 = [
-  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
-  ["path", { d: "M8 12h8", key: "1wcyev" }],
-  ["path", { d: "M12 8v8", key: "napkw2" }]
+  ["path", { d: "M12 3v12", key: "1x0j5s" }],
+  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
 ];
-const SquarePlus = createLucideIcon("square-plus", __iconNode$3);
+const Upload = createLucideIcon("upload", __iconNode$3);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15295,11 +15324,10 @@ const SquarePlus = createLucideIcon("square-plus", __iconNode$3);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$2 = [
-  ["path", { d: "M12 3v12", key: "1x0j5s" }],
-  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
-  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
+  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
+  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
 ];
-const Upload = createLucideIcon("upload", __iconNode$2);
+const User = createLucideIcon("user", __iconNode$2);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15307,10 +15335,12 @@ const Upload = createLucideIcon("upload", __iconNode$2);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$1 = [
-  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
-  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
+  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
 ];
-const User = createLucideIcon("user", __iconNode$1);
+const Users = createLucideIcon("users", __iconNode$1);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -41599,6 +41629,17 @@ const BORDER_COLORS$1 = [
 function formatId$1(n) {
   return String(n).padStart(3, "0");
 }
+function useProfilePicture(principalStr) {
+  const key = `profile_pic_${principalStr}`;
+  const [pic, setPicState] = reactExports.useState(
+    () => principalStr ? localStorage.getItem(key) : null
+  );
+  const setPic = (dataUrl) => {
+    localStorage.setItem(key, dataUrl);
+    setPicState(dataUrl);
+  };
+  return { pic, setPic };
+}
 function SubscribedChannelCard({
   creator,
   videoCount,
@@ -41610,6 +41651,8 @@ function SubscribedChannelCard({
   const borderColor = BORDER_COLORS$1[index2 % BORDER_COLORS$1.length];
   const shortId = `${creator.toString().slice(0, 10)}...`;
   const avatarLetter = ((_a3 = creator.toString()[0]) == null ? void 0 : _a3.toUpperCase()) ?? "?";
+  const picKey = `profile_pic_${creator.toString()}`;
+  const creatorPic = typeof localStorage !== "undefined" ? localStorage.getItem(picKey) : null;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
     {
@@ -41619,7 +41662,14 @@ function SubscribedChannelCard({
       "data-ocid": `subscriptions.item.${index2 + 1}`,
       className: `rounded-2xl border-4 ${borderColor} bg-card px-4 py-3 flex items-center gap-3 shadow-sm`,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-11 h-11 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shrink-0", children: avatarLetter }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-11 h-11 rounded-full bg-gradient-to-br from-kids-blue to-kids-purple flex items-center justify-center text-white font-black text-lg shrink-0 overflow-hidden", children: creatorPic ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "img",
+          {
+            src: creatorPic,
+            alt: "avatar",
+            className: "w-full h-full object-cover"
+          }
+        ) : avatarLetter }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-foreground truncate", children: shortId }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mt-0.5", children: [
@@ -41632,7 +41682,7 @@ function SubscribedChannelCard({
             subCount !== void 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-muted-foreground font-semibold", children: [
               "· 👥 ",
               subCount.toString(),
-              " sub",
+              " subscriber",
               subCount === 1n ? "" : "s"
             ] })
           ] })
@@ -41659,14 +41709,30 @@ function ProfilePage() {
   const { data: allVideos, isLoading: videosLoading } = useAllVideos();
   const { data: subscriptions, isLoading: subsLoading } = useMySubscriptions();
   const queryClient2 = useQueryClient();
+  const fileInputRef = reactExports.useRef(null);
   const principal = (identity == null ? void 0 : identity.getPrincipal().toString()) ?? "";
   const shortPrincipal = principal ? `${principal.slice(0, 16)}...` : "";
+  const { pic: profilePic, setPic: setProfilePic } = useProfilePicture(principal);
+  const myPrincipalObj = (identity == null ? void 0 : identity.getPrincipal()) ?? null;
+  const { data: mySubscriberCount } = useSubscriberCount(myPrincipalObj);
   const myVideos = (allVideos ?? []).filter(
     (v2) => v2.uploader.toString() === principal
   );
   const handleLogout = () => {
     clear();
     queryClient2.clear();
+  };
+  const handlePicChange = (e) => {
+    var _a4;
+    const file = (_a4 = e.target.files) == null ? void 0 : _a4[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      var _a5;
+      const result = (_a5 = ev.target) == null ? void 0 : _a5.result;
+      if (typeof result === "string") setProfilePic(result);
+    };
+    reader.readAsDataURL(file);
   };
   const username = (profile == null ? void 0 : profile.username) ?? "Kid";
   const avatarLetter = ((_a3 = username[0]) == null ? void 0 : _a3.toUpperCase()) ?? "K";
@@ -41683,19 +41749,58 @@ function ProfilePage() {
             /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-6 w-32 bg-white/30" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-4 w-44 bg-white/30" })
           ] })
-        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-20 h-20 rounded-full bg-white/20 border-4 border-white/50 flex items-center justify-center text-4xl font-black shadow-lg shrink-0", children: avatarLetter }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-w-0", children: [
+        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative shrink-0", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-20 h-20 rounded-full bg-white/20 border-4 border-white/50 flex items-center justify-center text-4xl font-black shadow-lg overflow-hidden", children: profilePic ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: profilePic,
+                alt: "Profile",
+                className: "w-full h-full object-cover"
+              }
+            ) : avatarLetter }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                type: "button",
+                "data-ocid": "profile.pic_upload_button",
+                onClick: () => {
+                  var _a4;
+                  return (_a4 = fileInputRef.current) == null ? void 0 : _a4.click();
+                },
+                className: "absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform active:scale-95",
+                title: "Change profile picture",
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Camera, { className: "w-4 h-4 text-kids-blue" })
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                ref: fileInputRef,
+                type: "file",
+                accept: "image/*",
+                className: "hidden",
+                onChange: handlePicChange
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-w-0 flex-1", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-black leading-tight truncate", children: username }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/70 text-xs font-semibold mt-1 break-all", children: [
               "ID: ",
               shortPrincipal
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 mt-2 bg-white/20 rounded-full px-3 py-1 text-xs font-black backdrop-blur-sm", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Video, { className: "w-3 h-3" }),
-              myVideos.length,
-              " ",
-              myVideos.length === 1 ? "Video" : "Videos"
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-2 mt-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-white/20 rounded-full px-3 py-1 text-xs font-black backdrop-blur-sm", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Video, { className: "w-3 h-3" }),
+                myVideos.length,
+                " ",
+                myVideos.length === 1 ? "Video" : "Videos"
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-white/20 rounded-full px-3 py-1 text-xs font-black backdrop-blur-sm", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Users, { className: "w-3 h-3" }),
+                mySubscriberCount !== void 0 ? `${mySubscriberCount.toString()} Subscriber${mySubscriberCount === 1n ? "" : "s"}` : "0 Subscribers"
+              ] })
             ] })
           ] })
         ] })
@@ -41704,7 +41809,12 @@ function ProfilePage() {
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 mt-8", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-xl font-black mb-4", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "🎬 My " }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-purple", children: "Videos" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-purple", children: "Videos" }),
+        myVideos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "ml-2 text-sm font-black text-muted-foreground", children: [
+          "(",
+          myVideos.length,
+          ")"
+        ] })
       ] }),
       videosLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [1, 2, 3].map((i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-32 rounded-3xl" }, i)) }) : myVideos.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
         motion.div,
@@ -41755,7 +41865,12 @@ function ProfilePage() {
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 mt-10", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-xl font-black mb-4", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-amber", children: "🔔 Subscribed " }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Channels" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Channels" }),
+        subscriptions && subscriptions.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "ml-2 text-sm font-black text-muted-foreground", children: [
+          "(",
+          subscriptions.length,
+          ")"
+        ] })
       ] }),
       subsLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: [1, 2].map((i) => /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-16 rounded-2xl" }, i)) }) : !subscriptions || subscriptions.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
         motion.div,
