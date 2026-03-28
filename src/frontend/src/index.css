@@ -1,70 +1,165 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka+One&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --radius: 1rem;
-    --background: 0.97 0.01 220;
-    --foreground: 0.2 0.05 254;
-    --card: 1 0 0;
-    --card-foreground: 0.2 0.05 254;
-    --popover: 1 0 0;
-    --popover-foreground: 0.2 0.05 254;
-    --primary: 0.55 0.2 254;
-    --primary-foreground: 1 0 0;
-    --secondary: 0.72 0.2 138;
-    --secondary-foreground: 1 0 0;
-    --muted: 0.93 0.02 220;
-    --muted-foreground: 0.52 0.08 254;
-    --accent: 0.78 0.18 78;
-    --accent-foreground: 0.15 0.05 78;
-    --destructive: 0.62 0.22 24;
-    --destructive-foreground: 1 0 0;
-    --border: 0.9 0.03 220;
-    --input: 0.96 0.01 220;
-    --ring: 0.55 0.2 254;
-    --chart-1: 0.58 0.19 295;
-    --chart-2: 0.62 0.22 24;
-    --chart-3: 0.65 0.18 150;
-    --chart-4: 0.55 0.2 254;
-    --chart-5: 0.78 0.18 78;
-    --sidebar: 1 0 0;
-    --sidebar-foreground: 0.2 0.05 254;
-    --sidebar-primary: 0.55 0.2 254;
-    --sidebar-primary-foreground: 1 0 0;
-    --sidebar-accent: 0.93 0.02 220;
-    --sidebar-accent-foreground: 0.2 0.05 254;
-    --sidebar-border: 0.9 0.03 220;
-    --sidebar-ring: 0.55 0.2 254;
+:root {
+  --background: 240 15% 98%;
+  --foreground: 229 54% 25%;
+  --card: 0 0% 100%;
+  --card-foreground: 229 54% 25%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 229 54% 25%;
+  --primary: 199 100% 59%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 28 89% 53%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 105 50% 48%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 199 100% 59%;
+  --radius: 1rem;
 
-    /* kids palette */
-    --kids-blue: 0.55 0.2 254;
-    --kids-red: 0.62 0.22 24;
-    --kids-green: 0.65 0.18 150;
-    --kids-amber: 0.78 0.18 78;
-    --kids-purple: 0.58 0.19 295;
-    --kids-pink: 0.65 0.22 340;
-  }
-
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-family: "Nunito", sans-serif;
-    overscroll-behavior: none;
-  }
+  /* Kids House brand colors */
+  --color-learning: #2fa9ff;
+  --color-games: #f28a1f;
+  --color-drawing: #63b63e;
+  --color-longvideos: #8c5ad8;
+  --color-shortvideos: #f4c21a;
+  --color-navy: #1b2f66;
+  --color-hero-start: #bfefff;
+  --color-hero-end: #7fd9ff;
 }
 
-@layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: #f7f8fc;
+  color: var(--color-navy);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Snap scroll for short videos */
+.shorts-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.shorts-slide {
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Canvas cursor */
+.drawing-canvas {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* Horizontal scroll for long videos */
+.long-videos-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #8c5ad8 #f0e8ff;
+}
+
+.long-videos-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.long-videos-scroll::-webkit-scrollbar-track {
+  background: #f0e8ff;
+  border-radius: 3px;
+}
+
+.long-videos-scroll::-webkit-scrollbar-thumb {
+  background: #8c5ad8;
+  border-radius: 3px;
+}
+
+/* Tile hover animation */
+.tile-btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tile-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.tile-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Memory card flip */
+.memory-card {
+  perspective: 600px;
+  cursor: pointer;
+}
+
+.memory-card-inner {
+  transition: transform 0.4s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.memory-card.flipped .memory-card-inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card-front,
+.memory-card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.memory-card-front {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.memory-card-back {
+  background: white;
+  border: 3px solid #e0e7ff;
+  font-size: 2rem;
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched .memory-card-inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched .memory-card-back {
+  background: #dcfce7;
+  border-color: #22c55e;
 }

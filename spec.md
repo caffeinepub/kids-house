@@ -1,37 +1,34 @@
-# Kids House - App Lock System
+# Kids House
 
 ## Current State
-The app has a basic AppLockPage with toggle switches to lock/unlock apps (YouTube, Instagram, TikTok, Facebook), but:
-- No demo interaction (clicking a locked app does nothing)
-- No lock screen or PIN entry UI
-- No timer logic
-- AppLockPage is not included in navigation tabs
+Existing project with backend and frontend scaffolding. No meaningful app code yet.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full App List screen with 6+ popular apps: YouTube, Instagram, WhatsApp, Games, TikTok, Facebook — each with emoji icon, name, and lock toggle
-- "Try Demo" / tap-to-simulate button on each locked app card to simulate launching a locked app
-- Lock Screen overlay: full-screen modal with Kids House branding, 4-digit PIN display, big keypad (0-9 + backspace + confirm)
-- Timer: 5-second countdown shown on lock screen; if no PIN entered in 5s → show "Time's Up! 🔒" and auto-dismiss/reset
-- Access Granted screen: shown when correct PIN (default 1234) is entered — big checkmark, "Access Granted", simulates opening app for 2s then closes
-- Access Denied feedback: wrong PIN shows shake animation + red error message
-- Default PIN stored in localStorage, parents can change it in a PIN settings section at top of page
-- AppLock tab added to navigation (sidebar on desktop, bottom nav on mobile)
+- Home screen with 5 large colorful buttons: Learning, Games, Drawing, Long Videos, Short Videos
+- Each section opens as a full view with a back button
+- Learning section: A-Z alphabet and 1-10 numbers displayed as colorful cards
+- Games section: simple placeholder with links to 2-3 mini games (memory match, color match)
+- Drawing section: HTML5 canvas with color palette, brush size, and clear button
+- Long Videos section: horizontal scrollable layout with YouTube iframe embeds
+- Short Videos section: vertical reels-style layout, one video per screen, scroll up/down, mobile-friendly
+- Fully responsive (mobile + desktop)
+- Colorful, kid-friendly UI with big rounded buttons
 
 ### Modify
-- AppLockPage.tsx: completely rebuilt with all new features above
-- App.tsx: add AppLock tab to SIDEBAR_TABS, BottomNav, and Tab type
-- BottomNav component: add applock tab
+- Replace existing frontend with new Kids House app
 
 ### Remove
-- Old minimal AppLockPage UI (replaced by new implementation)
+- Previous app code (login, profile, subscription, etc.)
 
 ## Implementation Plan
-1. Rebuild AppLockPage.tsx with:
-   - App list section with lock toggles and "Tap to Try" demo buttons on locked apps
-   - PIN settings card at top (show/change PIN)
-   - LockScreen component (inline or separate): full-screen overlay, countdown timer, big keypad, PIN dots, access granted/denied states
-2. Update App.tsx Tab type to include 'applock'
-3. Add applock tab to sidebar and route to AppLockPage in main content
-4. Update BottomNav to include applock (🔒) tab
+1. Create App.tsx with section routing state (home | learning | games | drawing | longvideos | shortvideos)
+2. Build HomeScreen with 5 colorful big buttons
+3. Build LearningSection: A-Z cards + 1-10 number cards with colors and icons
+4. Build GamesSection: simple card grid linking to mini-games (Memory Match, Color Match, Math Quiz)
+5. Build DrawingSection: canvas with color picker, brush sizes, eraser, clear
+6. Build LongVideosSection: horizontal scroll row of YouTube iframe embeds
+7. Build ShortVideosSection: vertical full-screen snap scroll of YouTube Shorts embeds
+8. BackButton component reused across all sections
+9. Responsive CSS with mobile-first approach
