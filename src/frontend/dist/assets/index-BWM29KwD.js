@@ -15172,7 +15172,7 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$d = [
+const __iconNode$f = [
   ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0", key: "vwvbt9" }],
   [
     "path",
@@ -15182,14 +15182,14 @@ const __iconNode$d = [
     }
   ]
 ];
-const Bell = createLucideIcon("bell", __iconNode$d);
+const Bell = createLucideIcon("bell", __iconNode$f);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$c = [
+const __iconNode$e = [
   [
     "path",
     {
@@ -15199,14 +15199,14 @@ const __iconNode$c = [
   ],
   ["circle", { cx: "12", cy: "13", r: "3", key: "1vg3eu" }]
 ];
-const Camera = createLucideIcon("camera", __iconNode$c);
+const Camera = createLucideIcon("camera", __iconNode$e);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$b = [
+const __iconNode$d = [
   ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
   ["path", { d: "M7 3v18", key: "bbkbws" }],
   ["path", { d: "M3 7.5h4", key: "zfgn84" }],
@@ -15216,14 +15216,14 @@ const __iconNode$b = [
   ["path", { d: "M17 7.5h4", key: "myr1c1" }],
   ["path", { d: "M17 16.5h4", key: "go4c1d" }]
 ];
-const Film = createLucideIcon("film", __iconNode$b);
+const Film = createLucideIcon("film", __iconNode$d);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$a = [
+const __iconNode$c = [
   ["line", { x1: "6", x2: "10", y1: "11", y2: "11", key: "1gktln" }],
   ["line", { x1: "8", x2: "8", y1: "9", y2: "13", key: "qnk9ow" }],
   ["line", { x1: "15", x2: "15.01", y1: "12", y2: "12", key: "krot7o" }],
@@ -15236,14 +15236,27 @@ const __iconNode$a = [
     }
   ]
 ];
-const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$a);
+const Gamepad2 = createLucideIcon("gamepad-2", __iconNode$c);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$9 = [
+const __iconNode$b = [
+  ["line", { x1: "4", x2: "20", y1: "9", y2: "9", key: "4lhtct" }],
+  ["line", { x1: "4", x2: "20", y1: "15", y2: "15", key: "vyu0kd" }],
+  ["line", { x1: "10", x2: "8", y1: "3", y2: "21", key: "1ggp8o" }],
+  ["line", { x1: "16", x2: "14", y1: "3", y2: "21", key: "weycgp" }]
+];
+const Hash$1 = createLucideIcon("hash", __iconNode$b);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$a = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -15253,15 +15266,26 @@ const __iconNode$9 = [
     }
   ]
 ];
-const House = createLucideIcon("house", __iconNode$9);
+const House = createLucideIcon("house", __iconNode$a);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$8);
+const __iconNode$9 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$9);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$8 = [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+];
+const Lock = createLucideIcon("lock", __iconNode$8);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15269,30 +15293,31 @@ const LoaderCircle = createLucideIcon("loader-circle", __iconNode$8);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$7 = [
-  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
-  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
-];
-const Lock = createLucideIcon("lock", __iconNode$7);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$6 = [
   ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
   ["path", { d: "M21 12H9", key: "dn1m92" }],
   ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
 ];
-const LogOut = createLucideIcon("log-out", __iconNode$6);
+const LogOut = createLucideIcon("log-out", __iconNode$7);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$5 = [["polygon", { points: "6 3 20 12 6 21 6 3", key: "1oa8hb" }]];
-const Play = createLucideIcon("play", __iconNode$5);
+const __iconNode$6 = [["polygon", { points: "6 3 20 12 6 21 6 3", key: "1oa8hb" }]];
+const Play = createLucideIcon("play", __iconNode$6);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$5 = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M8 12h8", key: "1wcyev" }],
+  ["path", { d: "M12 8v8", key: "napkw2" }]
+];
+const SquarePlus = createLucideIcon("square-plus", __iconNode$5);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15300,11 +15325,11 @@ const Play = createLucideIcon("play", __iconNode$5);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$4 = [
-  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
-  ["path", { d: "M8 12h8", key: "1wcyev" }],
-  ["path", { d: "M12 8v8", key: "napkw2" }]
+  ["path", { d: "M12 3v12", key: "1x0j5s" }],
+  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
 ];
-const SquarePlus = createLucideIcon("square-plus", __iconNode$4);
+const Upload = createLucideIcon("upload", __iconNode$4);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15312,11 +15337,10 @@ const SquarePlus = createLucideIcon("square-plus", __iconNode$4);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$3 = [
-  ["path", { d: "M12 3v12", key: "1x0j5s" }],
-  ["path", { d: "m17 8-5-5-5 5", key: "7q97r8" }],
-  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
+  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
+  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
 ];
-const Upload = createLucideIcon("upload", __iconNode$3);
+const User = createLucideIcon("user", __iconNode$3);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15324,10 +15348,12 @@ const Upload = createLucideIcon("upload", __iconNode$3);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$2 = [
-  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
-  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
+  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
 ];
-const User = createLucideIcon("user", __iconNode$2);
+const Users = createLucideIcon("users", __iconNode$2);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -15335,19 +15361,6 @@ const User = createLucideIcon("user", __iconNode$2);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$1 = [
-  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
-  ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
-  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
-  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
-];
-const Users = createLucideIcon("users", __iconNode$1);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode = [
   [
     "path",
     {
@@ -15357,7 +15370,18 @@ const __iconNode = [
   ],
   ["rect", { x: "2", y: "6", width: "14", height: "12", rx: "2", key: "158x01" }]
 ];
-const Video = createLucideIcon("video", __iconNode);
+const Video = createLucideIcon("video", __iconNode$1);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode = [
+  ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
+  ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
+];
+const X$1 = createLucideIcon("x", __iconNode);
 const LayoutGroupContext = reactExports.createContext({});
 function useConstant(init) {
   const ref = reactExports.useRef(null);
@@ -42164,6 +42188,38 @@ function ShortsPage() {
     ] })
   );
 }
+const badgeVariants = cva(
+  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  {
+    variants: {
+      variant: {
+        default: "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+        secondary: "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+        destructive: "border-transparent bg-destructive text-destructive-foreground [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline: "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground"
+      }
+    },
+    defaultVariants: {
+      variant: "default"
+    }
+  }
+);
+function Badge({
+  className,
+  variant,
+  asChild = false,
+  ...props
+}) {
+  const Comp = asChild ? Slot : "span";
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Comp,
+    {
+      "data-slot": "badge",
+      className: cn(badgeVariants({ variant }), className),
+      ...props
+    }
+  );
+}
 var PROGRESS_NAME = "Progress";
 var DEFAULT_MAX = 100;
 var [createProgressContext] = createContextScope(PROGRESS_NAME);
@@ -42276,12 +42332,17 @@ function Progress({
   );
 }
 function UploadPage() {
+  const [videoType, setVideoType] = reactExports.useState("short");
   const [title, setTitle] = reactExports.useState("");
   const [file, setFile] = reactExports.useState(null);
+  const [thumbnail, setThumbnail] = reactExports.useState(null);
+  const [hashtagInput, setHashtagInput] = reactExports.useState("");
+  const [hashtags, setHashtags] = reactExports.useState([]);
   const [progress2, setProgress] = reactExports.useState(0);
   const [isUploading, setIsUploading] = reactExports.useState(false);
   const [uploaded, setUploaded] = reactExports.useState(false);
   const fileRef = reactExports.useRef(null);
+  const thumbRef = reactExports.useRef(null);
   const createVideoMeta = useCreateVideoMeta();
   const handleFile = (e) => {
     var _a3;
@@ -42289,6 +42350,30 @@ function UploadPage() {
     setFile(f);
     setUploaded(false);
   };
+  const handleThumbnail = (e) => {
+    var _a3;
+    const f = ((_a3 = e.target.files) == null ? void 0 : _a3[0]) ?? null;
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      var _a4;
+      return setThumbnail((_a4 = ev.target) == null ? void 0 : _a4.result);
+    };
+    reader.readAsDataURL(f);
+  };
+  const handleHashtagKeyDown = (e) => {
+    if (e.key === " " || e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addHashtags(hashtagInput);
+    }
+  };
+  const addHashtags = (raw) => {
+    const words = raw.trim().split(/[\s,]+/).filter(Boolean).map((w2) => w2.startsWith("#") ? w2 : `#${w2}`);
+    const newTags = words.filter((w2) => w2.length > 1 && !hashtags.includes(w2));
+    if (newTags.length) setHashtags((prev) => [...prev, ...newTags]);
+    setHashtagInput("");
+  };
+  const removeHashtag = (tag) => setHashtags((prev) => prev.filter((t) => t !== tag));
   const handleUpload = async () => {
     if (!title.trim()) {
       ue.error("Please add a title 📝");
@@ -42305,10 +42390,24 @@ function UploadPage() {
       const blob = ExternalBlob.fromBytes(bytes).withUploadProgress(
         (pct) => setProgress(pct)
       );
-      await createVideoMeta.mutateAsync({ title, blob });
+      const videoId = await createVideoMeta.mutateAsync({ title, blob });
+      if (videoId) {
+        const key = `kh_video_ext_${videoId}`;
+        localStorage.setItem(
+          key,
+          JSON.stringify({
+            type: videoType,
+            thumbnailDataUrl: thumbnail,
+            hashtags
+          })
+        );
+      }
       setUploaded(true);
       setTitle("");
       setFile(null);
+      setThumbnail(null);
+      setHashtags([]);
+      setHashtagInput("");
       setProgress(100);
       ue.success("Video uploaded! 🎉");
     } catch (e) {
@@ -42317,6 +42416,8 @@ function UploadPage() {
       setIsUploading(false);
     }
   };
+  const isShort = videoType === "short";
+  const accentColor = isShort ? "kids-green" : "kids-blue";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "px-4 md:px-8 pt-6 pb-3 border-b border-border", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black", children: [
@@ -42333,8 +42434,96 @@ function UploadPage() {
         {
           initial: { opacity: 0, y: 20 },
           animate: { opacity: 1, y: 0 },
-          className: "bg-card rounded-3xl shadow-card p-6 space-y-4",
+          className: "bg-card rounded-3xl shadow-card p-6 space-y-5",
           children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-black text-foreground text-base", children: "Video Type 🎬" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-2 grid grid-cols-2 gap-3", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "button",
+                  {
+                    type: "button",
+                    "data-ocid": "upload.short_video.toggle",
+                    onClick: () => setVideoType("short"),
+                    className: `flex flex-col items-center gap-2 p-4 rounded-2xl border-3 font-black transition-all ${isShort ? "border-kids-green bg-kids-green/15 text-kids-green scale-[1.02]" : "border-border bg-card text-muted-foreground hover:border-kids-green/40"}`,
+                    style: { borderWidth: isShort ? 3 : 2 },
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl", children: "📱" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm", children: "Short Video" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-semibold opacity-70", children: "Reels style" })
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "button",
+                  {
+                    type: "button",
+                    "data-ocid": "upload.long_video.toggle",
+                    onClick: () => setVideoType("long"),
+                    className: `flex flex-col items-center gap-2 p-4 rounded-2xl font-black transition-all ${!isShort ? "border-kids-blue bg-kids-blue/15 text-kids-blue scale-[1.02]" : "border-border bg-card text-muted-foreground hover:border-kids-blue/40"}`,
+                    style: { borderWidth: !isShort ? 3 : 2 },
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl", children: "🎬" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm", children: "Long Video" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-semibold opacity-70", children: "Full length" })
+                    ]
+                  }
+                )
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-black text-foreground text-base", children: "Thumbnail 🖼️" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "input",
+                {
+                  ref: thumbRef,
+                  type: "file",
+                  accept: "image/*",
+                  onChange: handleThumbnail,
+                  className: "hidden",
+                  id: "thumb-file-input"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "upload.thumbnail.upload_button",
+                  onClick: () => {
+                    var _a3;
+                    return (_a3 = thumbRef.current) == null ? void 0 : _a3.click();
+                  },
+                  className: "mt-2 w-full h-40 rounded-2xl border-4 border-dashed border-kids-amber/60 bg-kids-amber/5 flex items-center justify-center overflow-hidden hover:bg-kids-amber/10 transition-colors relative",
+                  children: [
+                    thumbnail ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "img",
+                      {
+                        src: thumbnail,
+                        alt: "Thumbnail preview",
+                        className: "w-full h-full object-cover"
+                      }
+                    ) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col items-center gap-2", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(Camera, { className: "w-10 h-10 text-kids-amber" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-kids-amber", children: "Add Thumbnail" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-muted-foreground font-semibold", children: "JPG, PNG, WebP" })
+                    ] }),
+                    thumbnail && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "button",
+                      {
+                        type: "button",
+                        "data-ocid": "upload.thumbnail.delete_button",
+                        onClick: (e) => {
+                          e.stopPropagation();
+                          setThumbnail(null);
+                        },
+                        className: "absolute top-2 right-2 bg-black/60 rounded-full p-1 hover:bg-black/80",
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-4 h-4 text-white" })
+                      }
+                    )
+                  ]
+                }
+              )
+            ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-black text-foreground text-base", children: "Video Title 📝" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -42344,9 +42533,48 @@ function UploadPage() {
                   placeholder: "e.g. ABC Song for Kids",
                   value: title,
                   onChange: (e) => setTitle(e.target.value),
-                  className: "mt-2 rounded-2xl border-2 border-border focus:border-kids-green h-12 font-semibold text-base"
+                  className: `mt-2 rounded-2xl border-2 focus:border-${accentColor} h-12 font-semibold text-base`
                 }
               )
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-black text-foreground text-base", children: "Hashtags #️⃣" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-2 relative", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Hash$1, { className: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  Input,
+                  {
+                    "data-ocid": "upload.hashtags.input",
+                    placeholder: "e.g. #kids #fun #learning",
+                    value: hashtagInput,
+                    onChange: (e) => setHashtagInput(e.target.value),
+                    onKeyDown: handleHashtagKeyDown,
+                    onBlur: () => hashtagInput.trim() && addHashtags(hashtagInput),
+                    className: "pl-9 rounded-2xl border-2 border-kids-purple/40 focus:border-kids-purple h-12 font-semibold text-base"
+                  }
+                )
+              ] }),
+              hashtags.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mt-2 flex flex-wrap gap-2", children: hashtags.map((tag) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                Badge,
+                {
+                  className: "px-3 py-1 rounded-full font-bold text-sm cursor-pointer flex items-center gap-1 bg-kids-purple/15 text-kids-purple hover:bg-kids-purple/25 border-0",
+                  children: [
+                    tag,
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "button",
+                      {
+                        type: "button",
+                        onClick: () => removeHashtag(tag),
+                        className: "ml-1 rounded-full hover:text-red-500",
+                        "aria-label": `Remove ${tag}`,
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx(X$1, { className: "w-3 h-3" })
+                      }
+                    )
+                  ]
+                },
+                tag
+              )) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground mt-1 font-semibold", children: "Press Space or Enter to add a tag" })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-black text-foreground text-base", children: "Select Video 🎦" }),
@@ -42374,10 +42602,16 @@ function UploadPage() {
                     var _a3;
                     return e.key === "Enter" && ((_a3 = fileRef.current) == null ? void 0 : _a3.click());
                   },
-                  className: "mt-2 w-full h-32 rounded-2xl border-4 border-dashed border-kids-green/60 bg-kids-green/5 flex flex-col items-center justify-center gap-2 hover:bg-kids-green/10 transition-colors",
+                  className: `mt-2 w-full h-32 rounded-2xl border-4 border-dashed border-${accentColor}/60 bg-${accentColor}/5 flex flex-col items-center justify-center gap-2 hover:bg-${accentColor}/10 transition-colors`,
                   children: file ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(Film, { className: "w-10 h-10 text-kids-green" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-kids-green text-sm text-center px-2 truncate w-full", children: file.name }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(Film, { className: `w-10 h-10 text-${accentColor}` }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "span",
+                      {
+                        className: `font-bold text-${accentColor} text-sm text-center px-2 truncate w-full`,
+                        children: file.name
+                      }
+                    ),
                     /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-muted-foreground font-semibold", children: [
                       (file.size / 1024 / 1024).toFixed(1),
                       " MB"
@@ -42421,10 +42655,13 @@ function UploadPage() {
                 onClick: handleUpload,
                 disabled: isUploading || !title || !file,
                 className: "w-full h-14 rounded-full text-lg font-black shadow-btn",
-                style: { background: "oklch(var(--secondary))", color: "white" },
+                style: {
+                  background: isShort ? "oklch(var(--kids-green))" : "oklch(var(--kids-blue))",
+                  color: "white"
+                },
                 children: [
                   isUploading ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-5 w-5 animate-spin" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Upload, { className: "mr-2 h-5 w-5" }),
-                  isUploading ? "Uploading..." : "Upload Video 📤"
+                  isUploading ? "Uploading..." : `Upload ${isShort ? "Short" : "Long"} Video 📤`
                 ]
               }
             )
@@ -42434,7 +42671,9 @@ function UploadPage() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-card rounded-2xl p-4 border-2 border-kids-amber", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-foreground", children: "📌 Upload Tips:" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "mt-2 space-y-1 text-xs text-muted-foreground font-semibold", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "🎦 Use fun, educational video titles" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "📱 Short Videos: vertical format, max 60 seconds recommended" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "🎬 Long Videos: horizontal layout, great for educational content" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "🖼️ Thumbnail: helps viewers find and click your video" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "📏 Max recommended size: 100MB" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "✅ Supported: MP4, MOV, WebM" })
         ] })
