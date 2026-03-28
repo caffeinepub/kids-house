@@ -1,181 +1,291 @@
+import { Toaster } from "@/components/ui/sonner";
+import { Bell, Gamepad2, Home, PlusSquare, User, Video } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
+import { useInternetIdentity } from "./hooks/useInternetIdentity";
+import GamesPage from "./pages/GamesPage";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
+import UploadPage from "./pages/UploadPage";
+import VideosPage from "./pages/VideosPage";
 
-const cards = [
+type Tab = "home" | "videos" | "upload" | "games" | "profile";
+
+const NAV_ITEMS: {
+  id: Tab;
+  icon: React.ReactNode;
+  labelKey: keyof ReturnType<typeof useLanguage>["t"]["nav"];
+}[] = [
+  { id: "home", icon: <Home className="w-5 h-5" />, labelKey: "home" },
+  { id: "videos", icon: <Video className="w-5 h-5" />, labelKey: "videos" },
   {
-    id: "learning",
-    emoji: "📚",
-    title: "Learning",
-    button: "Start",
-    btnColor: "bg-emerald-500 hover:bg-emerald-600",
-    glow: "from-emerald-300 to-teal-300",
-    border: "border-emerald-200",
+    id: "upload",
+    icon: <PlusSquare className="w-5 h-5" />,
+    labelKey: "addvideo",
   },
-  {
-    id: "games",
-    emoji: "🎮",
-    title: "Games",
-    button: "Play",
-    btnColor: "bg-orange-500 hover:bg-orange-600",
-    glow: "from-orange-300 to-yellow-300",
-    border: "border-orange-200",
-  },
-  {
-    id: "videos",
-    emoji: "🎬",
-    title: "Videos",
-    button: "Watch",
-    btnColor: "bg-sky-500 hover:bg-sky-600",
-    glow: "from-sky-300 to-blue-300",
-    border: "border-sky-200",
-  },
-  {
-    id: "drawing",
-    emoji: "🎨",
-    title: "Drawing",
-    button: "Draw",
-    btnColor: "bg-pink-500 hover:bg-pink-600",
-    glow: "from-pink-300 to-purple-300",
-    border: "border-pink-200",
-  },
+  { id: "games", icon: <Gamepad2 className="w-5 h-5" />, labelKey: "games" },
+  { id: "profile", icon: <User className="w-5 h-5" />, labelKey: "profile" },
 ];
 
-function ComingSoonModal({
-  title,
-  onClose,
-}: { title: string; onClose: () => void }) {
+const TAB_COLORS: Record<Tab, string> = {
+  home: "bg-kids-blue text-white",
+  videos: "bg-kids-red text-white",
+  upload: "bg-kids-green text-white",
+  games: "bg-kids-amber text-white",
+  profile: "bg-kids-purple text-white",
+};
+
+const TAB_ICON_COLORS: Record<Tab, string> = {
+  home: "text-kids-blue",
+  videos: "text-kids-red",
+  upload: "text-kids-green",
+  games: "text-kids-amber",
+  profile: "text-kids-purple",
+};
+
+function AppShell() {
+  const { identity, isInitializing } = useInternetIdentity();
+  const { lang, toggleLang, t } = useLanguage();
+  const [activeTab, setActiveTab] = useState<Tab>("home");
+  const [showNotif, setShowNotif] = useState(false);
+
+  if (isInitializing) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{
+            duration: 1,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "linear",
+          }}
+          className="w-16 h-16 rounded-full border-4 border-kids-blue border-t-transparent"
+        />
+      </div>
+    );
+  }
+
+  if (!identity) {
+    return <LoginPage />;
+  }
+
+  const renderPage = () => {
+    switch (activeTab) {
+      case "home":
+        return <HomePage />;
+      case "videos":
+        return <VideosPage />;
+      case "upload":
+        return <UploadPage />;
+      case "games":
+        return <GamesPage />;
+      case "profile":
+        return <ProfilePage />;
+    }
+  };
+
   return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <button
-        type="button"
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm cursor-default border-0"
-        onClick={onClose}
-        aria-label="Close modal"
-        data-ocid="modal.close_button"
-      />
-      <motion.div
-        className="relative bg-white rounded-3xl shadow-2xl p-8 max-w-xs w-full text-center"
-        initial={{ scale: 0.7, y: 40 }}
-        animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.7, y: 40 }}
-        transition={{ type: "spring", stiffness: 300, damping: 22 }}
-        data-ocid="modal.dialog"
-      >
-        <div className="text-6xl mb-4">🎉</div>
-        <h2 className="text-2xl font-extrabold text-purple-700 mb-2">
-          {title}
-        </h2>
-        <p className="text-gray-500 font-semibold mb-6">Coming Soon!</p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-8 rounded-full text-lg transition-colors"
-          data-ocid="modal.confirm_button"
+    <div className="min-h-screen bg-background flex">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex flex-col w-64 bg-card border-r-2 border-border fixed left-0 top-0 h-full z-30 shadow-card">
+        {/* Logo */}
+        <div className="px-6 py-5 border-b-2 border-border">
+          <div className="flex items-center gap-3">
+            <span className="text-4xl">🏠</span>
+            <div>
+              <div className="font-black text-xl leading-tight">
+                <span className="text-kids-blue">KIDS </span>
+                <span className="text-kids-red">HO</span>
+                <span className="text-kids-green">USE</span>
+              </div>
+              <div className="text-xs text-muted-foreground font-semibold">
+                Fun &amp; Learning ✨
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Nav links */}
+        <nav
+          className="flex-1 px-3 py-4 space-y-1"
+          aria-label="Main navigation"
         >
-          OK!
-        </button>
-      </motion.div>
-    </motion.div>
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                data-ocid={`nav.${item.id}.link`}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl font-black text-base transition-all ${
+                  isActive
+                    ? `${TAB_COLORS[item.id]} shadow-btn`
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+              >
+                <span className={isActive ? "" : TAB_ICON_COLORS[item.id]}>
+                  {item.icon}
+                </span>
+                {t.nav[item.labelKey]}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Lang toggle + logout at bottom */}
+        <div className="px-3 pb-5 space-y-2">
+          <button
+            type="button"
+            data-ocid="sidebar.lang.toggle"
+            onClick={toggleLang}
+            className="w-full px-4 py-2.5 rounded-2xl bg-kids-blue text-white font-black text-sm transition-all hover:opacity-90"
+          >
+            {lang === "en" ? "🇮🇳 हिंदी" : "🇬🇧 English"}
+          </button>
+        </div>
+      </aside>
+
+      {/* Main content area */}
+      <div className="flex-1 flex flex-col md:ml-64">
+        {/* Header */}
+        <header className="sticky top-0 z-20 bg-card border-b-2 border-border shadow-sm flex items-center justify-between px-4 md:px-6 h-14">
+          <div className="flex items-center gap-2 md:hidden">
+            <span className="text-2xl">🏠</span>
+            <span className="font-black text-lg">
+              <span className="text-kids-blue">KIDS </span>
+              <span className="text-kids-red">HO</span>
+              <span className="text-kids-green">USE</span>
+            </span>
+          </div>
+          <div className="hidden md:block font-black text-lg text-foreground">
+            {NAV_ITEMS.find((n) => n.id === activeTab) && (
+              <span className={TAB_ICON_COLORS[activeTab]}>
+                {t.nav[NAV_ITEMS.find((n) => n.id === activeTab)!.labelKey]}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              data-ocid="header.lang.toggle"
+              onClick={toggleLang}
+              className="rounded-full bg-gradient-to-r from-kids-blue to-kids-purple text-white text-xs font-black px-3 py-1.5 shadow-btn"
+            >
+              {lang === "en" ? "HI" : "EN"}
+            </button>
+            <button
+              type="button"
+              data-ocid="header.notifications.button"
+              onClick={() => setShowNotif((v) => !v)}
+              className="relative w-9 h-9 rounded-full bg-muted flex items-center justify-center hover:bg-border transition-colors"
+              aria-label="Notifications"
+            >
+              <Bell className="w-5 h-5 text-foreground" />
+              <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-kids-red rounded-full border-2 border-card" />
+            </button>
+          </div>
+        </header>
+
+        {/* Page content */}
+        <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.18 }}
+            >
+              {renderPage()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
+      </div>
+
+      {/* Mobile Bottom Nav */}
+      <nav
+        className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-card border-t-2 border-border flex"
+        aria-label="Bottom navigation"
+      >
+        {NAV_ITEMS.map((item) => {
+          const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              data-ocid={`bottom_nav.${item.id}.link`}
+              onClick={() => setActiveTab(item.id)}
+              className={`flex-1 flex flex-col items-center justify-center gap-0.5 py-2 text-xs font-black transition-all ${
+                isActive ? TAB_ICON_COLORS[item.id] : "text-muted-foreground"
+              }`}
+            >
+              <span
+                className={`p-1.5 rounded-xl transition-all ${isActive ? `${TAB_COLORS[item.id]} shadow-btn` : ""}`}
+              >
+                {item.icon}
+              </span>
+              <span>{t.nav[item.labelKey]}</span>
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Notifications panel */}
+      <AnimatePresence>
+        {showNotif && (
+          <motion.div
+            data-ocid="notifications.panel"
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className="fixed top-16 right-4 z-50 bg-card rounded-3xl shadow-card-hover border-2 border-border p-4 w-72"
+          >
+            <button
+              type="button"
+              data-ocid="notifications.close_button"
+              onClick={() => setShowNotif(false)}
+              className="absolute top-3 right-3 text-muted-foreground hover:text-foreground"
+            >
+              ✕
+            </button>
+            <h3 className="font-black text-base mb-3 text-foreground">
+              🔔 Notifications
+            </h3>
+            <div className="space-y-2">
+              <div className="bg-kids-blue/10 rounded-2xl p-3 border-l-4 border-kids-blue">
+                <p className="text-xs font-bold text-foreground">
+                  🎉 New video uploaded by FunLearn Kids!
+                </p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  2 minutes ago
+                </p>
+              </div>
+              <div className="bg-kids-green/10 rounded-2xl p-3 border-l-4 border-kids-green">
+                <p className="text-xs font-bold text-foreground">
+                  🎮 Try the new Color Match game!
+                </p>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  1 hour ago
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <Toaster />
+    </div>
   );
 }
 
 export default function App() {
-  const [activeModal, setActiveModal] = useState<string | null>(null);
-
   return (
-    <div
-      className="min-h-screen flex flex-col items-center px-4 py-10"
-      style={{
-        background:
-          "linear-gradient(135deg, oklch(0.72 0.18 255) 0%, oklch(0.65 0.22 290) 50%, oklch(0.60 0.20 320) 100%)",
-      }}
-    >
-      {/* Header */}
-      <motion.div
-        className="text-center mb-10"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <div className="text-6xl mb-3">🏠</div>
-        <h1 className="text-4xl sm:text-5xl font-black text-white drop-shadow-lg tracking-tight">
-          Kids House
-        </h1>
-        <p className="text-white/80 font-semibold text-lg mt-2">
-          Fun &amp; Learning for Kids! ✨
-        </p>
-      </motion.div>
-
-      {/* Cards Grid */}
-      <div className="grid grid-cols-2 gap-5 sm:gap-6 w-full max-w-sm sm:max-w-xl">
-        {cards.map((card, i) => (
-          <motion.div
-            key={card.id}
-            className={`bg-white rounded-3xl border-2 ${card.border} shadow-card flex flex-col items-center justify-center py-7 px-4 select-none`}
-            initial={{ opacity: 0, scale: 0.8, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              delay: i * 0.1 + 0.2,
-              duration: 0.5,
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-            }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 20px 60px 0 oklch(0.55 0.18 290 / 0.22)",
-            }}
-            whileTap={{ scale: 0.97 }}
-            data-ocid={`${card.id}.card`}
-          >
-            {/* Gradient bubble */}
-            <div
-              className={`w-20 h-20 rounded-full bg-gradient-to-br ${card.glow} flex items-center justify-center mb-4 shadow-md`}
-            >
-              <span className="text-4xl">{card.emoji}</span>
-            </div>
-            <h2 className="text-xl font-extrabold text-gray-800 mb-4">
-              {card.title}
-            </h2>
-            <button
-              type="button"
-              onClick={() => setActiveModal(card.title)}
-              className={`${card.btnColor} text-white font-bold py-2 px-7 rounded-full text-base transition-all duration-150 shadow-md active:scale-95`}
-              data-ocid={`${card.id}.primary_button`}
-            >
-              {card.button}
-            </button>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Footer */}
-      <div className="mt-12 text-white/60 text-sm font-semibold">
-        © {new Date().getFullYear()}. Built with ❤️ using{" "}
-        <a
-          href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(typeof window !== "undefined" ? window.location.hostname : "")}`}
-          className="underline hover:text-white transition-colors"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          caffeine.ai
-        </a>
-      </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {activeModal && (
-          <ComingSoonModal
-            title={activeModal}
-            onClose={() => setActiveModal(null)}
-          />
-        )}
-      </AnimatePresence>
-    </div>
+    <LanguageProvider>
+      <AppShell />
+    </LanguageProvider>
   );
 }
