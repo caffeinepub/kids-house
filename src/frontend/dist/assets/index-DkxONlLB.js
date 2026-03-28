@@ -39900,19 +39900,6 @@ function useAllVideos() {
     enabled: !!actor && !isFetching
   });
 }
-function useCreateUser() {
-  const { actor } = useActor();
-  const queryClient2 = useQueryClient();
-  return useMutation({
-    mutationFn: async (input) => {
-      if (!actor) throw new Error("Actor not available");
-      return actor.createUser(input);
-    },
-    onSuccess: () => {
-      queryClient2.invalidateQueries({ queryKey: ["callerProfile"] });
-    }
-  });
-}
 function useCreateVideoMeta() {
   const { actor } = useActor();
   const queryClient2 = useQueryClient();
@@ -41068,7 +41055,7 @@ const DEMO_VIDEOS$1 = [
     likes: 412
   }
 ];
-function VideoCard$1({
+function VideoCard({
   video,
   index: index2,
   isDemo
@@ -41220,7 +41207,7 @@ function HomePage() {
         "🎦 ",
         t.home.demoNote
       ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: filtered.map((v2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(VideoCard$1, { video: v2, index: i, isDemo: !hasReal }, v2.id)) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: filtered.map((v2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(VideoCard, { video: v2, index: i, isDemo: !hasReal }, v2.id)) })
     ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("footer", { className: "text-center py-6 text-xs text-muted-foreground font-semibold px-4", children: [
       "© ",
@@ -41338,79 +41325,16 @@ function Input({ className, type, ...props }) {
     }
   );
 }
-var NAME$1 = "Label";
-var Label$1 = reactExports.forwardRef((props, forwardedRef) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Primitive.label,
-    {
-      ...props,
-      ref: forwardedRef,
-      onMouseDown: (event) => {
-        var _a3;
-        const target = event.target;
-        if (target.closest("button, input, select, textarea")) return;
-        (_a3 = props.onMouseDown) == null ? void 0 : _a3.call(props, event);
-        if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
-      }
-    }
-  );
-});
-Label$1.displayName = NAME$1;
-var Root$2 = Label$1;
-function Label({
-  className,
-  ...props
-}) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Root$2,
-    {
-      "data-slot": "label",
-      className: cn(
-        "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
-        className
-      ),
-      ...props
-    }
-  );
-}
-const RAINBOW_DOTS = ["purple", "red", "green", "blue", "amber"];
+const RAINBOW_DOTS = ["blue", "red", "green", "amber", "purple"];
+const LOGO_SRC$1 = "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
 function LoginPage() {
-  const [tab, setTab] = reactExports.useState("login");
-  const [username, setUsername] = reactExports.useState("");
-  const [email, setEmail] = reactExports.useState("");
-  const [password, setPassword] = reactExports.useState("");
-  const [pin, setPin] = reactExports.useState("");
-  const [parentalPin, setParentalPin] = reactExports.useState("");
-  const { login, isLoggingIn, identity } = useInternetIdentity();
+  const { login, isLoggingIn } = useInternetIdentity();
   const { lang, toggleLang, t } = useLanguage();
-  const createUser = useCreateUser();
-  const handleLogin = () => {
-    login();
-  };
-  const handleSignup = async () => {
-    if (!identity) {
-      ue.error("Please login with Internet Identity first");
-      login();
-      return;
-    }
-    if (!username || !email || !password || !pin) {
-      ue.error("Please fill in all fields");
-      return;
-    }
-    try {
-      await createUser.mutateAsync({
-        username,
-        email,
-        password,
-        pinSettings: { userPIN: pin, parentalPIN: parentalPin || "0000" }
-      });
-      ue.success("Account created! 🎉");
-    } catch (e) {
-      ue.error(e.message || "Signup failed");
-    }
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background flex items-center justify-center p-4", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed top-4 right-4 z-50", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+  const [tab, setTab] = reactExports.useState("login");
+  const [name, setName] = reactExports.useState("");
+  const [age, setAge] = reactExports.useState("");
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-gradient-to-br from-kids-blue/10 via-kids-purple/5 to-kids-red/10 flex flex-col items-center justify-center px-4 py-8", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-4 right-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         type: "button",
@@ -41429,7 +41353,14 @@ function LoginPage() {
           transition: { type: "spring", stiffness: 300, damping: 20 },
           className: "text-center mb-8",
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl mb-2", children: "🏠" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: LOGO_SRC$1,
+                alt: "Kids House",
+                className: "w-24 h-24 rounded-3xl object-cover mx-auto mb-2 shadow-lg"
+              }
+            ),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-4xl font-black", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "KIDS " }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "HO" }),
@@ -41452,198 +41383,88 @@ function LoginPage() {
           type: "button",
           "data-ocid": `auth.${tabId}.tab`,
           onClick: () => setTab(tabId),
-          className: `flex-1 py-3 rounded-2xl font-black text-base transition-all ${tab === tabId ? "bg-primary text-primary-foreground shadow-btn" : "text-muted-foreground hover:text-foreground"}`,
-          children: tabId === "login" ? "🔑 Login" : "✨ Sign Up"
+          className: `flex-1 py-2.5 rounded-2xl text-sm font-black transition-all ${tab === tabId ? "bg-kids-blue text-white shadow-btn" : "text-muted-foreground hover:text-foreground"}`,
+          children: tabId === "login" ? t.login.loginBtn : lang === "en" ? "Sign Up" : "साइन अप"
         },
         tabId
       )) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
         motion.div,
         {
-          initial: { opacity: 0, x: tab === "login" ? -20 : 20 },
-          animate: { opacity: 1, x: 0 },
-          exit: { opacity: 0, x: tab === "login" ? 20 : -20 },
+          initial: { opacity: 0, y: 16 },
+          animate: { opacity: 1, y: 0 },
           transition: { duration: 0.2 },
           className: "bg-card rounded-3xl shadow-card p-6 space-y-4",
-          children: tab === "login" ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-2xl font-black text-foreground mb-2", children: "Welcome Back! 👋" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Username" }),
+          children: [
+            tab === "signup" && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1.5", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "label",
+                  {
+                    htmlFor: "auth-name",
+                    className: "text-sm font-black text-foreground",
+                    children: lang === "en" ? "Your Name" : "आपका नाम"
+                  }
+                ),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   Input,
                   {
-                    "data-ocid": "login.username.input",
-                    placeholder: "Your username",
-                    value: username,
-                    onChange: (e) => setUsername(e.target.value),
-                    className: "mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
+                    id: "auth-name",
+                    "data-ocid": "auth.name.input",
+                    placeholder: lang === "en" ? "Your Name" : "आपका नाम",
+                    value: name,
+                    onChange: (e) => setName(e.target.value),
+                    className: "rounded-2xl h-12 font-semibold border-2 focus:border-kids-blue"
                   }
                 )
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Password" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1.5", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "label",
+                  {
+                    htmlFor: "auth-age",
+                    className: "text-sm font-black text-foreground",
+                    children: lang === "en" ? "Your Age" : "आपकी उम्र"
+                  }
+                ),
                 /* @__PURE__ */ jsxRuntimeExports.jsx(
                   Input,
                   {
-                    "data-ocid": "login.password.input",
-                    type: "password",
-                    placeholder: "Your password",
-                    value: password,
-                    onChange: (e) => setPassword(e.target.value),
-                    className: "mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
+                    id: "auth-age",
+                    "data-ocid": "auth.age.input",
+                    type: "number",
+                    placeholder: lang === "en" ? "Your Age" : "आपकी उम्र",
+                    value: age,
+                    onChange: (e) => setAge(e.target.value),
+                    min: 3,
+                    max: 18,
+                    className: "rounded-2xl h-12 font-semibold border-2 focus:border-kids-blue"
                   }
                 )
               ] })
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
               Button,
               {
-                "data-ocid": "login.submit_button",
-                onClick: handleLogin,
+                "data-ocid": "auth.submit_button",
+                onClick: () => login(),
                 disabled: isLoggingIn,
-                className: "w-full h-14 rounded-full text-lg font-black bg-primary hover:bg-primary/90 shadow-btn",
-                children: [
-                  isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-5 w-5 animate-spin" }) : "🔑",
-                  isLoggingIn ? "Logging in..." : t.login.loginBtn
-                ]
+                className: "w-full h-14 rounded-2xl bg-gradient-to-r from-kids-blue to-kids-purple text-white font-black text-base shadow-btn hover:opacity-90 transition-opacity",
+                children: isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "w-5 h-5 rounded-full border-2 border-white border-t-transparent animate-spin" }),
+                  lang === "en" ? "Connecting..." : "जोड़ रहा हूँ..."
+                ] }) : tab === "login" ? t.login.loginBtn : lang === "en" ? "Sign Up" : "साइन अप"
               }
-            )
-          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-2xl font-black text-foreground mb-2", children: "Create Account! 🎉" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Username" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  Input,
-                  {
-                    "data-ocid": "signup.username.input",
-                    placeholder: "Choose a username",
-                    value: username,
-                    onChange: (e) => setUsername(e.target.value),
-                    className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Email" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  Input,
-                  {
-                    "data-ocid": "signup.email.input",
-                    type: "email",
-                    placeholder: "Your email",
-                    value: email,
-                    onChange: (e) => setEmail(e.target.value),
-                    className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Password" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  Input,
-                  {
-                    "data-ocid": "signup.password.input",
-                    type: "password",
-                    placeholder: "Create a password",
-                    value: password,
-                    onChange: (e) => setPassword(e.target.value),
-                    className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Your PIN" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    Input,
-                    {
-                      "data-ocid": "signup.pin.input",
-                      type: "password",
-                      maxLength: 6,
-                      placeholder: "4-6 digits",
-                      value: pin,
-                      onChange: (e) => setPin(e.target.value),
-                      className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                    }
-                  )
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { className: "font-bold text-foreground", children: "Parent PIN" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    Input,
-                    {
-                      "data-ocid": "signup.parental_pin.input",
-                      type: "password",
-                      maxLength: 6,
-                      placeholder: "4-6 digits",
-                      value: parentalPin,
-                      onChange: (e) => setParentalPin(e.target.value),
-                      className: "mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                    }
-                  )
-                ] })
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-              !identity && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                Button,
-                {
-                  "data-ocid": "signup.connect_button",
-                  onClick: handleLogin,
-                  disabled: isLoggingIn,
-                  variant: "outline",
-                  className: "w-full h-12 rounded-full font-bold border-2 border-primary text-primary",
-                  children: [
-                    isLoggingIn ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-4 w-4 animate-spin" }) : "🔗",
-                    isLoggingIn ? "Connecting..." : "Connect Internet Identity"
-                  ]
-                }
-              ),
-              identity && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center text-xs text-secondary font-semibold", children: "✅ Identity connected!" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                Button,
-                {
-                  "data-ocid": "signup.submit_button",
-                  onClick: handleSignup,
-                  disabled: createUser.isPending,
-                  className: "w-full h-14 rounded-full text-lg font-black shadow-btn",
-                  style: {
-                    background: "oklch(var(--secondary))",
-                    color: "white"
-                  },
-                  children: [
-                    createUser.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "mr-2 h-5 w-5 animate-spin" }) : "✨",
-                    createUser.isPending ? "Creating..." : "Create Account"
-                  ]
-                }
-              )
-            ] })
-          ] })
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-center text-xs text-muted-foreground font-semibold pt-1", children: lang === "en" ? "Powered by Internet Identity" : "इंटरनेट आइडेंटिटी द्वारा" })
+          ]
         },
         tab
-      ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-center text-xs text-muted-foreground mt-6 font-semibold", children: [
-        "© ",
-        (/* @__PURE__ */ new Date()).getFullYear(),
-        ". Built with ❤️ using",
-        " ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "a",
-          {
-            href: `https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`,
-            target: "_blank",
-            rel: "noopener noreferrer",
-            className: "text-primary hover:underline",
-            children: "caffeine.ai"
-          }
-        )
-      ] })
+      )
     ] })
   ] });
 }
-var NAME = "Separator";
+var NAME$1 = "Separator";
 var DEFAULT_ORIENTATION = "horizontal";
 var ORIENTATIONS = ["horizontal", "vertical"];
 var Separator$1 = reactExports.forwardRef((props, forwardedRef) => {
@@ -41661,11 +41482,11 @@ var Separator$1 = reactExports.forwardRef((props, forwardedRef) => {
     }
   );
 });
-Separator$1.displayName = NAME;
+Separator$1.displayName = NAME$1;
 function isValidOrientation(orientation) {
   return ORIENTATIONS.includes(orientation);
 }
-var Root$1 = Separator$1;
+var Root$2 = Separator$1;
 function Separator({
   className,
   orientation = "horizontal",
@@ -41673,7 +41494,7 @@ function Separator({
   ...props
 }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    Root$1,
+    Root$2,
     {
       "data-slot": "separator",
       decorative,
@@ -41776,22 +41597,21 @@ function SubscribedChannelCard({
     }
   );
 }
-function VideoCard({ video, index: index2 }) {
+function LongVideoCard({ video, index: index2 }) {
   const ext = getVideoExt$2(video.id);
-  const isShort = ext.type === "short";
   const hashtags = ext.hashtags ?? [];
   const thumbnail = ext.thumbnailDataUrl ?? null;
   const borderColor = BORDER_COLORS$1[index2 % BORDER_COLORS$1.length];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
     {
-      initial: { opacity: 0, x: -12 },
-      animate: { opacity: 1, x: 0 },
+      initial: { opacity: 0, y: 16 },
+      animate: { opacity: 1, y: 0 },
       transition: { delay: index2 * 0.06 },
       "data-ocid": `profile.item.${index2 + 1}`,
-      className: `rounded-2xl border-2 ${borderColor} bg-card overflow-hidden shadow-sm flex items-stretch hover:shadow-md transition-shadow`,
+      className: `rounded-2xl border-2 ${borderColor} bg-card overflow-hidden shadow-sm hover:shadow-md transition-shadow`,
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-24 h-24 shrink-0 bg-black/5 relative overflow-hidden", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full aspect-video bg-black/5 relative overflow-hidden", children: [
           thumbnail ? /* @__PURE__ */ jsxRuntimeExports.jsx(
             "img",
             {
@@ -41799,44 +41619,67 @@ function VideoCard({ video, index: index2 }) {
               alt: video.title,
               className: "w-full h-full object-cover"
             }
-          ) : (
-            // biome-ignore lint/a11y/useMediaCaption: kids video
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "video",
-              {
-                src: video.blob.getDirectURL(),
-                className: "w-full h-full object-cover",
-                preload: "metadata",
-                muted: true
-              }
-            )
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "span",
+          ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "video",
             {
-              className: `absolute bottom-1 left-1 text-[10px] font-black px-1.5 py-0.5 rounded-full ${isShort ? "bg-kids-amber text-white" : "bg-kids-blue text-white"}`,
-              children: isShort ? "⚡" : "🎬"
+              src: video.blob.getDirectURL(),
+              className: "w-full h-full object-cover",
+              preload: "metadata",
+              muted: true
             }
-          )
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "absolute bottom-2 left-2 text-[10px] font-black px-2 py-0.5 rounded-full bg-kids-blue text-white", children: "🎬 Long" })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 min-w-0 px-3 py-2.5 flex flex-col justify-between", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-foreground leading-snug line-clamp-2", children: video.title }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5 mt-1 flex-wrap", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "span",
-                {
-                  className: `inline-flex items-center gap-0.5 text-[10px] font-black px-2 py-0.5 rounded-full ${isShort ? "bg-kids-amber/10 text-kids-amber border border-kids-amber/30" : "bg-kids-blue/10 text-kids-blue border border-kids-blue/30"}`,
-                  children: isShort ? "📱 Short" : "🎬 Long"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-[10px] text-muted-foreground font-semibold", children: [
-                "ID: ",
-                formatId$1(index2 + 1)
-              ] })
-            ] })
-          ] }),
-          hashtags.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[10px] text-kids-blue/70 font-semibold mt-1 truncate", children: hashtags.slice(0, 3).map((h2) => `#${h2}`).join(" ") })
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-3 py-2.5", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-sm text-foreground leading-snug line-clamp-2 mb-1.5", children: video.title }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 flex-wrap", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-[10px] text-muted-foreground font-semibold", children: [
+              "ID: ",
+              formatId$1(index2 + 1)
+            ] }),
+            hashtags.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[10px] text-kids-blue/70 font-semibold truncate", children: hashtags.slice(0, 3).map((h2) => `#${h2}`).join(" ") })
+          ] })
+        ] })
+      ]
+    }
+  );
+}
+function ShortVideoCard({ video, index: index2 }) {
+  const ext = getVideoExt$2(video.id);
+  const hashtags = ext.hashtags ?? [];
+  const thumbnail = ext.thumbnailDataUrl ?? null;
+  const borderColor = BORDER_COLORS$1[index2 % BORDER_COLORS$1.length];
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    motion.div,
+    {
+      initial: { opacity: 0, scale: 0.9 },
+      animate: { opacity: 1, scale: 1 },
+      transition: { delay: index2 * 0.05 },
+      "data-ocid": `profile.item.${index2 + 1}`,
+      className: `rounded-xl border-2 ${borderColor} bg-card overflow-hidden shadow-sm hover:shadow-md transition-shadow`,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full aspect-[9/16] bg-black/5 relative overflow-hidden", children: [
+          thumbnail ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "img",
+            {
+              src: thumbnail,
+              alt: video.title,
+              className: "w-full h-full object-cover"
+            }
+          ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "video",
+            {
+              src: video.blob.getDirectURL(),
+              className: "w-full h-full object-cover",
+              preload: "metadata",
+              muted: true
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "absolute bottom-1 left-1 text-[9px] font-black px-1.5 py-0.5 rounded-full bg-kids-amber text-white", children: "⚡" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-2 py-1.5", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-[11px] text-foreground leading-snug line-clamp-2", children: video.title }),
+          hashtags.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[9px] text-kids-blue/70 font-semibold mt-0.5 truncate", children: hashtags.slice(0, 2).map((h2) => `#${h2}`).join(" ") })
         ] })
       ]
     }
@@ -41858,11 +41701,14 @@ function ProfilePage() {
   const myVideos = (allVideos ?? []).filter(
     (v2) => v2.uploader.toString() === principal
   );
-  const shortCount = myVideos.filter((v2) => {
+  const shortVideos = myVideos.filter((v2) => {
     const ext = getVideoExt$2(v2.id);
     return ext.type === "short";
-  }).length;
-  const longCount = myVideos.length - shortCount;
+  });
+  const longVideos = myVideos.filter((v2) => {
+    const ext = getVideoExt$2(v2.id);
+    return ext.type !== "short";
+  });
   const handleLogout = () => {
     clear();
     queryClient2.clear();
@@ -41963,13 +41809,13 @@ function ProfilePage() {
           " total ·",
           " ",
           /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-kids-amber", children: [
-            shortCount,
+            shortVideos.length,
             " short"
           ] }),
-          " ·",
           " ",
+          "· ",
           /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-kids-blue", children: [
-            longCount,
+            longVideos.length,
             " long"
           ] })
         ] })
@@ -41987,7 +41833,22 @@ function ProfilePage() {
             /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground font-semibold text-center px-6", children: "Tap ➕ Add Video to upload your first video" })
           ]
         }
-      ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: myVideos.map((video, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(VideoCard, { video, index: i }, video.id)) })
+      ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        longVideos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "text-sm font-black text-kids-blue mb-3 flex items-center gap-1.5", children: [
+            "🎬 Long Videos",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "bg-kids-blue/10 text-kids-blue rounded-full px-2 py-0.5 text-[10px]", children: longVideos.length })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: longVideos.map((video, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(LongVideoCard, { video, index: i }, video.id)) })
+        ] }),
+        shortVideos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "text-sm font-black text-kids-amber mb-3 flex items-center gap-1.5", children: [
+            "⚡ Short Videos",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "bg-kids-amber/10 text-kids-amber rounded-full px-2 py-0.5 text-[10px]", children: shortVideos.length })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-3 md:grid-cols-4 gap-2.5", children: shortVideos.map((video, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(ShortVideoCard, { video, index: i }, video.id)) })
+        ] })
+      ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 mt-8", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-xl font-black mb-4", children: [
@@ -42131,6 +41992,77 @@ function getVideoExt$1(videoId) {
     return {};
   }
 }
+function ShortActionBar$1({
+  liked,
+  likeCount,
+  commentCount,
+  onLike,
+  onComment,
+  onShare,
+  onFollow,
+  onAccount,
+  followed
+}) {
+  const actions = [
+    {
+      id: "account",
+      icon: "👤",
+      label: "Account",
+      onClick: onAccount,
+      ocid: "shorts.button"
+    },
+    {
+      id: "like",
+      icon: liked ? "❤️" : "🤍",
+      label: likeCount >= 1e3 ? `${(likeCount / 1e3).toFixed(1)}k` : String(likeCount),
+      onClick: onLike,
+      ocid: "shorts.toggle",
+      active: liked
+    },
+    {
+      id: "comment",
+      icon: "💬",
+      label: String(commentCount),
+      onClick: onComment,
+      ocid: "shorts.button"
+    },
+    {
+      id: "share",
+      icon: "↗️",
+      label: "Share",
+      onClick: onShare,
+      ocid: "shorts.button"
+    },
+    {
+      id: "follow",
+      icon: followed ? "✅" : "➕",
+      label: followed ? "Following" : "Follow",
+      onClick: onFollow,
+      ocid: "shorts.toggle",
+      active: followed
+    }
+  ];
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-3 bottom-20 flex flex-col gap-4 items-center z-20", children: actions.map((action) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "button",
+    {
+      type: "button",
+      "data-ocid": action.ocid,
+      onClick: action.onClick,
+      className: "flex flex-col items-center gap-0.5 group",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: `w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-lg transition-transform active:scale-110 group-hover:scale-105 ${action.active ? "bg-kids-red text-white" : "bg-white/90 backdrop-blur-sm"}`,
+            children: action.icon
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-[10px] font-black drop-shadow-md", children: action.label })
+      ]
+    },
+    action.id
+  )) });
+}
 function RealShortPlayer({
   shorts,
   current,
@@ -42138,9 +42070,22 @@ function RealShortPlayer({
   onNext,
   onSelect
 }) {
+  var _a3;
   const video = shorts[current];
+  const [liked, setLiked] = reactExports.useState(/* @__PURE__ */ new Set());
+  const [followed, setFollowed] = reactExports.useState(/* @__PURE__ */ new Set());
   if (!video) return null;
   const ext = getVideoExt$1(video.id);
+  const isLiked = liked.has(video.id);
+  const isFollowed = followed.has(((_a3 = video.uploader) == null ? void 0 : _a3.toString()) ?? "");
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: video.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      ue.success("Link copied!");
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden md:flex flex-col items-center gap-4 px-8", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black self-start", children: [
@@ -42163,7 +42108,7 @@ function RealShortPlayer({
           initial: { opacity: 0, y: 20 },
           animate: { opacity: 1, y: 0 },
           exit: { opacity: 0, y: -20 },
-          className: "w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl border-4 border-kids-purple/40 bg-black",
+          className: "relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl border-4 border-kids-purple/40 bg-black",
           style: { minHeight: 480 },
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -42204,7 +42149,33 @@ function RealShortPlayer({
                   }
                 )
               ] })
-            ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              ShortActionBar$1,
+              {
+                liked: isLiked,
+                likeCount: isLiked ? 1 : 0,
+                commentCount: 0,
+                onLike: () => setLiked((prev) => {
+                  const n = new Set(prev);
+                  if (n.has(video.id)) n.delete(video.id);
+                  else n.add(video.id);
+                  return n;
+                }),
+                onComment: () => ue.info("Comments coming soon! 💬"),
+                onShare: handleShare,
+                onFollow: () => setFollowed((prev) => {
+                  var _a4;
+                  const n = new Set(prev);
+                  const key = ((_a4 = video.uploader) == null ? void 0 : _a4.toString()) ?? "";
+                  if (n.has(key)) n.delete(key);
+                  else n.add(key);
+                  return n;
+                }),
+                onAccount: () => ue.info("View account 👤"),
+                followed: isFollowed
+              }
+            )
           ]
         },
         video.id
@@ -42246,7 +42217,33 @@ function RealShortPlayer({
                   },
                   i
                 )) })
-              ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                ShortActionBar$1,
+                {
+                  liked: isLiked,
+                  likeCount: isLiked ? 1 : 0,
+                  commentCount: 0,
+                  onLike: () => setLiked((prev) => {
+                    const n = new Set(prev);
+                    if (n.has(video.id)) n.delete(video.id);
+                    else n.add(video.id);
+                    return n;
+                  }),
+                  onComment: () => ue.info("Comments coming soon! 💬"),
+                  onShare: handleShare,
+                  onFollow: () => setFollowed((prev) => {
+                    var _a4;
+                    const n = new Set(prev);
+                    const key = ((_a4 = video.uploader) == null ? void 0 : _a4.toString()) ?? "";
+                    if (n.has(key)) n.delete(key);
+                    else n.add(key);
+                    return n;
+                  }),
+                  onAccount: () => ue.info("View account 👤"),
+                  followed: isFollowed
+                }
+              )
             ]
           },
           video.id
@@ -42258,6 +42255,7 @@ function RealShortPlayer({
 function ShortsPage() {
   const [current, setCurrent] = reactExports.useState(0);
   const [liked, setLiked] = reactExports.useState(/* @__PURE__ */ new Set());
+  const [followed, setFollowed] = reactExports.useState(/* @__PURE__ */ new Set());
   const touchStartY = reactExports.useRef(0);
   const containerRef = reactExports.useRef(null);
   const currentRef = reactExports.useRef(current);
@@ -42270,6 +42268,14 @@ function ShortsPage() {
   const listLength = useRealShorts ? realShorts.length : SHORTS.length;
   const toggleLike = (id2) => {
     setLiked((prev) => {
+      const next = new Set(prev);
+      if (next.has(id2)) next.delete(id2);
+      else next.add(id2);
+      return next;
+    });
+  };
+  const toggleFollow = (id2) => {
+    setFollowed((prev) => {
       const next = new Set(prev);
       if (next.has(id2)) next.delete(id2);
       else next.add(id2);
@@ -42295,6 +42301,14 @@ function ShortsPage() {
     };
   }, [listLength]);
   const short = SHORTS[current];
+  const handleShare = (title) => {
+    if (navigator.share) {
+      navigator.share({ title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      ue.success("Link copied!");
+    }
+  };
   if (useRealShorts) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: containerRef, className: "bg-background min-h-screen md:py-8", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       RealShortPlayer,
@@ -42307,38 +42321,37 @@ function ShortsPage() {
       }
     ) });
   }
-  return (
-    // Mobile: full screen. Desktop: centered card layout
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: containerRef, className: "bg-background min-h-screen md:py-8", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden md:flex flex-col items-center gap-4 px-8", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black self-start", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "शॉर्ट्स " }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "Shorts" }),
-          " ▶️"
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3 w-full max-w-2xl justify-center flex-wrap", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "button",
-          {
-            type: "button",
-            onClick: () => setCurrent(i),
-            className: `px-4 py-2 rounded-full text-sm font-black border-2 transition-all ${current === i ? "bg-kids-blue text-white border-kids-blue" : "bg-card border-border text-foreground"}`,
-            children: [
-              s2.emoji,
-              " ",
-              s2.title.split(" ")[0]
-            ]
-          },
-          s2.id
-        )) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.div,
-          {
-            initial: { opacity: 0, y: 20 },
-            animate: { opacity: 1, y: 0 },
-            exit: { opacity: 0, y: -20 },
-            className: `w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 bg-gradient-to-b ${short.gradient}`,
-            style: { minHeight: 480 },
-            children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", style: { minHeight: 480 }, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: containerRef, className: "bg-background min-h-screen md:py-8", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden md:flex flex-col items-center gap-4 px-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl font-black self-start", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "शॉर्ट्स " }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "Shorts" }),
+        " ▶️"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-3 w-full max-w-2xl justify-center flex-wrap", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          onClick: () => setCurrent(i),
+          className: `px-4 py-2 rounded-full text-sm font-black border-2 transition-all ${current === i ? "bg-kids-blue text-white border-kids-blue" : "bg-card border-border text-foreground"}`,
+          children: [
+            s2.emoji,
+            " ",
+            s2.title.split(" ")[0]
+          ]
+        },
+        s2.id
+      )) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          exit: { opacity: 0, y: -20 },
+          className: `relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 bg-gradient-to-b ${short.gradient}`,
+          style: { minHeight: 480 },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col h-full", style: { minHeight: 480 }, children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 p-8", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-9xl", children: short.emoji }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-3xl text-white text-center drop-shadow-lg", children: short.title }),
@@ -42389,68 +42402,96 @@ function ShortsPage() {
                   )
                 ] })
               ] })
-            ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              ShortActionBar$1,
+              {
+                liked: liked.has(short.id),
+                likeCount: short.likes + (liked.has(short.id) ? 1 : 0),
+                commentCount: short.comments,
+                onLike: () => toggleLike(short.id),
+                onComment: () => ue.info(`💬 ${short.comments} comments`),
+                onShare: () => handleShare(short.title),
+                onFollow: () => toggleFollow(short.id),
+                onAccount: () => ue.info(`👤 ${short.creator}'s account`),
+                followed: followed.has(short.id)
+              }
+            )
+          ]
+        },
+        short.id
+      ) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "md:hidden relative",
+        style: { height: "calc(100dvh - 130px)" },
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0, y: 60 },
+            animate: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -60 },
+            transition: { type: "spring", damping: 25, stiffness: 300 },
+            className: `absolute inset-0 bg-gradient-to-b ${short.gradient} flex flex-col`,
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 p-6", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-9xl", children: short.emoji }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-3xl text-white text-center drop-shadow-lg", children: short.title }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/80 font-semibold text-lg", children: [
+                  "by ",
+                  short.creator
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/60 text-sm font-semibold mt-2", children: "↕ Swipe up/down" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-4 bg-black/20", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "button",
+                  {
+                    type: "button",
+                    "data-ocid": `shorts.like_button.${short.id}`,
+                    onClick: () => toggleLike(short.id),
+                    className: "flex items-center gap-2 bg-white/20 rounded-full px-4 py-2",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked.has(short.id) ? "❤️" : "🤍" }),
+                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-black", children: short.likes + (liked.has(short.id) ? 1 : 0) })
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-white/70 font-semibold text-sm", children: [
+                  "💬 ",
+                  short.comments
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+                  "div",
+                  {
+                    className: `w-1.5 h-1.5 rounded-full transition-all ${i === current ? "bg-white w-4" : "bg-white/40"}`
+                  },
+                  s2.id
+                )) })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                ShortActionBar$1,
+                {
+                  liked: liked.has(short.id),
+                  likeCount: short.likes + (liked.has(short.id) ? 1 : 0),
+                  commentCount: short.comments,
+                  onLike: () => toggleLike(short.id),
+                  onComment: () => ue.info(`💬 ${short.comments} comments`),
+                  onShare: () => handleShare(short.title),
+                  onFollow: () => toggleFollow(short.id),
+                  onAccount: () => ue.info(`👤 ${short.creator}'s account`),
+                  followed: followed.has(short.id)
+                }
+              )
+            ]
           },
           short.id
         ) })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "div",
-        {
-          className: "md:hidden relative",
-          style: { height: "calc(100dvh - 130px)" },
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { mode: "wait", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            motion.div,
-            {
-              initial: { opacity: 0, y: 60 },
-              animate: { opacity: 1, y: 0 },
-              exit: { opacity: 0, y: -60 },
-              transition: { type: "spring", damping: 25, stiffness: 300 },
-              className: `absolute inset-0 bg-gradient-to-b ${short.gradient} flex flex-col`,
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col items-center justify-center gap-4 p-6", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-9xl", children: short.emoji }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-3xl text-white text-center drop-shadow-lg", children: short.title }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-white/80 font-semibold text-lg", children: [
-                    "by ",
-                    short.creator
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/60 text-sm font-semibold mt-2", children: "↕ Swipe up/down" })
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between px-6 py-4 bg-black/20", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                    "button",
-                    {
-                      type: "button",
-                      "data-ocid": `shorts.like_button.${short.id}`,
-                      onClick: () => toggleLike(short.id),
-                      className: "flex items-center gap-2 bg-white/20 rounded-full px-4 py-2",
-                      children: [
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked.has(short.id) ? "❤️" : "🤍" }),
-                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white font-black", children: short.likes + (liked.has(short.id) ? 1 : 0) })
-                      ]
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-white/70 font-semibold text-sm", children: [
-                    "💬 ",
-                    short.comments
-                  ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex gap-1", children: SHORTS.map((s2, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "div",
-                    {
-                      className: `w-1.5 h-1.5 rounded-full transition-all ${i === current ? "bg-white w-4" : "bg-white/40"}`
-                    },
-                    s2.id
-                  )) })
-                ] })
-              ]
-            },
-            short.id
-          ) })
-        }
-      )
-    ] })
-  );
+      }
+    )
+  ] });
 }
 const badgeVariants = cva(
   "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
@@ -42480,6 +42521,41 @@ function Badge({
     {
       "data-slot": "badge",
       className: cn(badgeVariants({ variant }), className),
+      ...props
+    }
+  );
+}
+var NAME = "Label";
+var Label$1 = reactExports.forwardRef((props, forwardedRef) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Primitive.label,
+    {
+      ...props,
+      ref: forwardedRef,
+      onMouseDown: (event) => {
+        var _a3;
+        const target = event.target;
+        if (target.closest("button, input, select, textarea")) return;
+        (_a3 = props.onMouseDown) == null ? void 0 : _a3.call(props, event);
+        if (!event.defaultPrevented && event.detail > 1) event.preventDefault();
+      }
+    }
+  );
+});
+Label$1.displayName = NAME;
+var Root$1 = Label$1;
+function Label({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Root$1,
+    {
+      "data-slot": "label",
+      className: cn(
+        "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
+        className
+      ),
       ...props
     }
   );
@@ -43076,67 +43152,123 @@ function formatCount(n) {
   if (n >= 1e3) return `${(n / 1e3).toFixed(1)}k`;
   return String(n);
 }
-function DemoVideoCard({
+function VideoDetailPage({
   video,
-  index: index2
+  index: index2,
+  allVideos,
+  onBack,
+  onSelect
 }) {
   const [liked, setLiked] = reactExports.useState(false);
-  const [showControls, setShowControls] = reactExports.useState(false);
-  const borderColor = BORDER_COLORS[index2 % BORDER_COLORS.length];
+  const isReal = "blob" in video;
+  const isDemo = !isReal;
+  const demoVideo = isDemo ? video : null;
+  const realVideo = isReal ? video : null;
+  const uploaderShort = realVideo ? `${realVideo.uploader.toString().slice(0, 10)}...` : "Kids House";
+  const otherVideos = allVideos.filter((v2) => v2.id !== video.id);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
     {
-      initial: { opacity: 0, y: 20 },
+      initial: { opacity: 0, y: 24 },
       animate: { opacity: 1, y: 0 },
-      transition: { delay: index2 * 0.08 },
-      "data-ocid": `videos.item.${index2 + 1}`,
-      className: `rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card`,
+      exit: { opacity: 0, y: -24 },
+      className: "min-h-screen bg-background pb-8",
       children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 pt-4 pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "button",
           {
             type: "button",
-            "data-ocid": `videos.play_button.${index2 + 1}`,
-            onClick: () => setShowControls((v2) => !v2),
-            className: `relative w-full aspect-video bg-gradient-to-br ${video.gradient} flex items-center justify-center group`,
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl md:text-8xl", children: video.emoji }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full bg-white/80 flex items-center justify-center shadow-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl ml-1", children: showControls ? "⏸" : "▶️" }) }) }),
-              showControls && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute bottom-2 left-2 right-2 bg-black/40 rounded-xl px-3 py-1 flex items-center gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs font-bold", children: "▶" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 h-1.5 bg-white/30 rounded-full", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full w-1/3 bg-white rounded-full" }) }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs", children: "🔊" })
-              ] })
-            ]
+            "data-ocid": "videos.button",
+            onClick: onBack,
+            className: "flex items-center gap-2 text-kids-blue font-black text-sm hover:opacity-80 transition-opacity",
+            children: "← Back"
           }
-        ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 py-3", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-base md:text-lg text-foreground leading-tight mb-2", children: video.title }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30", children: [
-              "🎬 Video ID: ",
-              formatId(video.id)
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+        ) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rounded-3xl overflow-hidden border-4 border-kids-blue/40 shadow-xl bg-black", children: isReal && realVideo ? (
+            // biome-ignore lint/a11y/useMediaCaption: kids video
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "video",
+              {
+                src: realVideo.blob.getDirectURL(),
+                controls: true,
+                autoPlay: true,
+                className: "w-full aspect-video bg-black"
+              }
+            )
+          ) : demoVideo ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "div",
+            {
+              className: `w-full aspect-video bg-gradient-to-br ${demoVideo.gradient} flex items-center justify-center`,
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-9xl", children: demoVideo.emoji })
+            }
+          ) : null }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-xl font-black text-foreground leading-tight", children: video.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-2 mt-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30", children: [
+                "🎬 ID: ",
+                formatId(index2 + 1)
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-kids-amber/10 text-kids-amber text-xs font-black px-2.5 py-1 rounded-full border border-kids-amber/30", children: [
+                "👤 ",
+                uploaderShort
+              ] }),
+              realVideo && /* @__PURE__ */ jsxRuntimeExports.jsx(SubscribeButton, { video: realVideo }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs(
                 "button",
                 {
                   type: "button",
                   "data-ocid": `videos.like_button.${index2 + 1}`,
                   onClick: () => setLiked((v2) => !v2),
-                  className: "flex items-center gap-1 transition-transform active:scale-125",
+                  className: "ml-auto flex items-center gap-1.5 transition-transform active:scale-125",
                   children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg", children: liked ? "❤️" : "🤍" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-muted-foreground", children: formatCount(video.likes + (liked ? 1 : 0)) })
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked ? "❤️" : "🤍" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-muted-foreground", children: demoVideo ? formatCount(demoVideo.likes + (liked ? 1 : 0)) : liked ? "1" : "0" })
                   ]
                 }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg", children: "👁️" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-muted-foreground", children: formatCount(video.views) })
-              ] })
+              )
             ] })
           ] })
+        ] }),
+        otherVideos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 mt-8", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-lg font-black mb-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "More Videos " }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "🎬" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 md:grid-cols-3 gap-3", children: otherVideos.map((v2, i) => {
+            const isDemoV = !("blob" in v2);
+            const dv = isDemoV ? v2 : null;
+            const rv = !isDemoV ? v2 : null;
+            return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "button",
+              {
+                type: "button",
+                "data-ocid": `videos.item.${i + 1}`,
+                onClick: () => onSelect(v2, i),
+                className: "rounded-2xl overflow-hidden border-2 border-border shadow-sm hover:shadow-md hover:border-kids-blue/50 transition-all text-left",
+                children: [
+                  rv ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "video",
+                    {
+                      src: rv.blob.getDirectURL(),
+                      className: "w-full aspect-video bg-black object-cover",
+                      preload: "metadata",
+                      muted: true
+                    }
+                  ) : dv ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
+                    {
+                      className: `w-full aspect-video bg-gradient-to-br ${dv.gradient} flex items-center justify-center`,
+                      children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-4xl", children: dv.emoji })
+                    }
+                  ) : null,
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-2 py-1.5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-black text-foreground line-clamp-2 leading-snug", children: v2.title }) })
+                ]
+              },
+              v2.id
+            );
+          }) })
         ] })
       ]
     }
@@ -43181,7 +43313,81 @@ function SubscribeButton({ video }) {
     )
   ] });
 }
-function RealVideoCard({ video, index: index2 }) {
+function DemoVideoCard({
+  video,
+  index: index2,
+  onClick
+}) {
+  const [liked, setLiked] = reactExports.useState(false);
+  const [showControls, setShowControls] = reactExports.useState(false);
+  const borderColor = BORDER_COLORS[index2 % BORDER_COLORS.length];
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    motion.div,
+    {
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      transition: { delay: index2 * 0.08 },
+      "data-ocid": `videos.item.${index2 + 1}`,
+      className: `rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card`,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            type: "button",
+            "data-ocid": `videos.play_button.${index2 + 1}`,
+            onClick: () => {
+              setShowControls((v2) => !v2);
+              onClick();
+            },
+            className: `relative w-full aspect-video bg-gradient-to-br ${video.gradient} flex items-center justify-center group`,
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl md:text-8xl", children: video.emoji }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full bg-white/80 flex items-center justify-center shadow-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl ml-1", children: showControls ? "⏸" : "▶️" }) }) }),
+              showControls && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute bottom-2 left-2 right-2 bg-black/40 rounded-xl px-3 py-1 flex items-center gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs font-bold", children: "▶" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 h-1.5 bg-white/30 rounded-full", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full w-1/3 bg-white rounded-full" }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs", children: "🔊" })
+              ] })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 py-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-black text-base md:text-lg text-foreground leading-tight mb-2", children: video.title }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30", children: [
+              "🎬 Video ID: ",
+              formatId(video.id)
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": `videos.like_button.${index2 + 1}`,
+                  onClick: () => setLiked((v2) => !v2),
+                  className: "flex items-center gap-1 transition-transform active:scale-125",
+                  children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg", children: liked ? "❤️" : "🤍" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-muted-foreground", children: formatCount(video.likes + (liked ? 1 : 0)) })
+                  ]
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-lg", children: "👁️" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-muted-foreground", children: formatCount(video.views) })
+              ] })
+            ] })
+          ] })
+        ] })
+      ]
+    }
+  );
+}
+function RealVideoCard({
+  video,
+  index: index2,
+  onClick
+}) {
   const [liked, setLiked] = reactExports.useState(false);
   const borderColor = BORDER_COLORS[index2 % BORDER_COLORS.length];
   const uploaderShort = `${video.uploader.toString().slice(0, 10)}...`;
@@ -43192,15 +43398,24 @@ function RealVideoCard({ video, index: index2 }) {
       animate: { opacity: 1, y: 0 },
       transition: { delay: index2 * 0.08 },
       "data-ocid": `videos.item.${index2 + 1}`,
-      className: `rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card`,
+      className: `rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card cursor-pointer`,
       children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "video",
+          "button",
           {
-            src: video.blob.getDirectURL(),
-            controls: true,
-            className: "w-full aspect-video bg-black",
-            preload: "metadata"
+            type: "button",
+            className: "w-full",
+            onClick,
+            "data-ocid": `videos.play_button.${index2 + 1}`,
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "video",
+              {
+                src: video.blob.getDirectURL(),
+                className: "w-full aspect-video bg-black",
+                preload: "metadata",
+                muted: true
+              }
+            )
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4 py-3", children: [
@@ -43231,12 +43446,90 @@ function RealVideoCard({ video, index: index2 }) {
     }
   );
 }
+function ShortActionBar({
+  liked,
+  likeCount,
+  commentCount,
+  onLike,
+  onComment,
+  onShare,
+  onFollow,
+  onAccount,
+  followed
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-3 bottom-20 flex flex-col gap-4 items-center z-20", children: [
+    {
+      icon: "👤",
+      label: "Account",
+      onClick: onAccount,
+      ocid: "shorts.button",
+      active: false
+    },
+    {
+      icon: liked ? "❤️" : "🤍",
+      label: formatCount(likeCount),
+      onClick: onLike,
+      ocid: "shorts.toggle",
+      active: liked
+    },
+    {
+      icon: "💬",
+      label: String(commentCount),
+      onClick: onComment,
+      ocid: "shorts.button",
+      active: false
+    },
+    {
+      icon: "↗️",
+      label: "Share",
+      onClick: onShare,
+      ocid: "shorts.button",
+      active: false
+    },
+    {
+      icon: followed ? "✅" : "➕",
+      label: followed ? "Following" : "Follow",
+      onClick: onFollow,
+      ocid: "shorts.toggle",
+      active: followed
+    }
+  ].map((action) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "button",
+    {
+      type: "button",
+      "data-ocid": action.ocid,
+      onClick: action.onClick,
+      className: "flex flex-col items-center gap-0.5 group",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "div",
+          {
+            className: `w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-lg transition-transform active:scale-110 group-hover:scale-105 ${action.active ? "bg-kids-red text-white" : "bg-white/90 backdrop-blur-sm"}`,
+            children: action.icon
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-[10px] font-black drop-shadow-md", children: action.label })
+      ]
+    },
+    action.label + action.icon
+  )) });
+}
 function RealShortCard({
   video,
   index: index2,
   current
 }) {
   const ext = getVideoExt(video.id);
+  const [liked, setLiked] = reactExports.useState(false);
+  const [followed, setFollowed] = reactExports.useState(false);
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: video.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      ue.success("Link copied!");
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
@@ -43264,7 +43557,21 @@ function RealShortCard({
             ext.hashtags && ext.hashtags.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/60 text-xs truncate mt-0.5", children: ext.hashtags.slice(0, 3).map((h2) => `#${h2}`).join(" ") })
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "ml-3 shrink-0 inline-flex items-center gap-1 bg-kids-amber/20 text-kids-amber text-xs font-black px-2.5 py-1 rounded-full border border-kids-amber/40", children: "⚡ Short" })
-        ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          ShortActionBar,
+          {
+            liked,
+            likeCount: liked ? 1 : 0,
+            commentCount: 0,
+            onLike: () => setLiked((v2) => !v2),
+            onComment: () => ue.info("Comments coming soon! 💬"),
+            onShare: handleShare,
+            onFollow: () => setFollowed((v2) => !v2),
+            onAccount: () => ue.info("View account 👤"),
+            followed
+          }
+        )
       ]
     },
     video.id
@@ -43279,6 +43586,15 @@ function DemoShortCard({
   total,
   onNav
 }) {
+  const [followed, setFollowed] = reactExports.useState(false);
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: short.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      ue.success("Link copied!");
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "div",
     {
@@ -43334,7 +43650,21 @@ function DemoShortCard({
             },
             idx
           )) })
-        ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          ShortActionBar,
+          {
+            liked: liked.has(short.id),
+            likeCount: short.likes + (liked.has(short.id) ? 1 : 0),
+            commentCount: short.views,
+            onLike: () => onLike(short.id),
+            onComment: () => ue.info(`💬 ${short.views} views`),
+            onShare: handleShare,
+            onFollow: () => setFollowed((v2) => !v2),
+            onAccount: () => ue.info("👤 Kids Channel"),
+            followed
+          }
+        )
       ]
     }
   );
@@ -43473,10 +43803,29 @@ function ShortVideosSection({ allVideos }) {
 }
 function VideosPage() {
   const { data: realVideos, isLoading } = useAllVideos();
+  const [selectedVideo, setSelectedVideo] = reactExports.useState(null);
+  const [selectedIndex, setSelectedIndex] = reactExports.useState(0);
   const longVideos = (realVideos ?? []).filter(
     (v2) => getVideoType(v2.id) === "long"
   );
   const hasLongVideos = longVideos.length > 0;
+  const allDisplayVideos = hasLongVideos ? longVideos : DEMO_VIDEOS;
+  const handleSelectVideo = (v2, i) => {
+    setSelectedVideo(v2);
+    setSelectedIndex(i);
+  };
+  if (selectedVideo) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      VideoDetailPage,
+      {
+        video: selectedVideo,
+        index: selectedIndex,
+        allVideos: allDisplayVideos,
+        onBack: () => setSelectedVideo(null),
+        onSelect: handleSelectVideo
+      }
+    );
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background pb-8", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 pt-6", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl md:text-3xl font-black mb-5", children: [
@@ -43497,7 +43846,23 @@ function VideosPage() {
           ]
         },
         i
-      )) }) : hasLongVideos ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-5", children: longVideos.map((video, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(RealVideoCard, { video, index: i }, video.id)) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-5", children: DEMO_VIDEOS.map((video, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(DemoVideoCard, { video, index: i }, video.id)) })
+      )) }) : hasLongVideos ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-5", children: longVideos.map((video, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        RealVideoCard,
+        {
+          video,
+          index: i,
+          onClick: () => handleSelectVideo(video, i)
+        },
+        video.id
+      )) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-5", children: DEMO_VIDEOS.map((video, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        DemoVideoCard,
+        {
+          video,
+          index: i,
+          onClick: () => handleSelectVideo(video, i)
+        },
+        video.id
+      )) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ShortVideosSection, { allVideos: realVideos })
   ] });
@@ -43533,6 +43898,7 @@ const TAB_ICON_COLORS = {
   applock: "text-kids-red",
   profile: "text-kids-purple"
 };
+const LOGO_SRC = "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
 function AppShell() {
   const { identity, isInitializing } = useInternetIdentity();
   const { lang, toggleLang, t } = useLanguage();
@@ -43577,7 +43943,14 @@ function AppShell() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background flex", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: "hidden md:flex flex-col w-64 bg-card border-r-2 border-border fixed left-0 top-0 h-full z-30 shadow-card", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-6 py-5 border-b-2 border-border", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-4xl", children: "🏠" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "img",
+          {
+            src: LOGO_SRC,
+            alt: "Kids House",
+            className: "w-10 h-10 rounded-xl object-cover shadow-sm"
+          }
+        ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "font-black text-xl leading-tight", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "KIDS " }),
@@ -43625,7 +43998,14 @@ function AppShell() {
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1 flex flex-col md:ml-64", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "sticky top-0 z-20 bg-card border-b-2 border-border shadow-sm flex items-center justify-between px-4 md:px-6 h-14", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 md:hidden", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: "🏠" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "img",
+            {
+              src: LOGO_SRC,
+              alt: "Kids House",
+              className: "w-8 h-8 rounded-xl object-cover"
+            }
+          ),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-black text-lg", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "KIDS " }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "HO" }),

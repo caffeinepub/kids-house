@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import type { VideoMeta } from "../backend";
 import { useAllVideos } from "../hooks/useQueries";
 
@@ -79,6 +80,99 @@ function getVideoExt(videoId: string) {
   }
 }
 
+// TikTok-style right-side action buttons
+function ShortActionBar({
+  liked,
+  likeCount,
+  commentCount,
+  onLike,
+  onComment,
+  onShare,
+  onFollow,
+  onAccount,
+  followed,
+}: {
+  liked: boolean;
+  likeCount: number;
+  commentCount: number;
+  onLike: () => void;
+  onComment: () => void;
+  onShare: () => void;
+  onFollow: () => void;
+  onAccount: () => void;
+  followed: boolean;
+}) {
+  const actions = [
+    {
+      id: "account",
+      icon: "👤",
+      label: "Account",
+      onClick: onAccount,
+      ocid: "shorts.button",
+    },
+    {
+      id: "like",
+      icon: liked ? "❤️" : "🤍",
+      label:
+        likeCount >= 1000
+          ? `${(likeCount / 1000).toFixed(1)}k`
+          : String(likeCount),
+      onClick: onLike,
+      ocid: "shorts.toggle",
+      active: liked,
+    },
+    {
+      id: "comment",
+      icon: "💬",
+      label: String(commentCount),
+      onClick: onComment,
+      ocid: "shorts.button",
+    },
+    {
+      id: "share",
+      icon: "↗️",
+      label: "Share",
+      onClick: onShare,
+      ocid: "shorts.button",
+    },
+    {
+      id: "follow",
+      icon: followed ? "✅" : "➕",
+      label: followed ? "Following" : "Follow",
+      onClick: onFollow,
+      ocid: "shorts.toggle",
+      active: followed,
+    },
+  ];
+
+  return (
+    <div className="absolute right-3 bottom-20 flex flex-col gap-4 items-center z-20">
+      {actions.map((action) => (
+        <button
+          key={action.id}
+          type="button"
+          data-ocid={action.ocid}
+          onClick={action.onClick}
+          className="flex flex-col items-center gap-0.5 group"
+        >
+          <div
+            className={`w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-lg transition-transform active:scale-110 group-hover:scale-105 ${
+              action.active
+                ? "bg-kids-red text-white"
+                : "bg-white/90 backdrop-blur-sm"
+            }`}
+          >
+            {action.icon}
+          </div>
+          <span className="text-white text-[10px] font-black drop-shadow-md">
+            {action.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function RealShortPlayer({
   shorts,
   current,
@@ -93,8 +187,21 @@ function RealShortPlayer({
   onSelect: (i: number) => void;
 }) {
   const video = shorts[current];
+  const [liked, setLiked] = useState<Set<string>>(new Set());
+  const [followed, setFollowed] = useState<Set<string>>(new Set());
   if (!video) return null;
   const ext = getVideoExt(video.id);
+  const isLiked = liked.has(video.id);
+  const isFollowed = followed.has(video.uploader?.toString() ?? "");
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: video.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success("Link copied!");
+    }
+  };
 
   return (
     <>
@@ -127,7 +234,7 @@ function RealShortPlayer({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl border-4 border-kids-purple/40 bg-black"
+            className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl border-4 border-kids-purple/40 bg-black"
             style={{ minHeight: 480 }}
           >
             {/* biome-ignore lint/a11y/useMediaCaption: kids video */}
@@ -172,6 +279,33 @@ function RealShortPlayer({
                 </button>
               </div>
             </div>
+            {/* Action bar */}
+            <ShortActionBar
+              liked={isLiked}
+              likeCount={isLiked ? 1 : 0}
+              commentCount={0}
+              onLike={() =>
+                setLiked((prev) => {
+                  const n = new Set(prev);
+                  if (n.has(video.id)) n.delete(video.id);
+                  else n.add(video.id);
+                  return n;
+                })
+              }
+              onComment={() => toast.info("Comments coming soon! 💬")}
+              onShare={handleShare}
+              onFollow={() =>
+                setFollowed((prev) => {
+                  const n = new Set(prev);
+                  const key = video.uploader?.toString() ?? "";
+                  if (n.has(key)) n.delete(key);
+                  else n.add(key);
+                  return n;
+                })
+              }
+              onAccount={() => toast.info("View account 👤")}
+              followed={isFollowed}
+            />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -226,6 +360,33 @@ function RealShortPlayer({
                 ))}
               </div>
             </div>
+            {/* Action bar on mobile */}
+            <ShortActionBar
+              liked={isLiked}
+              likeCount={isLiked ? 1 : 0}
+              commentCount={0}
+              onLike={() =>
+                setLiked((prev) => {
+                  const n = new Set(prev);
+                  if (n.has(video.id)) n.delete(video.id);
+                  else n.add(video.id);
+                  return n;
+                })
+              }
+              onComment={() => toast.info("Comments coming soon! 💬")}
+              onShare={handleShare}
+              onFollow={() =>
+                setFollowed((prev) => {
+                  const n = new Set(prev);
+                  const key = video.uploader?.toString() ?? "";
+                  if (n.has(key)) n.delete(key);
+                  else n.add(key);
+                  return n;
+                })
+              }
+              onAccount={() => toast.info("View account 👤")}
+              followed={isFollowed}
+            />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -236,6 +397,7 @@ function RealShortPlayer({
 export default function ShortsPage() {
   const [current, setCurrent] = useState(0);
   const [liked, setLiked] = useState<Set<number>>(new Set());
+  const [followed, setFollowed] = useState<Set<number>>(new Set());
   const touchStartY = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const currentRef = useRef(current);
@@ -250,6 +412,15 @@ export default function ShortsPage() {
 
   const toggleLike = (id: number) => {
     setLiked((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleFollow = (id: number) => {
+    setFollowed((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -278,6 +449,15 @@ export default function ShortsPage() {
 
   const short = SHORTS[current];
 
+  const handleShare = (title: string) => {
+    if (navigator.share) {
+      navigator.share({ title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success("Link copied!");
+    }
+  };
+
   if (useRealShorts) {
     return (
       <div ref={containerRef} className="bg-background min-h-screen md:py-8">
@@ -295,7 +475,6 @@ export default function ShortsPage() {
   }
 
   return (
-    // Mobile: full screen. Desktop: centered card layout
     <div ref={containerRef} className="bg-background min-h-screen md:py-8">
       {/* Desktop: navigation + centered card */}
       <div className="hidden md:flex flex-col items-center gap-4 px-8">
@@ -326,7 +505,7 @@ export default function ShortsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 bg-gradient-to-b ${short.gradient}`}
+            className={`relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl border-4 border-white/30 bg-gradient-to-b ${short.gradient}`}
             style={{ minHeight: 480 }}
           >
             <div className="flex flex-col h-full" style={{ minHeight: 480 }}>
@@ -379,6 +558,18 @@ export default function ShortsPage() {
                 </div>
               </div>
             </div>
+            {/* TikTok action bar */}
+            <ShortActionBar
+              liked={liked.has(short.id)}
+              likeCount={short.likes + (liked.has(short.id) ? 1 : 0)}
+              commentCount={short.comments}
+              onLike={() => toggleLike(short.id)}
+              onComment={() => toast.info(`💬 ${short.comments} comments`)}
+              onShare={() => handleShare(short.title)}
+              onFollow={() => toggleFollow(short.id)}
+              onAccount={() => toast.info(`👤 ${short.creator}'s account`)}
+              followed={followed.has(short.id)}
+            />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -437,6 +628,18 @@ export default function ShortsPage() {
                 ))}
               </div>
             </div>
+            {/* TikTok action bar */}
+            <ShortActionBar
+              liked={liked.has(short.id)}
+              likeCount={short.likes + (liked.has(short.id) ? 1 : 0)}
+              commentCount={short.comments}
+              onLike={() => toggleLike(short.id)}
+              onComment={() => toast.info(`💬 ${short.comments} comments`)}
+              onShare={() => handleShare(short.title)}
+              onFollow={() => toggleFollow(short.id)}
+              onAccount={() => toast.info(`👤 ${short.creator}'s account`)}
+              followed={followed.has(short.id)}
+            />
           </motion.div>
         </AnimatePresence>
       </div>

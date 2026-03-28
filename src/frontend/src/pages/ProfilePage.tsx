@@ -116,23 +116,22 @@ interface VideoMeta {
   blob: { getDirectURL(): string };
 }
 
-function VideoCard({ video, index }: { video: VideoMeta; index: number }) {
+function LongVideoCard({ video, index }: { video: VideoMeta; index: number }) {
   const ext = getVideoExt(video.id);
-  const isShort = ext.type === "short";
   const hashtags: string[] = ext.hashtags ?? [];
   const thumbnail: string | null = ext.thumbnailDataUrl ?? null;
   const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -12 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.06 }}
       data-ocid={`profile.item.${index + 1}`}
-      className={`rounded-2xl border-2 ${borderColor} bg-card overflow-hidden shadow-sm flex items-stretch hover:shadow-md transition-shadow`}
+      className={`rounded-2xl border-2 ${borderColor} bg-card overflow-hidden shadow-sm hover:shadow-md transition-shadow`}
     >
-      {/* Thumbnail / preview */}
-      <div className="w-24 h-24 shrink-0 bg-black/5 relative overflow-hidden">
+      {/* Full-width thumbnail on top */}
+      <div className="w-full aspect-video bg-black/5 relative overflow-hidden">
         {thumbnail ? (
           <img
             src={thumbnail}
@@ -140,7 +139,6 @@ function VideoCard({ video, index }: { video: VideoMeta; index: number }) {
             className="w-full h-full object-cover"
           />
         ) : (
-          // biome-ignore lint/a11y/useMediaCaption: kids video
           <video
             src={video.blob.getDirectURL()}
             className="w-full h-full object-cover"
@@ -148,41 +146,75 @@ function VideoCard({ video, index }: { video: VideoMeta; index: number }) {
             muted
           />
         )}
-        {/* Type badge overlay */}
-        <span
-          className={`absolute bottom-1 left-1 text-[10px] font-black px-1.5 py-0.5 rounded-full ${
-            isShort ? "bg-kids-amber text-white" : "bg-kids-blue text-white"
-          }`}
-        >
-          {isShort ? "⚡" : "🎬"}
+        <span className="absolute bottom-2 left-2 text-[10px] font-black px-2 py-0.5 rounded-full bg-kids-blue text-white">
+          🎬 Long
         </span>
       </div>
-
-      {/* Info */}
-      <div className="flex-1 min-w-0 px-3 py-2.5 flex flex-col justify-between">
-        <div>
-          <p className="font-black text-sm text-foreground leading-snug line-clamp-2">
-            {video.title}
-          </p>
-          <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-            <span
-              className={`inline-flex items-center gap-0.5 text-[10px] font-black px-2 py-0.5 rounded-full ${
-                isShort
-                  ? "bg-kids-amber/10 text-kids-amber border border-kids-amber/30"
-                  : "bg-kids-blue/10 text-kids-blue border border-kids-blue/30"
-              }`}
-            >
-              {isShort ? "📱 Short" : "🎬 Long"}
+      {/* Info below */}
+      <div className="px-3 py-2.5">
+        <p className="font-black text-sm text-foreground leading-snug line-clamp-2 mb-1.5">
+          {video.title}
+        </p>
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-[10px] text-muted-foreground font-semibold">
+            ID: {formatId(index + 1)}
+          </span>
+          {hashtags.length > 0 && (
+            <span className="text-[10px] text-kids-blue/70 font-semibold truncate">
+              {hashtags
+                .slice(0, 3)
+                .map((h) => `#${h}`)
+                .join(" ")}
             </span>
-            <span className="text-[10px] text-muted-foreground font-semibold">
-              ID: {formatId(index + 1)}
-            </span>
-          </div>
+          )}
         </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function ShortVideoCard({ video, index }: { video: VideoMeta; index: number }) {
+  const ext = getVideoExt(video.id);
+  const hashtags: string[] = ext.hashtags ?? [];
+  const thumbnail: string | null = ext.thumbnailDataUrl ?? null;
+  const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: index * 0.05 }}
+      data-ocid={`profile.item.${index + 1}`}
+      className={`rounded-xl border-2 ${borderColor} bg-card overflow-hidden shadow-sm hover:shadow-md transition-shadow`}
+    >
+      {/* Vertical portrait thumbnail */}
+      <div className="w-full aspect-[9/16] bg-black/5 relative overflow-hidden">
+        {thumbnail ? (
+          <img
+            src={thumbnail}
+            alt={video.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <video
+            src={video.blob.getDirectURL()}
+            className="w-full h-full object-cover"
+            preload="metadata"
+            muted
+          />
+        )}
+        <span className="absolute bottom-1 left-1 text-[9px] font-black px-1.5 py-0.5 rounded-full bg-kids-amber text-white">
+          ⚡
+        </span>
+      </div>
+      <div className="px-2 py-1.5">
+        <p className="font-black text-[11px] text-foreground leading-snug line-clamp-2">
+          {video.title}
+        </p>
         {hashtags.length > 0 && (
-          <p className="text-[10px] text-kids-blue/70 font-semibold mt-1 truncate">
+          <p className="text-[9px] text-kids-blue/70 font-semibold mt-0.5 truncate">
             {hashtags
-              .slice(0, 3)
+              .slice(0, 2)
               .map((h) => `#${h}`)
               .join(" ")}
           </p>
@@ -213,11 +245,14 @@ export default function ProfilePage() {
     (v) => v.uploader.toString() === principal,
   );
 
-  const shortCount = myVideos.filter((v) => {
+  const shortVideos = myVideos.filter((v) => {
     const ext = getVideoExt(v.id);
     return ext.type === "short";
-  }).length;
-  const longCount = myVideos.length - shortCount;
+  });
+  const longVideos = myVideos.filter((v) => {
+    const ext = getVideoExt(v.id);
+    return ext.type !== "short";
+  });
 
   const handleLogout = () => {
     clear();
@@ -329,8 +364,10 @@ export default function ProfilePage() {
           {myVideos.length > 0 && (
             <span className="text-xs font-black text-muted-foreground bg-muted rounded-full px-3 py-1">
               {myVideos.length} total ·{" "}
-              <span className="text-kids-amber">{shortCount} short</span> ·{" "}
-              <span className="text-kids-blue">{longCount} long</span>
+              <span className="text-kids-amber">
+                {shortVideos.length} short
+              </span>{" "}
+              · <span className="text-kids-blue">{longVideos.length} long</span>
             </span>
           )}
         </div>
@@ -355,11 +392,41 @@ export default function ProfilePage() {
             </p>
           </motion.div>
         ) : (
-          <div className="space-y-3">
-            {myVideos.map((video, i) => (
-              <VideoCard key={video.id} video={video} index={i} />
-            ))}
-          </div>
+          <>
+            {/* Long Videos - bigger cards */}
+            {longVideos.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-sm font-black text-kids-blue mb-3 flex items-center gap-1.5">
+                  🎬 Long Videos
+                  <span className="bg-kids-blue/10 text-kids-blue rounded-full px-2 py-0.5 text-[10px]">
+                    {longVideos.length}
+                  </span>
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {longVideos.map((video, i) => (
+                    <LongVideoCard key={video.id} video={video} index={i} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Short Videos - compact grid */}
+            {shortVideos.length > 0 && (
+              <div>
+                <h3 className="text-sm font-black text-kids-amber mb-3 flex items-center gap-1.5">
+                  ⚡ Short Videos
+                  <span className="bg-kids-amber/10 text-kids-amber rounded-full px-2 py-0.5 text-[10px]">
+                    {shortVideos.length}
+                  </span>
+                </h3>
+                <div className="grid grid-cols-3 md:grid-cols-4 gap-2.5">
+                  {shortVideos.map((video, i) => (
+                    <ShortVideoCard key={video.id} video={video} index={i} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
         )}
       </section>
 

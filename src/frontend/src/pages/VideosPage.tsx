@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import type { VideoMeta } from "../backend";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
 import {
@@ -127,6 +128,8 @@ const DEMO_SHORT_VIDEOS = [
   },
 ];
 
+type DemoVideo = (typeof DEMO_VIDEOS)[0];
+
 function getVideoExt(videoId: string) {
   try {
     return JSON.parse(localStorage.getItem(`kh_video_ext_${videoId}`) || "{}");
@@ -149,12 +152,214 @@ function formatCount(n: number) {
   return String(n);
 }
 
+// ─── Video Detail Page ───────────────────────────────────────────────
+
+function VideoDetailPage({
+  video,
+  index,
+  allVideos,
+  onBack,
+  onSelect,
+}: {
+  video: VideoMeta | DemoVideo;
+  index: number;
+  allVideos: (VideoMeta | DemoVideo)[];
+  onBack: () => void;
+  onSelect: (v: VideoMeta | DemoVideo, i: number) => void;
+}) {
+  const [liked, setLiked] = useState(false);
+  const isReal = "blob" in video;
+  const isDemo = !isReal;
+  const demoVideo = isDemo ? (video as DemoVideo) : null;
+  const realVideo = isReal ? (video as VideoMeta) : null;
+  const uploaderShort = realVideo
+    ? `${realVideo.uploader.toString().slice(0, 10)}...`
+    : "Kids House";
+
+  const otherVideos = allVideos.filter((v) => v.id !== video.id);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -24 }}
+      className="min-h-screen bg-background pb-8"
+    >
+      {/* Back button */}
+      <div className="px-4 pt-4 pb-2">
+        <button
+          type="button"
+          data-ocid="videos.button"
+          onClick={onBack}
+          className="flex items-center gap-2 text-kids-blue font-black text-sm hover:opacity-80 transition-opacity"
+        >
+          ← Back
+        </button>
+      </div>
+
+      {/* Main player */}
+      <div className="px-4">
+        <div className="rounded-3xl overflow-hidden border-4 border-kids-blue/40 shadow-xl bg-black">
+          {isReal && realVideo ? (
+            // biome-ignore lint/a11y/useMediaCaption: kids video
+            <video
+              src={realVideo.blob.getDirectURL()}
+              controls
+              autoPlay
+              className="w-full aspect-video bg-black"
+            />
+          ) : demoVideo ? (
+            <div
+              className={`w-full aspect-video bg-gradient-to-br ${demoVideo.gradient} flex items-center justify-center`}
+            >
+              <span className="text-9xl">{demoVideo.emoji}</span>
+            </div>
+          ) : null}
+        </div>
+
+        {/* Title + info */}
+        <div className="mt-4">
+          <h1 className="text-xl font-black text-foreground leading-tight">
+            {video.title}
+          </h1>
+          <div className="flex flex-wrap items-center gap-2 mt-3">
+            <span className="inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30">
+              🎬 ID: {formatId(index + 1)}
+            </span>
+            <span className="inline-flex items-center gap-1 bg-kids-amber/10 text-kids-amber text-xs font-black px-2.5 py-1 rounded-full border border-kids-amber/30">
+              👤 {uploaderShort}
+            </span>
+            {realVideo && <SubscribeButton video={realVideo} />}
+            <button
+              type="button"
+              data-ocid={`videos.like_button.${index + 1}`}
+              onClick={() => setLiked((v) => !v)}
+              className="ml-auto flex items-center gap-1.5 transition-transform active:scale-125"
+            >
+              <span className="text-xl">{liked ? "❤️" : "🤍"}</span>
+              <span className="text-xs font-black text-muted-foreground">
+                {demoVideo
+                  ? formatCount(demoVideo.likes + (liked ? 1 : 0))
+                  : liked
+                    ? "1"
+                    : "0"}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* More Videos */}
+      {otherVideos.length > 0 && (
+        <section className="px-4 mt-8">
+          <h2 className="text-lg font-black mb-4">
+            <span className="text-kids-blue">More Videos </span>
+            <span className="text-kids-red">🎬</span>
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {otherVideos.map((v, i) => {
+              const isDemoV = !("blob" in v);
+              const dv = isDemoV ? (v as DemoVideo) : null;
+              const rv = !isDemoV ? (v as VideoMeta) : null;
+              return (
+                <button
+                  key={v.id}
+                  type="button"
+                  data-ocid={`videos.item.${i + 1}`}
+                  onClick={() => onSelect(v, i)}
+                  className="rounded-2xl overflow-hidden border-2 border-border shadow-sm hover:shadow-md hover:border-kids-blue/50 transition-all text-left"
+                >
+                  {rv ? (
+                    <video
+                      src={rv.blob.getDirectURL()}
+                      className="w-full aspect-video bg-black object-cover"
+                      preload="metadata"
+                      muted
+                    />
+                  ) : dv ? (
+                    <div
+                      className={`w-full aspect-video bg-gradient-to-br ${dv.gradient} flex items-center justify-center`}
+                    >
+                      <span className="text-4xl">{dv.emoji}</span>
+                    </div>
+                  ) : null}
+                  <div className="px-2 py-1.5">
+                    <p className="text-xs font-black text-foreground line-clamp-2 leading-snug">
+                      {v.title}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
+    </motion.div>
+  );
+}
+
+// ─── Subscribe Button ─────────────────────────────────────────────────
+
+function SubscribeButton({ video }: { video: VideoMeta }) {
+  const { identity } = useInternetIdentity();
+  const myPrincipal = identity?.getPrincipal().toString();
+  const isOwnVideo = myPrincipal === video.uploader.toString();
+
+  const { data: subscribed, isLoading: subLoading } = useIsSubscribed(
+    isOwnVideo ? null : video.uploader,
+  );
+  const { data: count } = useSubscriberCount(video.uploader);
+  const subscribeMutation = useSubscribeMutation();
+  const unsubscribeMutation = useUnsubscribeMutation();
+
+  if (isOwnVideo) return null;
+  if (!identity) return null;
+
+  const isPending =
+    subscribeMutation.isPending || unsubscribeMutation.isPending;
+
+  const handleClick = () => {
+    if (subscribed) {
+      unsubscribeMutation.mutate(video.uploader);
+    } else {
+      subscribeMutation.mutate(video.uploader);
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-1.5">
+      {count !== undefined && count > 0n && (
+        <span className="text-[10px] font-black text-muted-foreground">
+          {count.toString()} sub{count === 1n ? "" : "s"}
+        </span>
+      )}
+      <button
+        type="button"
+        data-ocid="videos.toggle"
+        disabled={isPending || subLoading}
+        onClick={handleClick}
+        className={`inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full transition-all active:scale-95 disabled:opacity-60 ${
+          subscribed
+            ? "bg-teal-100 text-teal-700 border border-teal-300"
+            : "bg-kids-amber text-white border border-kids-amber/80 shadow-sm"
+        }`}
+      >
+        {subscribed ? "✅ Subscribed" : "🔔 Subscribe"}
+      </button>
+    </div>
+  );
+}
+
+// ─── Demo Video Card ──────────────────────────────────────────────────
+
 function DemoVideoCard({
   video,
   index,
+  onClick,
 }: {
-  video: (typeof DEMO_VIDEOS)[0];
+  video: DemoVideo;
   index: number;
+  onClick: () => void;
 }) {
   const [liked, setLiked] = useState(false);
   const [showControls, setShowControls] = useState(false);
@@ -171,7 +376,10 @@ function DemoVideoCard({
       <button
         type="button"
         data-ocid={`videos.play_button.${index + 1}`}
-        onClick={() => setShowControls((v) => !v)}
+        onClick={() => {
+          setShowControls((v) => !v);
+          onClick();
+        }}
         className={`relative w-full aspect-video bg-gradient-to-br ${video.gradient} flex items-center justify-center group`}
       >
         <div className="text-7xl md:text-8xl">{video.emoji}</div>
@@ -224,57 +432,17 @@ function DemoVideoCard({
   );
 }
 
-function SubscribeButton({ video }: { video: VideoMeta }) {
-  const { identity } = useInternetIdentity();
-  const myPrincipal = identity?.getPrincipal().toString();
-  const isOwnVideo = myPrincipal === video.uploader.toString();
+// ─── Real Video Card ──────────────────────────────────────────────────
 
-  const { data: subscribed, isLoading: subLoading } = useIsSubscribed(
-    isOwnVideo ? null : video.uploader,
-  );
-  const { data: count } = useSubscriberCount(video.uploader);
-  const subscribeMutation = useSubscribeMutation();
-  const unsubscribeMutation = useUnsubscribeMutation();
-
-  if (isOwnVideo) return null;
-  if (!identity) return null;
-
-  const isPending =
-    subscribeMutation.isPending || unsubscribeMutation.isPending;
-
-  const handleClick = () => {
-    if (subscribed) {
-      unsubscribeMutation.mutate(video.uploader);
-    } else {
-      subscribeMutation.mutate(video.uploader);
-    }
-  };
-
-  return (
-    <div className="flex items-center gap-1.5">
-      {count !== undefined && count > 0n && (
-        <span className="text-[10px] font-black text-muted-foreground">
-          {count.toString()} sub{count === 1n ? "" : "s"}
-        </span>
-      )}
-      <button
-        type="button"
-        data-ocid="videos.toggle"
-        disabled={isPending || subLoading}
-        onClick={handleClick}
-        className={`inline-flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full transition-all active:scale-95 disabled:opacity-60 ${
-          subscribed
-            ? "bg-teal-100 text-teal-700 border border-teal-300"
-            : "bg-kids-amber text-white border border-kids-amber/80 shadow-sm"
-        }`}
-      >
-        {subscribed ? "✅ Subscribed" : "🔔 Subscribe"}
-      </button>
-    </div>
-  );
-}
-
-function RealVideoCard({ video, index }: { video: VideoMeta; index: number }) {
+function RealVideoCard({
+  video,
+  index,
+  onClick,
+}: {
+  video: VideoMeta;
+  index: number;
+  onClick: () => void;
+}) {
   const [liked, setLiked] = useState(false);
   const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
   const uploaderShort = `${video.uploader.toString().slice(0, 10)}...`;
@@ -285,15 +453,21 @@ function RealVideoCard({ video, index }: { video: VideoMeta; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08 }}
       data-ocid={`videos.item.${index + 1}`}
-      className={`rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card`}
+      className={`rounded-3xl overflow-hidden border-4 ${borderColor} shadow-lg bg-card cursor-pointer`}
     >
-      {/* biome-ignore lint/a11y/useMediaCaption: kids video captions not available */}
-      <video
-        src={video.blob.getDirectURL()}
-        controls
-        className="w-full aspect-video bg-black"
-        preload="metadata"
-      />
+      <button
+        type="button"
+        className="w-full"
+        onClick={onClick}
+        data-ocid={`videos.play_button.${index + 1}`}
+      >
+        <video
+          src={video.blob.getDirectURL()}
+          className="w-full aspect-video bg-black"
+          preload="metadata"
+          muted
+        />
+      </button>
 
       <div className="px-4 py-3">
         <p className="font-black text-base md:text-lg text-foreground leading-tight mb-2 truncate">
@@ -321,6 +495,95 @@ function RealVideoCard({ video, index }: { video: VideoMeta; index: number }) {
   );
 }
 
+// ─── Short Video Action Bar (TikTok-style) ────────────────────────────
+
+function ShortActionBar({
+  liked,
+  likeCount,
+  commentCount,
+  onLike,
+  onComment,
+  onShare,
+  onFollow,
+  onAccount,
+  followed,
+}: {
+  liked: boolean;
+  likeCount: number;
+  commentCount: number;
+  onLike: () => void;
+  onComment: () => void;
+  onShare: () => void;
+  onFollow: () => void;
+  onAccount: () => void;
+  followed: boolean;
+}) {
+  return (
+    <div className="absolute right-3 bottom-20 flex flex-col gap-4 items-center z-20">
+      {[
+        {
+          icon: "👤",
+          label: "Account",
+          onClick: onAccount,
+          ocid: "shorts.button",
+          active: false,
+        },
+        {
+          icon: liked ? "❤️" : "🤍",
+          label: formatCount(likeCount),
+          onClick: onLike,
+          ocid: "shorts.toggle",
+          active: liked,
+        },
+        {
+          icon: "💬",
+          label: String(commentCount),
+          onClick: onComment,
+          ocid: "shorts.button",
+          active: false,
+        },
+        {
+          icon: "↗️",
+          label: "Share",
+          onClick: onShare,
+          ocid: "shorts.button",
+          active: false,
+        },
+        {
+          icon: followed ? "✅" : "➕",
+          label: followed ? "Following" : "Follow",
+          onClick: onFollow,
+          ocid: "shorts.toggle",
+          active: followed,
+        },
+      ].map((action) => (
+        <button
+          key={action.label + action.icon}
+          type="button"
+          data-ocid={action.ocid}
+          onClick={action.onClick}
+          className="flex flex-col items-center gap-0.5 group"
+        >
+          <div
+            className={`w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-lg transition-transform active:scale-110 group-hover:scale-105 ${
+              action.active
+                ? "bg-kids-red text-white"
+                : "bg-white/90 backdrop-blur-sm"
+            }`}
+          >
+            {action.icon}
+          </div>
+          <span className="text-white text-[10px] font-black drop-shadow-md">
+            {action.label}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ─── Real Short Card (with action buttons) ────────────────────────────
+
 function RealShortCard({
   video,
   index,
@@ -331,6 +594,17 @@ function RealShortCard({
   current: number;
 }) {
   const ext = getVideoExt(video.id);
+  const [liked, setLiked] = useState(false);
+  const [followed, setFollowed] = useState(false);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: video.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success("Link copied!");
+    }
+  };
 
   return (
     <div
@@ -369,9 +643,22 @@ function RealShortCard({
           ⚡ Short
         </span>
       </div>
+      <ShortActionBar
+        liked={liked}
+        likeCount={liked ? 1 : 0}
+        commentCount={0}
+        onLike={() => setLiked((v) => !v)}
+        onComment={() => toast.info("Comments coming soon! 💬")}
+        onShare={handleShare}
+        onFollow={() => setFollowed((v) => !v)}
+        onAccount={() => toast.info("View account 👤")}
+        followed={followed}
+      />
     </div>
   );
 }
+
+// ─── Demo Short Card (with action buttons) ────────────────────────────
 
 function DemoShortCard({
   short,
@@ -390,6 +677,17 @@ function DemoShortCard({
   total: number;
   onNav: (idx: number) => void;
 }) {
+  const [followed, setFollowed] = useState(false);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: short.title, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      toast.success("Link copied!");
+    }
+  };
+
   return (
     <div
       data-ocid={`shorts.item.${index + 1}`}
@@ -457,9 +755,24 @@ function DemoShortCard({
           ))}
         </div>
       </div>
+
+      {/* TikTok-style right side action buttons */}
+      <ShortActionBar
+        liked={liked.has(short.id)}
+        likeCount={short.likes + (liked.has(short.id) ? 1 : 0)}
+        commentCount={short.views}
+        onLike={() => onLike(short.id)}
+        onComment={() => toast.info(`💬 ${short.views} views`)}
+        onShare={handleShare}
+        onFollow={() => setFollowed((v) => !v)}
+        onAccount={() => toast.info("👤 Kids Channel")}
+        followed={followed}
+      />
     </div>
   );
 }
+
+// ─── Short Videos Section ─────────────────────────────────────────────
 
 function ShortVideosSection({ allVideos }: { allVideos?: VideoMeta[] }) {
   const [current, setCurrent] = useState(0);
@@ -469,7 +782,6 @@ function ShortVideosSection({ allVideos }: { allVideos?: VideoMeta[] }) {
   currentRef.current = current;
   const touchStartY = useRef(0);
 
-  // Filter uploaded short videos
   const realShorts = (allVideos ?? []).filter(
     (v) => getVideoType(v.id) === "short",
   );
@@ -602,14 +914,40 @@ function ShortVideosSection({ allVideos }: { allVideos?: VideoMeta[] }) {
   );
 }
 
+// ─── Main Videos Page ─────────────────────────────────────────────────
+
 export default function VideosPage() {
   const { data: realVideos, isLoading } = useAllVideos();
+  const [selectedVideo, setSelectedVideo] = useState<
+    VideoMeta | DemoVideo | null
+  >(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // Filter by type
   const longVideos = (realVideos ?? []).filter(
     (v) => getVideoType(v.id) === "long",
   );
   const hasLongVideos = longVideos.length > 0;
+
+  const allDisplayVideos: (VideoMeta | DemoVideo)[] = hasLongVideos
+    ? longVideos
+    : DEMO_VIDEOS;
+
+  const handleSelectVideo = (v: VideoMeta | DemoVideo, i: number) => {
+    setSelectedVideo(v);
+    setSelectedIndex(i);
+  };
+
+  if (selectedVideo) {
+    return (
+      <VideoDetailPage
+        video={selectedVideo}
+        index={selectedIndex}
+        allVideos={allDisplayVideos}
+        onBack={() => setSelectedVideo(null)}
+        onSelect={handleSelectVideo}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pb-8">
@@ -638,13 +976,23 @@ export default function VideosPage() {
         ) : hasLongVideos ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {longVideos.map((video, i) => (
-              <RealVideoCard key={video.id} video={video} index={i} />
+              <RealVideoCard
+                key={video.id}
+                video={video}
+                index={i}
+                onClick={() => handleSelectVideo(video, i)}
+              />
             ))}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {DEMO_VIDEOS.map((video, i) => (
-              <DemoVideoCard key={video.id} video={video} index={i} />
+              <DemoVideoCard
+                key={video.id}
+                video={video}
+                index={i}
+                onClick={() => handleSelectVideo(video, i)}
+              />
             ))}
           </div>
         )}

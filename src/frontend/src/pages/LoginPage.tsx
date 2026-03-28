@@ -1,59 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { useState } from "react";
-import { toast } from "sonner";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useInternetIdentity } from "../hooks/useInternetIdentity";
-import { useCreateUser } from "../hooks/useQueries";
 
-const RAINBOW_DOTS = ["purple", "red", "green", "blue", "amber"] as const;
+const RAINBOW_DOTS = ["blue", "red", "green", "amber", "purple"] as const;
+
+const LOGO_SRC =
+  "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
 
 export default function LoginPage() {
-  const [tab, setTab] = useState<"login" | "signup">("login");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [pin, setPin] = useState("");
-  const [parentalPin, setParentalPin] = useState("");
-
-  const { login, isLoggingIn, identity } = useInternetIdentity();
+  const { login, isLoggingIn } = useInternetIdentity();
   const { lang, toggleLang, t } = useLanguage();
-  const createUser = useCreateUser();
-
-  const handleLogin = () => {
-    login();
-  };
-
-  const handleSignup = async () => {
-    if (!identity) {
-      toast.error("Please login with Internet Identity first");
-      login();
-      return;
-    }
-    if (!username || !email || !password || !pin) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-    try {
-      await createUser.mutateAsync({
-        username,
-        email,
-        password,
-        pinSettings: { userPIN: pin, parentalPIN: parentalPin || "0000" },
-      });
-      toast.success("Account created! 🎉");
-    } catch (e: any) {
-      toast.error(e.message || "Signup failed");
-    }
-  };
+  const [tab, setTab] = useState<"login" | "signup">("login");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      {/* Language toggle top-right */}
-      <div className="fixed top-4 right-4 z-50">
+    <div className="min-h-screen bg-gradient-to-br from-kids-blue/10 via-kids-purple/5 to-kids-red/10 flex flex-col items-center justify-center px-4 py-8">
+      {/* Lang toggle */}
+      <div className="absolute top-4 right-4">
         <button
           type="button"
           data-ocid="login.lang.toggle"
@@ -72,7 +39,11 @@ export default function LoginPage() {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="text-center mb-8"
         >
-          <div className="text-7xl mb-2">🏠</div>
+          <img
+            src={LOGO_SRC}
+            alt="Kids House"
+            className="w-24 h-24 rounded-3xl object-cover mx-auto mb-2 shadow-lg"
+          />
           <div className="text-4xl font-black">
             <span className="text-kids-blue">KIDS </span>
             <span className="text-kids-red">HO</span>
@@ -99,203 +70,95 @@ export default function LoginPage() {
               key={tabId}
               data-ocid={`auth.${tabId}.tab`}
               onClick={() => setTab(tabId)}
-              className={`flex-1 py-3 rounded-2xl font-black text-base transition-all ${
+              className={`flex-1 py-2.5 rounded-2xl text-sm font-black transition-all ${
                 tab === tabId
-                  ? "bg-primary text-primary-foreground shadow-btn"
+                  ? "bg-kids-blue text-white shadow-btn"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {tabId === "login" ? "🔑 Login" : "✨ Sign Up"}
+              {tabId === "login"
+                ? t.login.loginBtn
+                : lang === "en"
+                  ? "Sign Up"
+                  : "साइन अप"}
             </button>
           ))}
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab}
-            initial={{ opacity: 0, x: tab === "login" ? -20 : 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: tab === "login" ? 20 : -20 }}
-            transition={{ duration: 0.2 }}
-            className="bg-card rounded-3xl shadow-card p-6 space-y-4"
-          >
-            {tab === "login" ? (
-              <>
-                <div className="text-center text-2xl font-black text-foreground mb-2">
-                  Welcome Back! 👋
-                </div>
-                <div className="space-y-3">
-                  <div>
-                    <Label className="font-bold text-foreground">
-                      Username
-                    </Label>
-                    <Input
-                      data-ocid="login.username.input"
-                      placeholder="Your username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
-                    />
-                  </div>
-                  <div>
-                    <Label className="font-bold text-foreground">
-                      Password
-                    </Label>
-                    <Input
-                      data-ocid="login.password.input"
-                      type="password"
-                      placeholder="Your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="mt-1 rounded-2xl border-2 border-border focus:border-primary h-12 font-semibold text-base"
-                    />
-                  </div>
-                </div>
-                <Button
-                  data-ocid="login.submit_button"
-                  onClick={handleLogin}
-                  disabled={isLoggingIn}
-                  className="w-full h-14 rounded-full text-lg font-black bg-primary hover:bg-primary/90 shadow-btn"
+        {/* Form */}
+        <motion.div
+          key={tab}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="bg-card rounded-3xl shadow-card p-6 space-y-4"
+        >
+          {tab === "signup" && (
+            <>
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="auth-name"
+                  className="text-sm font-black text-foreground"
                 >
-                  {isLoggingIn ? (
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  ) : (
-                    "🔑"
-                  )}
-                  {isLoggingIn ? "Logging in..." : t.login.loginBtn}
-                </Button>
-              </>
-            ) : (
-              <>
-                <div className="text-center text-2xl font-black text-foreground mb-2">
-                  Create Account! 🎉
-                </div>
-                <div className="space-y-3">
-                  <div>
-                    <Label className="font-bold text-foreground">
-                      Username
-                    </Label>
-                    <Input
-                      data-ocid="signup.username.input"
-                      placeholder="Choose a username"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                    />
-                  </div>
-                  <div>
-                    <Label className="font-bold text-foreground">Email</Label>
-                    <Input
-                      data-ocid="signup.email.input"
-                      type="email"
-                      placeholder="Your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                    />
-                  </div>
-                  <div>
-                    <Label className="font-bold text-foreground">
-                      Password
-                    </Label>
-                    <Input
-                      data-ocid="signup.password.input"
-                      type="password"
-                      placeholder="Create a password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <Label className="font-bold text-foreground">
-                        Your PIN
-                      </Label>
-                      <Input
-                        data-ocid="signup.pin.input"
-                        type="password"
-                        maxLength={6}
-                        placeholder="4-6 digits"
-                        value={pin}
-                        onChange={(e) => setPin(e.target.value)}
-                        className="mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                      />
-                    </div>
-                    <div>
-                      <Label className="font-bold text-foreground">
-                        Parent PIN
-                      </Label>
-                      <Input
-                        data-ocid="signup.parental_pin.input"
-                        type="password"
-                        maxLength={6}
-                        placeholder="4-6 digits"
-                        value={parentalPin}
-                        onChange={(e) => setParentalPin(e.target.value)}
-                        className="mt-1 rounded-2xl border-2 border-border focus:border-secondary h-12 font-semibold text-base"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  {!identity && (
-                    <Button
-                      data-ocid="signup.connect_button"
-                      onClick={handleLogin}
-                      disabled={isLoggingIn}
-                      variant="outline"
-                      className="w-full h-12 rounded-full font-bold border-2 border-primary text-primary"
-                    >
-                      {isLoggingIn ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      ) : (
-                        "🔗"
-                      )}
-                      {isLoggingIn
-                        ? "Connecting..."
-                        : "Connect Internet Identity"}
-                    </Button>
-                  )}
-                  {identity && (
-                    <div className="text-center text-xs text-secondary font-semibold">
-                      ✅ Identity connected!
-                    </div>
-                  )}
-                  <Button
-                    data-ocid="signup.submit_button"
-                    onClick={handleSignup}
-                    disabled={createUser.isPending}
-                    className="w-full h-14 rounded-full text-lg font-black shadow-btn"
-                    style={{
-                      background: "oklch(var(--secondary))",
-                      color: "white",
-                    }}
-                  >
-                    {createUser.isPending ? (
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    ) : (
-                      "✨"
-                    )}
-                    {createUser.isPending ? "Creating..." : "Create Account"}
-                  </Button>
-                </div>
-              </>
-            )}
-          </motion.div>
-        </AnimatePresence>
+                  {lang === "en" ? "Your Name" : "आपका नाम"}
+                </label>
+                <Input
+                  id="auth-name"
+                  data-ocid="auth.name.input"
+                  placeholder={lang === "en" ? "Your Name" : "आपका नाम"}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="rounded-2xl h-12 font-semibold border-2 focus:border-kids-blue"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="auth-age"
+                  className="text-sm font-black text-foreground"
+                >
+                  {lang === "en" ? "Your Age" : "आपकी उम्र"}
+                </label>
+                <Input
+                  id="auth-age"
+                  data-ocid="auth.age.input"
+                  type="number"
+                  placeholder={lang === "en" ? "Your Age" : "आपकी उम्र"}
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  min={3}
+                  max={18}
+                  className="rounded-2xl h-12 font-semibold border-2 focus:border-kids-blue"
+                />
+              </div>
+            </>
+          )}
 
-        <p className="text-center text-xs text-muted-foreground mt-6 font-semibold">
-          © {new Date().getFullYear()}. Built with ❤️ using{" "}
-          <a
-            href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
+          <Button
+            data-ocid="auth.submit_button"
+            onClick={() => login()}
+            disabled={isLoggingIn}
+            className="w-full h-14 rounded-2xl bg-gradient-to-r from-kids-blue to-kids-purple text-white font-black text-base shadow-btn hover:opacity-90 transition-opacity"
           >
-            caffeine.ai
-          </a>
-        </p>
+            {isLoggingIn ? (
+              <span className="flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                {lang === "en" ? "Connecting..." : "जोड़ रहा हूँ..."}
+              </span>
+            ) : tab === "login" ? (
+              t.login.loginBtn
+            ) : lang === "en" ? (
+              "Sign Up"
+            ) : (
+              "साइन अप"
+            )}
+          </Button>
+
+          <p className="text-center text-xs text-muted-foreground font-semibold pt-1">
+            {lang === "en"
+              ? "Powered by Internet Identity"
+              : "इंटरनेट आइडेंटिटी द्वारा"}
+          </p>
+        </motion.div>
       </div>
     </div>
   );

@@ -74,6 +74,9 @@ const TAB_ICON_COLORS: Record<Tab, string> = {
   profile: "text-kids-purple",
 };
 
+const LOGO_SRC =
+  "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
+
 function AppShell() {
   const { identity, isInitializing } = useInternetIdentity();
   const { lang, toggleLang, t } = useLanguage();
@@ -128,7 +131,11 @@ function AppShell() {
         {/* Logo */}
         <div className="px-6 py-5 border-b-2 border-border">
           <div className="flex items-center gap-3">
-            <span className="text-4xl">🏠</span>
+            <img
+              src={LOGO_SRC}
+              alt="Kids House"
+              className="w-10 h-10 rounded-xl object-cover shadow-sm"
+            />
             <div>
               <div className="font-black text-xl leading-tight">
                 <span className="text-kids-blue">KIDS </span>
@@ -188,7 +195,11 @@ function AppShell() {
         {/* Header */}
         <header className="sticky top-0 z-20 bg-card border-b-2 border-border shadow-sm flex items-center justify-between px-4 md:px-6 h-14">
           <div className="flex items-center gap-2 md:hidden">
-            <span className="text-2xl">🏠</span>
+            <img
+              src={LOGO_SRC}
+              alt="Kids House"
+              className="w-8 h-8 rounded-xl object-cover"
+            />
             <span className="font-black text-lg">
               <span className="text-kids-blue">KIDS </span>
               <span className="text-kids-red">HO</span>
