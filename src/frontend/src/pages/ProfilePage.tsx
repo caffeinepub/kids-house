@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Principal } from "@icp-sdk/core/principal";
 import { useQueryClient } from "@tanstack/react-query";
@@ -23,6 +24,14 @@ const BORDER_COLORS = [
 
 function formatId(n: number) {
   return String(n).padStart(3, "0");
+}
+
+function getVideoExt(videoId: string) {
+  try {
+    return JSON.parse(localStorage.getItem(`kh_video_ext_${videoId}`) || "{}");
+  } catch {
+    return {};
+  }
 }
 
 function useProfilePicture(principalStr: string) {
@@ -100,6 +109,89 @@ function SubscribedChannelCard({
   );
 }
 
+interface VideoMeta {
+  id: string;
+  title: string;
+  uploader: Principal;
+  blob: { getDirectURL(): string };
+}
+
+function VideoCard({ video, index }: { video: VideoMeta; index: number }) {
+  const ext = getVideoExt(video.id);
+  const isShort = ext.type === "short";
+  const hashtags: string[] = ext.hashtags ?? [];
+  const thumbnail: string | null = ext.thumbnailDataUrl ?? null;
+  const borderColor = BORDER_COLORS[index % BORDER_COLORS.length];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -12 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.06 }}
+      data-ocid={`profile.item.${index + 1}`}
+      className={`rounded-2xl border-2 ${borderColor} bg-card overflow-hidden shadow-sm flex items-stretch hover:shadow-md transition-shadow`}
+    >
+      {/* Thumbnail / preview */}
+      <div className="w-24 h-24 shrink-0 bg-black/5 relative overflow-hidden">
+        {thumbnail ? (
+          <img
+            src={thumbnail}
+            alt={video.title}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          // biome-ignore lint/a11y/useMediaCaption: kids video
+          <video
+            src={video.blob.getDirectURL()}
+            className="w-full h-full object-cover"
+            preload="metadata"
+            muted
+          />
+        )}
+        {/* Type badge overlay */}
+        <span
+          className={`absolute bottom-1 left-1 text-[10px] font-black px-1.5 py-0.5 rounded-full ${
+            isShort ? "bg-kids-amber text-white" : "bg-kids-blue text-white"
+          }`}
+        >
+          {isShort ? "⚡" : "🎬"}
+        </span>
+      </div>
+
+      {/* Info */}
+      <div className="flex-1 min-w-0 px-3 py-2.5 flex flex-col justify-between">
+        <div>
+          <p className="font-black text-sm text-foreground leading-snug line-clamp-2">
+            {video.title}
+          </p>
+          <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+            <span
+              className={`inline-flex items-center gap-0.5 text-[10px] font-black px-2 py-0.5 rounded-full ${
+                isShort
+                  ? "bg-kids-amber/10 text-kids-amber border border-kids-amber/30"
+                  : "bg-kids-blue/10 text-kids-blue border border-kids-blue/30"
+              }`}
+            >
+              {isShort ? "📱 Short" : "🎬 Long"}
+            </span>
+            <span className="text-[10px] text-muted-foreground font-semibold">
+              ID: {formatId(index + 1)}
+            </span>
+          </div>
+        </div>
+        {hashtags.length > 0 && (
+          <p className="text-[10px] text-kids-blue/70 font-semibold mt-1 truncate">
+            {hashtags
+              .slice(0, 3)
+              .map((h) => `#${h}`)
+              .join(" ")}
+          </p>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function ProfilePage() {
   const { identity, clear } = useInternetIdentity();
   const { data: profile, isLoading: profileLoading } = useCallerProfile();
@@ -111,17 +203,21 @@ export default function ProfilePage() {
   const principal = identity?.getPrincipal().toString() ?? "";
   const shortPrincipal = principal ? `${principal.slice(0, 16)}...` : "";
 
-  // Profile picture (localStorage)
   const { pic: profilePic, setPic: setProfilePic } =
     useProfilePicture(principal);
 
-  // My subscriber count
   const myPrincipalObj = identity?.getPrincipal() ?? null;
   const { data: mySubscriberCount } = useSubscriberCount(myPrincipalObj);
 
   const myVideos = (allVideos ?? []).filter(
     (v) => v.uploader.toString() === principal,
   );
+
+  const shortCount = myVideos.filter((v) => {
+    const ext = getVideoExt(v.id);
+    return ext.type === "short";
+  }).length;
+  const longCount = myVideos.length - shortCount;
 
   const handleLogout = () => {
     clear();
@@ -161,7 +257,7 @@ export default function ProfilePage() {
             </div>
           ) : (
             <div className="flex items-start gap-4">
-              {/* Avatar with upload */}
+              {/* Avatar */}
               <div className="relative shrink-0">
                 <div className="w-20 h-20 rounded-full bg-white/20 border-4 border-white/50 flex items-center justify-center text-4xl font-black shadow-lg overflow-hidden">
                   {profilePic ? (
@@ -174,10 +270,9 @@ export default function ProfilePage() {
                     avatarLetter
                   )}
                 </div>
-                {/* Camera button */}
                 <button
                   type="button"
-                  data-ocid="profile.pic_upload_button"
+                  data-ocid="profile.upload_button"
                   onClick={() => fileInputRef.current?.click()}
                   className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-110 transition-transform active:scale-95"
                   title="Change profile picture"
@@ -197,7 +292,7 @@ export default function ProfilePage() {
                 <h1 className="text-2xl font-black leading-tight truncate">
                   {username}
                 </h1>
-                <p className="text-white/70 text-xs font-semibold mt-1 break-all">
+                <p className="text-white/70 text-xs font-semibold mt-0.5 break-all">
                   ID: {shortPrincipal}
                 </p>
                 {/* Stats row */}
@@ -210,8 +305,10 @@ export default function ProfilePage() {
                   <span className="inline-flex items-center gap-1 bg-white/20 rounded-full px-3 py-1 text-xs font-black backdrop-blur-sm">
                     <Users className="w-3 h-3" />
                     {mySubscriberCount !== undefined
-                      ? `${mySubscriberCount.toString()} Subscriber${mySubscriberCount === 1n ? "" : "s"}`
-                      : "0 Subscribers"}
+                      ? `${mySubscriberCount.toString()} Sub${
+                          mySubscriberCount === 1n ? "" : "s"
+                        }`
+                      : "0 Subs"}
                   </span>
                 </div>
               </div>
@@ -220,22 +317,28 @@ export default function ProfilePage() {
         </motion.div>
       </div>
 
+      <Separator className="mt-6 mx-4" style={{ width: "calc(100% - 2rem)" }} />
+
       {/* My Videos */}
-      <section className="px-4 mt-8">
-        <h2 className="text-xl font-black mb-4">
-          <span className="text-kids-blue">🎬 My </span>
-          <span className="text-kids-purple">Videos</span>
+      <section className="px-4 mt-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-black">
+            <span className="text-kids-blue">🎬 My </span>
+            <span className="text-kids-purple">Videos</span>
+          </h2>
           {myVideos.length > 0 && (
-            <span className="ml-2 text-sm font-black text-muted-foreground">
-              ({myVideos.length})
+            <span className="text-xs font-black text-muted-foreground bg-muted rounded-full px-3 py-1">
+              {myVideos.length} total ·{" "}
+              <span className="text-kids-amber">{shortCount} short</span> ·{" "}
+              <span className="text-kids-blue">{longCount} long</span>
             </span>
           )}
-        </h2>
+        </div>
 
         {videosLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <Skeleton key={i} className="h-32 rounded-3xl" />
+              <Skeleton key={i} className="h-24 rounded-2xl" />
             ))}
           </div>
         ) : myVideos.length === 0 ? (
@@ -252,42 +355,16 @@ export default function ProfilePage() {
             </p>
           </motion.div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {myVideos.map((video, i) => {
-              const borderColor = BORDER_COLORS[i % BORDER_COLORS.length];
-              return (
-                <motion.div
-                  key={video.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                  data-ocid={`profile.item.${i + 1}`}
-                  className={`rounded-3xl border-4 ${borderColor} bg-card overflow-hidden shadow-md`}
-                >
-                  {/* biome-ignore lint/a11y/useMediaCaption: kids video captions not available */}
-                  <video
-                    src={video.blob.getDirectURL()}
-                    controls
-                    className="w-full aspect-video bg-black"
-                    preload="metadata"
-                  />
-                  <div className="px-4 py-3">
-                    <p className="font-black text-base text-foreground leading-tight mb-2 truncate">
-                      {video.title}
-                    </p>
-                    <span className="inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30">
-                      🎬 Video ID: {formatId(i + 1)}
-                    </span>
-                  </div>
-                </motion.div>
-              );
-            })}
+          <div className="space-y-3">
+            {myVideos.map((video, i) => (
+              <VideoCard key={video.id} video={video} index={i} />
+            ))}
           </div>
         )}
       </section>
 
       {/* Subscribed Channels */}
-      <section className="px-4 mt-10">
+      <section className="px-4 mt-8">
         <h2 className="text-xl font-black mb-4">
           <span className="text-kids-amber">🔔 Subscribed </span>
           <span className="text-kids-blue">Channels</span>

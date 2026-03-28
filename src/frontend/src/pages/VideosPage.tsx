@@ -76,7 +76,7 @@ const DEMO_VIDEOS = [
   },
 ];
 
-const SHORT_VIDEOS = [
+const DEMO_SHORT_VIDEOS = [
   {
     id: 1,
     title: "Quick ABC! 🔤",
@@ -126,6 +126,19 @@ const SHORT_VIDEOS = [
     views: 7654,
   },
 ];
+
+function getVideoExt(videoId: string) {
+  try {
+    return JSON.parse(localStorage.getItem(`kh_video_ext_${videoId}`) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function getVideoType(videoId: string): "short" | "long" {
+  const ext = getVideoExt(videoId);
+  return ext.type === "short" ? "short" : "long";
+}
 
 function formatId(n: number) {
   return String(n).padStart(3, "0");
@@ -308,7 +321,147 @@ function RealVideoCard({ video, index }: { video: VideoMeta; index: number }) {
   );
 }
 
-function ShortVideosSection() {
+function RealShortCard({
+  video,
+  index,
+  current,
+}: {
+  video: VideoMeta;
+  index: number;
+  current: number;
+}) {
+  const ext = getVideoExt(video.id);
+
+  return (
+    <div
+      key={video.id}
+      data-ocid={`shorts.item.${index + 1}`}
+      style={{
+        scrollSnapAlign: "start",
+        height: "calc(100dvh - 130px)",
+      }}
+      className="relative bg-black flex flex-col"
+    >
+      {/* biome-ignore lint/a11y/useMediaCaption: kids video */}
+      <video
+        src={video.blob.getDirectURL()}
+        controls
+        autoPlay={current === index}
+        loop
+        className="flex-1 w-full object-contain bg-black"
+        preload="metadata"
+      />
+      <div className="flex items-center justify-between px-4 py-3 bg-black/80 backdrop-blur-sm">
+        <div className="flex-1 min-w-0">
+          <p className="text-white font-black text-sm truncate">
+            {video.title}
+          </p>
+          {ext.hashtags && ext.hashtags.length > 0 && (
+            <p className="text-white/60 text-xs truncate mt-0.5">
+              {ext.hashtags
+                .slice(0, 3)
+                .map((h: string) => `#${h}`)
+                .join(" ")}
+            </p>
+          )}
+        </div>
+        <span className="ml-3 shrink-0 inline-flex items-center gap-1 bg-kids-amber/20 text-kids-amber text-xs font-black px-2.5 py-1 rounded-full border border-kids-amber/40">
+          ⚡ Short
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function DemoShortCard({
+  short,
+  index,
+  current,
+  liked,
+  onLike,
+  total,
+  onNav,
+}: {
+  short: (typeof DEMO_SHORT_VIDEOS)[0];
+  index: number;
+  current: number;
+  liked: Set<number>;
+  onLike: (id: number) => void;
+  total: number;
+  onNav: (idx: number) => void;
+}) {
+  return (
+    <div
+      data-ocid={`shorts.item.${index + 1}`}
+      style={{
+        scrollSnapAlign: "start",
+        height: "calc(100dvh - 130px)",
+      }}
+      className={`relative bg-gradient-to-b ${short.gradient} flex flex-col`}
+    >
+      <div className="flex-1 flex flex-col items-center justify-center gap-4 p-6">
+        <motion.div
+          animate={current === index ? { scale: [1, 1.15, 1] } : { scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          className="text-8xl md:text-9xl"
+        >
+          {short.emoji}
+        </motion.div>
+        <p className="font-black text-2xl md:text-3xl text-white text-center drop-shadow-lg">
+          {short.title}
+        </p>
+        <span className="inline-flex items-center gap-1 bg-white/20 text-white text-sm font-black px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/30">
+          ⚡ Short ID: {formatId(short.id)}
+        </span>
+        {current === index && (
+          <p className="text-white/60 text-sm font-semibold mt-1 animate-pulse">
+            ↕ Swipe to navigate
+          </p>
+        )}
+      </div>
+
+      <div className="flex items-center justify-between px-6 py-4 bg-black/25 backdrop-blur-sm">
+        <button
+          type="button"
+          data-ocid={`shorts.like_button.${index + 1}`}
+          onClick={() => onLike(short.id)}
+          className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2 active:scale-110 transition-transform"
+        >
+          <span className="text-xl">{liked.has(short.id) ? "❤️" : "🤍"}</span>
+          <span className="text-white font-black">
+            {formatCount(short.likes + (liked.has(short.id) ? 1 : 0))}
+          </span>
+        </button>
+
+        <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
+          <span className="text-lg">👁️</span>
+          <span className="text-white font-black">
+            {formatCount(short.views)}
+          </span>
+        </div>
+
+        <div className="flex gap-1.5 items-center">
+          {Array.from({ length: total }).map((_, idx) => (
+            <button
+              // biome-ignore lint/suspicious/noArrayIndexKey: positional dots
+              key={idx}
+              type="button"
+              data-ocid="shorts.tab"
+              onClick={() => onNav(idx)}
+              className={`rounded-full transition-all duration-300 ${
+                idx === current
+                  ? "w-5 h-2.5 bg-white"
+                  : "w-2.5 h-2.5 bg-white/40"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ShortVideosSection({ allVideos }: { allVideos?: VideoMeta[] }) {
   const [current, setCurrent] = useState(0);
   const [liked, setLiked] = useState<Set<number>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
@@ -316,15 +469,27 @@ function ShortVideosSection() {
   currentRef.current = current;
   const touchStartY = useRef(0);
 
-  const goTo = useCallback((idx: number) => {
-    const next = (idx + SHORT_VIDEOS.length) % SHORT_VIDEOS.length;
-    setCurrent(next);
-    const el = containerRef.current;
-    if (el) {
-      const itemHeight = el.clientHeight;
-      el.scrollTo({ top: next * itemHeight, behavior: "smooth" });
-    }
-  }, []);
+  // Filter uploaded short videos
+  const realShorts = (allVideos ?? []).filter(
+    (v) => getVideoType(v.id) === "short",
+  );
+  const useRealShorts = realShorts.length > 0;
+  const totalCount = useRealShorts
+    ? realShorts.length
+    : DEMO_SHORT_VIDEOS.length;
+
+  const goTo = useCallback(
+    (idx: number) => {
+      const next = (idx + totalCount) % totalCount;
+      setCurrent(next);
+      const el = containerRef.current;
+      if (el) {
+        const itemHeight = el.clientHeight;
+        el.scrollTo({ top: next * itemHeight, behavior: "smooth" });
+      }
+    },
+    [totalCount],
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -391,79 +556,27 @@ function ShortVideosSection() {
             scrollbarWidth: "none",
           }}
         >
-          {SHORT_VIDEOS.map((short, i) => (
-            <div
-              key={short.id}
-              data-ocid={`shorts.item.${i + 1}`}
-              style={{
-                scrollSnapAlign: "start",
-                height: "calc(100dvh - 130px)",
-              }}
-              className={`relative bg-gradient-to-b ${short.gradient} flex flex-col`}
-            >
-              <div className="flex-1 flex flex-col items-center justify-center gap-4 p-6">
-                <motion.div
-                  animate={
-                    current === i ? { scale: [1, 1.15, 1] } : { scale: 1 }
-                  }
-                  transition={{ duration: 1.2, ease: "easeInOut" }}
-                  className="text-8xl md:text-9xl"
-                >
-                  {short.emoji}
-                </motion.div>
-                <p className="font-black text-2xl md:text-3xl text-white text-center drop-shadow-lg">
-                  {short.title}
-                </p>
-                <span className="inline-flex items-center gap-1 bg-white/20 text-white text-sm font-black px-3 py-1.5 rounded-full backdrop-blur-sm border border-white/30">
-                  ⚡ Short ID: {formatId(short.id)}
-                </span>
-                {current === i && (
-                  <p className="text-white/60 text-sm font-semibold mt-1 animate-pulse">
-                    ↕ Swipe to navigate
-                  </p>
-                )}
-              </div>
-
-              <div className="flex items-center justify-between px-6 py-4 bg-black/25 backdrop-blur-sm">
-                <button
-                  type="button"
-                  data-ocid={`shorts.like_button.${i + 1}`}
-                  onClick={() => toggleLike(short.id)}
-                  className="flex items-center gap-2 bg-white/20 rounded-full px-4 py-2 active:scale-110 transition-transform"
-                >
-                  <span className="text-xl">
-                    {liked.has(short.id) ? "❤️" : "🤍"}
-                  </span>
-                  <span className="text-white font-black">
-                    {formatCount(short.likes + (liked.has(short.id) ? 1 : 0))}
-                  </span>
-                </button>
-
-                <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
-                  <span className="text-lg">👁️</span>
-                  <span className="text-white font-black">
-                    {formatCount(short.views)}
-                  </span>
-                </div>
-
-                <div className="flex gap-1.5 items-center">
-                  {SHORT_VIDEOS.map((s, idx) => (
-                    <button
-                      key={s.id}
-                      type="button"
-                      data-ocid="shorts.tab"
-                      onClick={() => goTo(idx)}
-                      className={`rounded-full transition-all duration-300 ${
-                        idx === current
-                          ? "w-5 h-2.5 bg-white"
-                          : "w-2.5 h-2.5 bg-white/40"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
+          {useRealShorts
+            ? realShorts.map((video, i) => (
+                <RealShortCard
+                  key={video.id}
+                  video={video}
+                  index={i}
+                  current={current}
+                />
+              ))
+            : DEMO_SHORT_VIDEOS.map((short, i) => (
+                <DemoShortCard
+                  key={short.id}
+                  short={short}
+                  index={i}
+                  current={current}
+                  liked={liked}
+                  onLike={toggleLike}
+                  total={DEMO_SHORT_VIDEOS.length}
+                  onNav={goTo}
+                />
+              ))}
         </div>
 
         <div className="hidden md:flex flex-col gap-2 absolute right-3 top-1/2 -translate-y-1/2 z-10">
@@ -491,7 +604,12 @@ function ShortVideosSection() {
 
 export default function VideosPage() {
   const { data: realVideos, isLoading } = useAllVideos();
-  const hasRealVideos = realVideos && realVideos.length > 0;
+
+  // Filter by type
+  const longVideos = (realVideos ?? []).filter(
+    (v) => getVideoType(v.id) === "long",
+  );
+  const hasLongVideos = longVideos.length > 0;
 
   return (
     <div className="min-h-screen bg-background pb-8">
@@ -517,9 +635,9 @@ export default function VideosPage() {
               </div>
             ))}
           </div>
-        ) : hasRealVideos ? (
+        ) : hasLongVideos ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {realVideos.map((video, i) => (
+            {longVideos.map((video, i) => (
               <RealVideoCard key={video.id} video={video} index={i} />
             ))}
           </div>
@@ -532,7 +650,7 @@ export default function VideosPage() {
         )}
       </section>
 
-      <ShortVideosSection />
+      <ShortVideosSection allVideos={realVideos} />
     </div>
   );
 }
