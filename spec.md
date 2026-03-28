@@ -1,32 +1,37 @@
-# Kids House
+# Kids House - App Lock System
 
 ## Current State
-App has user profiles, video upload/viewing, games, and navigation (Home, Videos, Add Video, Games, Profile). Backend stores users and videos. No subscription/follow system exists.
+The app has a basic AppLockPage with toggle switches to lock/unlock apps (YouTube, Instagram, TikTok, Facebook), but:
+- No demo interaction (clicking a locked app does nothing)
+- No lock screen or PIN entry UI
+- No timer logic
+- AppLockPage is not included in navigation tabs
 
 ## Requested Changes (Diff)
 
 ### Add
-- `subscribe(creator: Principal)` backend function — logged-in user subscribes to a creator
-- `unsubscribe(creator: Principal)` backend function
-- `getMySubscriptions()` — returns list of principals the caller follows
-- `getSubscriberCount(creator: Principal)` — returns how many subscribers a creator has
-- `getCreatorInfo(creator: Principal)` — returns username + subscriber count for a creator
-- Subscribe button on each video card (showing uploader's subscriber count)
-- Subscribe button on Profile page hero card (when viewing)
-- "Subscribed Channels" section on Profile page listing all channels the user subscribes to
-- Notification badge/alert when a newly uploaded video is from a subscribed creator (frontend localStorage-based: store last-seen timestamp per creator, detect new videos on load)
+- Full App List screen with 6+ popular apps: YouTube, Instagram, WhatsApp, Games, TikTok, Facebook — each with emoji icon, name, and lock toggle
+- "Try Demo" / tap-to-simulate button on each locked app card to simulate launching a locked app
+- Lock Screen overlay: full-screen modal with Kids House branding, 4-digit PIN display, big keypad (0-9 + backspace + confirm)
+- Timer: 5-second countdown shown on lock screen; if no PIN entered in 5s → show "Time's Up! 🔒" and auto-dismiss/reset
+- Access Granted screen: shown when correct PIN (default 1234) is entered — big checkmark, "Access Granted", simulates opening app for 2s then closes
+- Access Denied feedback: wrong PIN shows shake animation + red error message
+- Default PIN stored in localStorage, parents can change it in a PIN settings section at top of page
+- AppLock tab added to navigation (sidebar on desktop, bottom nav on mobile)
 
 ### Modify
-- Profile page: add "Subscribed Channels" tab/section below "My Videos"
-- Videos page: add Subscribe button per video card next to uploader info
-- NotificationsPanel: show alerts for new videos from subscribed creators
+- AppLockPage.tsx: completely rebuilt with all new features above
+- App.tsx: add AppLock tab to SIDEBAR_TABS, BottomNav, and Tab type
+- BottomNav component: add applock tab
 
 ### Remove
-- Nothing removed
+- Old minimal AppLockPage UI (replaced by new implementation)
 
 ## Implementation Plan
-1. Add subscription store and methods to main.mo (subscribe, unsubscribe, getMySubscriptions, getSubscriberCount)
-2. Regenerate backend bindings
-3. Add SubscribedChannels section to ProfilePage showing each subscribed creator's username + video count
-4. Add Subscribe/Unsubscribe button to RealVideoCard in VideosPage
-5. Wire notification logic: on app load, compare video timestamps to last-visit, flag videos from subscribed creators as new
+1. Rebuild AppLockPage.tsx with:
+   - App list section with lock toggles and "Tap to Try" demo buttons on locked apps
+   - PIN settings card at top (show/change PIN)
+   - LockScreen component (inline or separate): full-screen overlay, countdown timer, big keypad, PIN dots, access granted/denied states
+2. Update App.tsx Tab type to include 'applock'
+3. Add applock tab to sidebar and route to AppLockPage in main content
+4. Update BottomNav to include applock (🔒) tab

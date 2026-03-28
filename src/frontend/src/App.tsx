@@ -6,6 +6,7 @@ import NotificationsPanel from "./components/NotificationsPanel";
 import { LanguageProvider, useLanguage } from "./contexts/LanguageContext";
 import { useInternetIdentity } from "./hooks/useInternetIdentity";
 import { useCallerProfile } from "./hooks/useQueries";
+import AppLockPage from "./pages/AppLockPage";
 import GamesPage from "./pages/GamesPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -13,7 +14,13 @@ import ProfilePage from "./pages/ProfilePage";
 import UploadPage from "./pages/UploadPage";
 import VideosPage from "./pages/VideosPage";
 
-export type Tab = "home" | "videos" | "addvideo" | "games" | "profile";
+export type Tab =
+  | "home"
+  | "videos"
+  | "addvideo"
+  | "games"
+  | "profile"
+  | "applock";
 
 const LOADING_DOTS = ["purple", "red", "green", "blue", "amber"] as const;
 
@@ -32,6 +39,7 @@ function AppContent() {
     { id: "addvideo", label: t.nav.addvideo, emoji: "➕" },
     { id: "games", label: t.nav.games, emoji: "🎮" },
     { id: "profile", label: t.nav.profile, emoji: "👤" },
+    { id: "applock", label: "App Lock", emoji: "🔒" },
   ];
 
   if (isInitializing || (isAuthenticated && profileLoading)) {
@@ -122,7 +130,7 @@ function AppContent() {
       {/* Body */}
       <div className="flex">
         {/* Desktop Sidebar */}
-        <aside className="hidden md:flex flex-col w-56 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] border-r border-border bg-white/80 backdrop-blur-sm pt-4 pb-6 px-3">
+        <aside className="hidden md:flex flex-col w-56 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] border-r border-border bg-white/80 backdrop-blur-sm pt-4 pb-6 px-3 overflow-y-auto">
           {SIDEBAR_TABS.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -159,6 +167,9 @@ function AppContent() {
             {activeTab === "addvideo" && <UploadPage />}
             {activeTab === "games" && <GamesPage />}
             {activeTab === "profile" && <ProfilePage />}
+            {activeTab === "applock" && (
+              <AppLockPage profile={profile ?? null} />
+            )}
           </div>
         </main>
       </div>
