@@ -271,7 +271,7 @@ export default function ProfilePage() {
   };
 
   const username = profile?.username ?? "Kid";
-  const avatarLetter = username[0]?.toUpperCase() ?? "K";
+  const _avatarLetter = username[0]?.toUpperCase() ?? "K";
 
   return (
     <div className="min-h-screen bg-background pb-10">
@@ -302,7 +302,11 @@ export default function ProfilePage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    avatarLetter
+                    <img
+                      src="/assets/generated/kids-house-logo-transparent.dim_512x512.png"
+                      alt="Kids House"
+                      className="w-full h-full object-contain p-1"
+                    />
                   )}
                 </div>
                 <button

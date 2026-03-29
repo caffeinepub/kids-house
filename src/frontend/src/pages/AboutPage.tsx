@@ -22,7 +22,11 @@ export default function AboutPage() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <div className="text-7xl mb-3">🏠</div>
+        <img
+          src="/assets/generated/kids-house-logo-transparent.dim_512x512.png"
+          alt="Kids House"
+          className="w-24 h-24 object-contain mx-auto mb-3"
+        />
         <h1 className="text-3xl font-black">
           <span className="text-kids-blue">Kids </span>
           <span className="text-kids-red">House</span>

@@ -75,7 +75,7 @@ const TAB_ICON_COLORS: Record<Tab, string> = {
 };
 
 const LOGO_SRC =
-  "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
+  "/assets/generated/kids-house-logo-transparent.dim_512x512.png";
 
 function AppShell() {
   const { identity, isInitializing } = useInternetIdentity();

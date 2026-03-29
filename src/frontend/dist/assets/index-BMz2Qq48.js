@@ -40174,7 +40174,14 @@ function LockScreen({ appName, appEmoji, onClose }) {
           className: "bg-white rounded-3xl shadow-2xl p-6 w-full max-w-sm",
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center mb-4", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl mb-1", children: "🏠" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "img",
+                {
+                  src: "/assets/generated/kids-house-logo-transparent.dim_512x512.png",
+                  alt: "Kids House",
+                  className: "w-12 h-12 object-contain mx-auto mb-1"
+                }
+              ),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-xl font-black", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "Kids " }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "House" })
@@ -40216,7 +40223,14 @@ function LockScreen({ appName, appEmoji, onClose }) {
                   exit: { opacity: 0 },
                   className: "text-center py-6",
                   children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-5xl mb-2", children: "🏠" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      "img",
+                      {
+                        src: "/assets/generated/kids-house-logo-transparent.dim_512x512.png",
+                        alt: "Kids House",
+                        className: "w-14 h-14 object-contain mx-auto mb-2"
+                      }
+                    ),
                     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-kids-blue font-black text-lg", children: "Kids House Opening..." }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm mt-1", children: "Wrong PIN entered" })
                   ]
@@ -41326,7 +41340,7 @@ function Input({ className, type, ...props }) {
   );
 }
 const RAINBOW_DOTS = ["blue", "red", "green", "amber", "purple"];
-const LOGO_SRC$1 = "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
+const LOGO_SRC$1 = "/assets/generated/kids-house-logo-transparent.dim_512x512.png";
 function LoginPage() {
   const { login, isLoggingIn } = useInternetIdentity();
   const { lang, toggleLang, t } = useLanguage();
@@ -41726,7 +41740,7 @@ function ProfilePage() {
     reader.readAsDataURL(file);
   };
   const username = (profile == null ? void 0 : profile.username) ?? "Kid";
-  const avatarLetter = ((_a3 = username[0]) == null ? void 0 : _a3.toUpperCase()) ?? "K";
+  ((_a3 = username[0]) == null ? void 0 : _a3.toUpperCase()) ?? "K";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background pb-10", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 pt-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
       motion.div,
@@ -41749,7 +41763,14 @@ function ProfilePage() {
                 alt: "Profile",
                 className: "w-full h-full object-cover"
               }
-            ) : avatarLetter }),
+            ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: "/assets/generated/kids-house-logo-transparent.dim_512x512.png",
+                alt: "Kids House",
+                className: "w-full h-full object-contain p-1"
+              }
+            ) }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               "button",
               {
@@ -43898,7 +43919,7 @@ const TAB_ICON_COLORS = {
   applock: "text-kids-red",
   profile: "text-kids-purple"
 };
-const LOGO_SRC = "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
+const LOGO_SRC = "/assets/generated/kids-house-logo-transparent.dim_512x512.png";
 function AppShell() {
   const { identity, isInitializing } = useInternetIdentity();
   const { lang, toggleLang, t } = useLanguage();

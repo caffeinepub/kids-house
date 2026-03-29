@@ -8,7 +8,7 @@ import { useInternetIdentity } from "../hooks/useInternetIdentity";
 const RAINBOW_DOTS = ["blue", "red", "green", "amber", "purple"] as const;
 
 const LOGO_SRC =
-  "/assets/uploads/screenshot_20260329_005127-019d35eb-38bb-77ad-a1a4-c9cccee7d402-1.jpg";
+  "/assets/generated/kids-house-logo-transparent.dim_512x512.png";
 
 export default function LoginPage() {
   const { login, isLoggingIn } = useInternetIdentity();

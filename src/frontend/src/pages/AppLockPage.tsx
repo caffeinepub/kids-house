@@ -190,7 +190,11 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
       >
         {/* Branding */}
         <div className="text-center mb-4">
-          <div className="text-4xl mb-1">🏠</div>
+          <img
+            src="/assets/generated/kids-house-logo-transparent.dim_512x512.png"
+            alt="Kids House"
+            className="w-12 h-12 object-contain mx-auto mb-1"
+          />
           <div className="text-xl font-black">
             <span className="text-kids-blue">Kids </span>
             <span className="text-kids-red">House</span>
@@ -233,7 +237,11 @@ function LockScreen({ appName, appEmoji, onClose }: LockScreenProps) {
               exit={{ opacity: 0 }}
               className="text-center py-6"
             >
-              <div className="text-5xl mb-2">🏠</div>
+              <img
+                src="/assets/generated/kids-house-logo-transparent.dim_512x512.png"
+                alt="Kids House"
+                className="w-14 h-14 object-contain mx-auto mb-2"
+              />
               <p className="text-kids-blue font-black text-lg">
                 Kids House Opening...
               </p>
