@@ -43173,128 +43173,6 @@ function formatCount(n) {
   if (n >= 1e3) return `${(n / 1e3).toFixed(1)}k`;
   return String(n);
 }
-function VideoDetailPage({
-  video,
-  index: index2,
-  allVideos,
-  onBack,
-  onSelect
-}) {
-  const [liked, setLiked] = reactExports.useState(false);
-  const isReal = "blob" in video;
-  const isDemo = !isReal;
-  const demoVideo = isDemo ? video : null;
-  const realVideo = isReal ? video : null;
-  const uploaderShort = realVideo ? `${realVideo.uploader.toString().slice(0, 10)}...` : "Kids House";
-  const otherVideos = allVideos.filter((v2) => v2.id !== video.id);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-    motion.div,
-    {
-      initial: { opacity: 0, y: 24 },
-      animate: { opacity: 1, y: 0 },
-      exit: { opacity: 0, y: -24 },
-      className: "min-h-screen bg-background pb-8",
-      children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-4 pt-4 pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "button",
-          {
-            type: "button",
-            "data-ocid": "videos.button",
-            onClick: onBack,
-            className: "flex items-center gap-2 text-kids-blue font-black text-sm hover:opacity-80 transition-opacity",
-            children: "← Back"
-          }
-        ) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rounded-3xl overflow-hidden border-4 border-kids-blue/40 shadow-xl bg-black", children: isReal && realVideo ? (
-            // biome-ignore lint/a11y/useMediaCaption: kids video
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "video",
-              {
-                src: realVideo.blob.getDirectURL(),
-                controls: true,
-                autoPlay: true,
-                className: "w-full aspect-video bg-black"
-              }
-            )
-          ) : demoVideo ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "div",
-            {
-              className: `w-full aspect-video bg-gradient-to-br ${demoVideo.gradient} flex items-center justify-center`,
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-9xl", children: demoVideo.emoji })
-            }
-          ) : null }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-xl font-black text-foreground leading-tight", children: video.title }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-2 mt-3", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-kids-blue/10 text-kids-blue text-xs font-black px-2.5 py-1 rounded-full border border-kids-blue/30", children: [
-                "🎬 ID: ",
-                formatId(index2 + 1)
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-kids-amber/10 text-kids-amber text-xs font-black px-2.5 py-1 rounded-full border border-kids-amber/30", children: [
-                "👤 ",
-                uploaderShort
-              ] }),
-              realVideo && /* @__PURE__ */ jsxRuntimeExports.jsx(SubscribeButton, { video: realVideo }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(
-                "button",
-                {
-                  type: "button",
-                  "data-ocid": `videos.like_button.${index2 + 1}`,
-                  onClick: () => setLiked((v2) => !v2),
-                  className: "ml-auto flex items-center gap-1.5 transition-transform active:scale-125",
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked ? "❤️" : "🤍" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-muted-foreground", children: demoVideo ? formatCount(demoVideo.likes + (liked ? 1 : 0)) : liked ? "1" : "0" })
-                  ]
-                }
-              )
-            ] })
-          ] })
-        ] }),
-        otherVideos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 mt-8", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-lg font-black mb-4", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "More Videos " }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "🎬" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 md:grid-cols-3 gap-3", children: otherVideos.map((v2, i) => {
-            const isDemoV = !("blob" in v2);
-            const dv = isDemoV ? v2 : null;
-            const rv = !isDemoV ? v2 : null;
-            return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              "button",
-              {
-                type: "button",
-                "data-ocid": `videos.item.${i + 1}`,
-                onClick: () => onSelect(v2, i),
-                className: "rounded-2xl overflow-hidden border-2 border-border shadow-sm hover:shadow-md hover:border-kids-blue/50 transition-all text-left",
-                children: [
-                  rv ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "video",
-                    {
-                      src: rv.blob.getDirectURL(),
-                      className: "w-full aspect-video bg-black object-cover",
-                      preload: "metadata",
-                      muted: true
-                    }
-                  ) : dv ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "div",
-                    {
-                      className: `w-full aspect-video bg-gradient-to-br ${dv.gradient} flex items-center justify-center`,
-                      children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-4xl", children: dv.emoji })
-                    }
-                  ) : null,
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-2 py-1.5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-black text-foreground line-clamp-2 leading-snug", children: v2.title }) })
-                ]
-              },
-              v2.id
-            );
-          }) })
-        ] })
-      ]
-    }
-  );
-}
 function SubscribeButton({ video }) {
   const { identity } = useInternetIdentity();
   const myPrincipal = identity == null ? void 0 : identity.getPrincipal().toString();
@@ -43334,13 +43212,304 @@ function SubscribeButton({ video }) {
     )
   ] });
 }
+function VideoPlayerModal({
+  video,
+  index: index2,
+  allVideos,
+  onClose,
+  onSelect
+}) {
+  const isReal = "blob" in video;
+  const isDemo = !isReal;
+  const demoVideo = isDemo ? video : null;
+  const realVideo = isReal ? video : null;
+  const uploaderShort = realVideo ? `${realVideo.uploader.toString().slice(0, 10)}...` : "Kids House";
+  const [liked, setLiked] = reactExports.useState(false);
+  const [playing, setPlaying] = reactExports.useState(false);
+  const videoRef = reactExports.useRef(null);
+  const otherVideos = allVideos.filter((v2) => v2.id !== video.id);
+  reactExports.useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+  reactExports.useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+  const handlePlayReal = () => {
+    setPlaying(true);
+    setTimeout(() => {
+      var _a3;
+      return (_a3 = videoRef.current) == null ? void 0 : _a3.play();
+    }, 50);
+  };
+  return (
+    /* Backdrop */
+    // biome-ignore lint/a11y/useKeyWithClickEvents: escape key handled via useEffect
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        "data-ocid": "videos.modal",
+        className: "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4",
+        onClick: onClose,
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          motion.div,
+          {
+            initial: { opacity: 0, y: 60, scale: 0.95 },
+            animate: { opacity: 1, y: 0, scale: 1 },
+            exit: { opacity: 0, y: 40, scale: 0.96 },
+            transition: { type: "spring", stiffness: 320, damping: 30 },
+            onClick: (e) => e.stopPropagation(),
+            className: "relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl",
+            style: { scrollbarWidth: "none" },
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  "data-ocid": "videos.close_button",
+                  onClick: onClose,
+                  className: "sticky top-3 left-full mr-3 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center text-lg hover:bg-black/80 transition-colors shadow-lg",
+                  style: { marginLeft: "calc(100% - 2.5rem - 0.75rem)" },
+                  "aria-label": "Close video",
+                  children: "✕"
+                }
+              ),
+              isDemo && demoVideo ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                DemoPlayer,
+                {
+                  demoVideo,
+                  playing,
+                  onPlay: () => setPlaying(true),
+                  onPause: () => setPlaying(false)
+                }
+              ) : realVideo ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                RealPlayer,
+                {
+                  realVideo,
+                  playing,
+                  videoRef,
+                  onPlay: handlePlayReal
+                }
+              ) : null,
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-5 pt-4 pb-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-xl font-black text-gray-900 leading-tight", children: video.title }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-2 mt-3", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-blue-50 text-blue-600 text-xs font-black px-2.5 py-1 rounded-full border border-blue-200", children: [
+                    "🎬 ID: ",
+                    formatId(index2 + 1)
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "inline-flex items-center gap-1 bg-amber-50 text-amber-600 text-xs font-black px-2.5 py-1 rounded-full border border-amber-200", children: [
+                    "👤 ",
+                    uploaderShort
+                  ] }),
+                  realVideo && /* @__PURE__ */ jsxRuntimeExports.jsx(SubscribeButton, { video: realVideo }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "button",
+                    {
+                      type: "button",
+                      "data-ocid": `videos.like_button.${index2 + 1}`,
+                      onClick: () => setLiked((v2) => !v2),
+                      className: "ml-auto flex items-center gap-1.5 transition-transform active:scale-125",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: liked ? "❤️" : "🤍" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs font-black text-gray-400", children: demoVideo ? formatCount(demoVideo.likes + (liked ? 1 : 0)) : liked ? "1" : "0" })
+                      ]
+                    }
+                  )
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-5 pb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-3 flex items-center gap-2 py-2.5 px-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: "🏠" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-black text-blue-700", children: "Kids House" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[11px] text-gray-500", children: "Safe & Fun Learning for Kids" })
+                ] })
+              ] }) }),
+              otherVideos.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-5 border-t border-gray-100" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "px-5 pt-4 pb-6", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("h3", { className: "text-base font-black mb-3 text-gray-800", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-blue", children: "More Videos " }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-kids-red", children: "🎬" })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    "div",
+                    {
+                      className: "flex gap-3 overflow-x-auto pb-1",
+                      style: { scrollbarWidth: "none" },
+                      children: otherVideos.map((v2, i) => {
+                        const isDemoV = !("blob" in v2);
+                        const dv = isDemoV ? v2 : null;
+                        const rv = !isDemoV ? v2 : null;
+                        return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                          "button",
+                          {
+                            type: "button",
+                            "data-ocid": `videos.item.${i + 1}`,
+                            onClick: () => onSelect(v2, i),
+                            className: "flex-shrink-0 w-36 rounded-2xl overflow-hidden border-2 border-gray-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all text-left",
+                            children: [
+                              rv ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                "video",
+                                {
+                                  src: rv.blob.getDirectURL(),
+                                  className: "w-full aspect-video bg-black object-cover",
+                                  preload: "metadata",
+                                  muted: true
+                                }
+                              ) : dv ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+                                "div",
+                                {
+                                  className: `w-full aspect-video bg-gradient-to-br ${dv.gradient} flex items-center justify-center`,
+                                  children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: dv.emoji })
+                                }
+                              ) : null,
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-2 py-1.5 bg-white", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-black text-gray-800 line-clamp-2 leading-snug", children: v2.title }) })
+                            ]
+                          },
+                          v2.id
+                        );
+                      })
+                    }
+                  )
+                ] })
+              ] })
+            ]
+          }
+        )
+      }
+    )
+  );
+}
+function DemoPlayer({
+  demoVideo,
+  playing,
+  onPlay,
+  onPause
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: `relative w-full aspect-video bg-gradient-to-br ${demoVideo.gradient} flex items-center justify-center overflow-hidden`,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.span,
+          {
+            animate: playing ? { scale: [1, 1.08, 1] } : { scale: 1 },
+            transition: {
+              duration: 2,
+              repeat: playing ? Number.POSITIVE_INFINITY : 0,
+              ease: "easeInOut"
+            },
+            className: "text-[100px] md:text-[120px] select-none",
+            children: demoVideo.emoji
+          }
+        ),
+        !playing ? (
+          /* Watch Video button */
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black/30 flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            motion.button,
+            {
+              type: "button",
+              "data-ocid": "videos.primary_button",
+              whileHover: { scale: 1.07 },
+              whileTap: { scale: 0.94 },
+              onClick: onPlay,
+              className: "flex items-center gap-3 bg-white text-gray-900 font-black text-lg px-8 py-4 rounded-full shadow-2xl border-4 border-white/40 hover:bg-white/95 transition-colors",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: "▶" }),
+                "Watch Video"
+              ]
+            }
+          ) })
+        ) : (
+          /* Playing state overlay */
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-4 pt-8 pb-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-2", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "button",
+              {
+                type: "button",
+                "data-ocid": "videos.toggle",
+                onClick: onPause,
+                className: "w-9 h-9 rounded-full bg-white/20 border border-white/40 flex items-center justify-center text-white hover:bg-white/30 transition-colors",
+                children: "⏸"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white text-xs font-black truncate mb-1", children: demoVideo.title }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-1.5 bg-white/30 rounded-full overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "div",
+                {
+                  className: "h-full bg-white rounded-full",
+                  style: {
+                    animation: "demo-progress 30s linear forwards"
+                  }
+                }
+              ) })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs font-bold", children: "3:24" })
+          ] }) })
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("style", { children: `
+        @keyframes demo-progress {
+          from { width: 0% }
+          to { width: 100% }
+        }
+      ` })
+      ]
+    }
+  );
+}
+function RealPlayer({
+  realVideo,
+  playing,
+  videoRef,
+  onPlay
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-full aspect-video bg-black overflow-hidden", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "video",
+      {
+        ref: videoRef,
+        src: realVideo.blob.getDirectURL(),
+        controls: playing,
+        className: "w-full h-full object-contain bg-black",
+        preload: "metadata"
+      }
+    ),
+    !playing && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute inset-0 bg-black/40 flex flex-col items-center justify-center gap-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.button,
+        {
+          type: "button",
+          "data-ocid": "videos.primary_button",
+          whileHover: { scale: 1.06 },
+          whileTap: { scale: 0.93 },
+          onClick: onPlay,
+          className: "flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-black text-xl px-10 py-5 rounded-full shadow-2xl min-w-[160px] justify-center hover:from-blue-400 hover:to-purple-500 transition-all",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl", children: "▶" }),
+            "Play"
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-white/70 text-sm font-semibold", children: "Click to start playing" })
+    ] })
+  ] });
+}
 function DemoVideoCard({
   video,
   index: index2,
   onClick
 }) {
   const [liked, setLiked] = reactExports.useState(false);
-  const [showControls, setShowControls] = reactExports.useState(false);
   const borderColor = BORDER_COLORS[index2 % BORDER_COLORS.length];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     motion.div,
@@ -43356,19 +43525,11 @@ function DemoVideoCard({
           {
             type: "button",
             "data-ocid": `videos.play_button.${index2 + 1}`,
-            onClick: () => {
-              setShowControls((v2) => !v2);
-              onClick();
-            },
+            onClick,
             className: `relative w-full aspect-video bg-gradient-to-br ${video.gradient} flex items-center justify-center group`,
             children: [
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-7xl md:text-8xl", children: video.emoji }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full bg-white/80 flex items-center justify-center shadow-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl ml-1", children: showControls ? "⏸" : "▶️" }) }) }),
-              showControls && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "absolute bottom-2 left-2 right-2 bg-black/40 rounded-xl px-3 py-1 flex items-center gap-2", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs font-bold", children: "▶" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 h-1.5 bg-white/30 rounded-full", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full w-1/3 bg-white rounded-full" }) }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-white text-xs", children: "🔊" })
-              ] })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full bg-white/80 flex items-center justify-center shadow-lg", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl ml-1", children: "▶️" }) }) })
             ]
           }
         ),
@@ -43835,18 +43996,6 @@ function VideosPage() {
     setSelectedVideo(v2);
     setSelectedIndex(i);
   };
-  if (selectedVideo) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsx(
-      VideoDetailPage,
-      {
-        video: selectedVideo,
-        index: selectedIndex,
-        allVideos: allDisplayVideos,
-        onBack: () => setSelectedVideo(null),
-        onSelect: handleSelectVideo
-      }
-    );
-  }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background pb-8", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "px-4 pt-6", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-2xl md:text-3xl font-black mb-5", children: [
@@ -43885,7 +44034,17 @@ function VideosPage() {
         video.id
       )) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ShortVideosSection, { allVideos: realVideos })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ShortVideosSection, { allVideos: realVideos }),
+    selectedVideo && /* @__PURE__ */ jsxRuntimeExports.jsx(
+      VideoPlayerModal,
+      {
+        video: selectedVideo,
+        index: selectedIndex,
+        allVideos: allDisplayVideos,
+        onClose: () => setSelectedVideo(null),
+        onSelect: handleSelectVideo
+      }
+    )
   ] });
 }
 const NAV_ITEMS = [
